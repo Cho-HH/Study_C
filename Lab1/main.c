@@ -1,4 +1,7 @@
+#include "add.h"
+
 int main(void)
 {
-    return 0;
+add(3,4);
+return 0;
 }
