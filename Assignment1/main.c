@@ -1,5 +1,5 @@
 #include <assert.h>
-#include "pomok.h"
+#include "pomoku.h"
 
 void init_game_and_test(void);
 

@@ -1,4 +1,4 @@
-#include "pomok.h"
+#include "pomoku.h"
 
 static size_t board_row = 0;
 static size_t board_column = 0;
