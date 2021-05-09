@@ -38,20 +38,23 @@ size_t get_column_count(void)
 	return board_column;
 }
 
-static void calculate_score(size_t* const player_score)
+static void calculate_score(size_t* const player_score, const color_t color)
 {
 	/*여기 점수계산하는 부분 넣어줘야함(재귀함수로 해야겠지....)*/
+	/*board[
+	if(
+	*player_score++;*/
 }
 
 int get_score(const color_t color)
 {
 	switch(color) {
 		case COLOR_BLACK:
-			calculate_score(&player_score[0]);
+			calculate_score(&player_score[0], COLOR_BLACK);
 			return player_score[0];
 			break;
 		case COLOR_WHITE:
-			calculate_score(&player_score[1]);
+			calculate_score(&player_score[1], COLOR_WHITE);
 			return player_score[1];
 			break;
 		default:
@@ -102,16 +105,16 @@ int place_stone(const color_t color, const size_t row, const size_t col)
 }
 
 /* special moves */
-int insert_row(const color_t color, const size_t row)
-{
+int insert_row(const color_t color, const size_t row);
+/*{
 	if(player_score[color] < 3 || board_row >= 20) {
 		return FALSE;
 	} 
 	
 	return TRUE;
 	
-	/*1.현재 있는 보드 맨 밑에 새 행 삽입*/
-	/*if(board_row == (row - 1)) {
+	1.현재 있는 보드 맨 밑에 새 행 삽입
+	if(board_row == (row - 1)) {
 		for(col = 0; col < board_col; ++col) {
 			board[board_row + 1][col] = -1;
 	} else {
@@ -121,8 +124,8 @@ int insert_row(const color_t color, const size_t row)
 		++board_row;
 		player_score[color] -= 3;
 		return TRUE;
-	}*/
-}
+	}
+}*/
 
 int insert_column(const color_t color, const size_t col);
 
