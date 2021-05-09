@@ -38,24 +38,31 @@ size_t get_column_count(void)
 	return board_column;
 }
 
-/* static void calculate_score(size_t* const player_score, const color_t color)
+/*static void calculate_score(size_t* const player_score, const color_t color)
 {
-	여기 점수계산하는 부분 넣어줘야함(재귀함수로 해야겠지....)
-	if(for(row = 0; row < board_row; ++row) {
-		for(col = 0; col < board_column; ++ col) {
+	if(board[row][col] != color) {
+		return;
+	}
+	
+	if(while(row < board_row) {
+		while(col < board_column) {
 			board[row][col] == color;
 		}
 	}) {
 		1.→방향
+		++col;
+		calculate_score(player_score, color);
 		2.↘방향
+		++row;
+		++col;
+		calculate_score(player_score, color);
 		3.↓방향
-	가로부분 체크
-	col++:
-	board[row][col]
-	calculate_score(player_score, color);
+		++row;
+		calculate_score(player_score, color);
+
 	if(
 	*player_score++;
-} */
+}*/
 
 int get_score(const color_t color)
 {
@@ -116,9 +123,10 @@ int place_stone(const color_t color, const size_t row, const size_t col)
 }
 
 /* special moves */
-/*int insert_row(const color_t color, const size_t row);
+int insert_row(const color_t color, const size_t row)
 {
-	if(player_score[color] < 3 || board_row >= 20) {
+	return 0;
+	/* if(player_score[color] < 3 || board_row >= 20) {
 		return FALSE;
 	} 
 	
@@ -129,26 +137,46 @@ int place_stone(const color_t color, const size_t row, const size_t col)
 		for(col = 0; col < board_col; ++col) {
 			board[board_row + 1][col] = -1;
 	} else {
-		//1.현재 있는 돌들을 모두 밑으로 밀어낸다.
-		//2.거기에 빈 행을 삽입한다.
+		1.현재 있는 돌들을 모두 밑으로 밀어낸다.
+		2.거기에 빈 행을 삽입한다.
 		for(int row = 0; row<
 		++board_row;
 		player_score[color] -= 3;
 		return TRUE;
-	}
+	} */
 }
 
-int insert_column(const color_t color, const size_t col);
+int insert_column(const color_t color, const size_t col)
+{
+	return 0;
+}
 
-int remove_row(const color_t color, const size_t row);
+int remove_row(const color_t color, const size_t row)
+{
+	return 0;
+}
 
-int remove_column(const color_t color, const size_t col);
+int remove_column(const color_t color, const size_t col)
+{
+	return 0;
+}
 
-int swap_rows(const color_t color, const size_t row0, const size_t row1);
+int swap_rows(const color_t color, const size_t row0, const size_t row1)
+{
+	return 0;
+}
 
-int swap_columns(const color_t color, const size_t col0, const size_t col1);
+int swap_columns(const color_t color, const size_t col0, const size_t col1)
+{
+	return 0;
+}
 
-int copy_row(const color_t color, const size_t src, const size_t dst);
+int copy_row(const color_t color, const size_t src, const size_t dst)
+{
+	return 0;
+}
 
-int copy_column(const color_t color, const size_t src, const size_t dst);
-*/
+int copy_column(const color_t color, const size_t src, const size_t dst)
+{
+	return 0;
+}
