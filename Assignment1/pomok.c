@@ -1,9 +1,8 @@
 #include "pomok.h"
 
-/*board에서 아직 못쓰는 공간은 2로, 돌을 놓을 수 있으나 비어있는 공간은 -1*/
 static size_t board_row = 0;
 static size_t board_column = 0;
-int board[20][20] = { 2, };
+int board[20][20] = { 0, };
 static size_t player_score[2] = { 0, };
 
 /* for문 돌리기 용 변수*/
@@ -12,6 +11,12 @@ static size_t col = 0;
 
 void init_game(void)
 {
+	/*board에서 아직 못쓰는 공간은 2로, 돌을 놓을 수 있으나 비어있는 공간은 -1*/
+	for(row = 0; row < 20; ++row) {
+		for(col = 0; col < 20; ++col) {
+			board[row][col] = 2;
+		}
+	}
 	board_row = 15;
 	board_column = 15;
 	for(row = 0; row < board_row; ++row) {
@@ -28,25 +33,25 @@ size_t get_row_count(void)
 	return board_row;
 }
 
-size_t get_column_count(void);
+size_t get_column_count(void)
 {
 	return board_column;
 }
 
-static void calculate_score(int* const player_score)
+static void calculate_score(size_t* const player_score)
 {
-	//여기 점수계산하는 부분 넣어줘야함(재귀함수로 해야겠지....)
+	/*여기 점수계산하는 부분 넣어줘야함(재귀함수로 해야겠지....)*/
 }
 
 int get_score(const color_t color)
 {
-	switch(color} {
+	switch(color) {
 		case COLOR_BLACK:
-			calculate_score(player_score[0]);
+			calculate_score(&player_score[0]);
 			return player_score[0];
 			break;
 		case COLOR_WHITE:
-			calculate_score(player_score[1]);
+			calculate_score(&player_score[1]);
 			return player_score[1];
 			break;
 		default:
@@ -64,6 +69,7 @@ int get_color(const size_t row, const size_t col)
 	} else {
 		return -1;
 	}
+}
 
 int is_placeable(const size_t row, const size_t col)
 {
@@ -89,7 +95,7 @@ int place_stone(const color_t color, const size_t row, const size_t col)
 			board[row][col] = COLOR_WHITE;
 			return TRUE;
 			break;
-		case default:
+		default:
 			return FALSE;
 			break;
 	}
@@ -101,6 +107,8 @@ int insert_row(const color_t color, const size_t row)
 	if(player_score[color] < 3 || board_row >= 20) {
 		return FALSE;
 	} 
+	
+	return TRUE;
 	
 	/*1.현재 있는 보드 맨 밑에 새 행 삽입*/
 	/*if(board_row == (row - 1)) {
