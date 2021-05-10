@@ -99,7 +99,7 @@ int insert(int numbers[], const size_t element_count, const int num, const size_
     for (i = 0; i < element_count; ++i) {
         if (i == pos) {
             for (n = element_count; n >= pos; --n) {
-                 numbers[n + 1] = numbers[n];
+                numbers[n + 1] = numbers[n];
             }
             numbers[i] = num;
             return TRUE;
