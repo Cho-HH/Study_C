@@ -96,7 +96,7 @@ int has_even(const int numbers[], const size_t element_count)
 
 int insert(int numbers[], const size_t element_count, const int num, const size_t pos)
 {
-    size_t i = 0;
+    /* size_t i = 0;
     size_t n = 0;
 	
     if (pos > element_count) {
@@ -112,13 +112,13 @@ int insert(int numbers[], const size_t element_count, const int num, const size_
             return TRUE;
         }
     }
-	
+	 */
     return FALSE;
 }
 
 int remove_at(int numbers[], const size_t element_count, const size_t index)
 {
-    size_t i = 0;
+    /* size_t i = 0;
     size_t n = 0;
 
     if (element_count == 0 || index > element_count) {
@@ -132,6 +132,6 @@ int remove_at(int numbers[], const size_t element_count, const size_t index)
             }
             return TRUE;
         }
-    }
+    } */
     return FALSE;
 }
