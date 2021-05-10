@@ -80,20 +80,20 @@ int is_all_positive(const int numbers[], const size_t element_count)
 
 int has_even(const int numbers[], const size_t element_count)
 {
-    size_t i = 0;
+    /* size_t i = 0;
 	
     for (i = 0; i < element_count; ++i) {
         if ((numbers[i] & 0x1) == 0) {
             return TRUE;
         }
-    }
+    } */
 	
     return FALSE;
 }
 
 int insert(int numbers[], const size_t element_count, const int num, const size_t pos)
 {
-    size_t i = 0;
+    /* size_t i = 0;
     size_t n = 0;
 	
     for (i = 0; i < element_count; ++i) {
@@ -105,13 +105,13 @@ int insert(int numbers[], const size_t element_count, const int num, const size_
             return TRUE;
         }
     }
-	
+	 */
     return FALSE;
 }
 
 int remove_at(int numbers[], const size_t element_count, const size_t index)
 {
-    size_t i = 0;
+    /* size_t i = 0;
     size_t n = 0;
 	
     for (i = 0; i < element_count; ++i) {
@@ -121,6 +121,6 @@ int remove_at(int numbers[], const size_t element_count, const size_t index)
             }
             return TRUE;
         }
-    }
+    } */
     return FALSE;
 }
