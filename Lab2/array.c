@@ -55,7 +55,7 @@ int get_min_index(const int numbers[], const size_t element_count)
         return -1;
     }
 	
-    for (i = 0; i <= element_count; ++i) {
+    for (i = 0; i < element_count; ++i) {
         if (min_num > numbers[i]) {
             min_num = numbers[i];
             min_index = i;
@@ -111,8 +111,8 @@ int insert(int numbers[], const size_t element_count, const int num, const size_
             numbers[i] = num;
             return TRUE;
         }
-    }
-	 */
+    } */
+	
     return FALSE;
 }
 
