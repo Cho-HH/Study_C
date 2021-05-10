@@ -48,19 +48,18 @@ int get_max_index(const int numbers[], const size_t element_count)
 int get_min_index(const int numbers[], const size_t element_count)
 {
     size_t i = 0;
-	int min_num = 0;
+    int min_num = 0;
     int min_index = 0;
 	
     if (element_count == 0) {
         return -1;
     }
 	
-    while (i < element_count) {
+    for (i = 0; i =< element_count; ++i) {
         if (min_num > numbers[i]) {
             min_num = numbers[i];
             min_index = i;
         }
-        ++i;
     }
     return min_index;
 }
@@ -97,8 +96,12 @@ int has_even(const int numbers[], const size_t element_count)
 
 int insert(int numbers[], const size_t element_count, const int num, const size_t pos)
 {
-    /* size_t i = 0;
+    size_t i = 0;
     size_t n = 0;
+	
+    if (pos > element_count) {
+        return FALSE;
+    }
 	
     for (i = 0; i < element_count; ++i) {
         if (i == pos) {
@@ -108,15 +111,19 @@ int insert(int numbers[], const size_t element_count, const int num, const size_
             numbers[i] = num;
             return TRUE;
         }
-    } */
+    }
 	
     return FALSE;
 }
 
 int remove_at(int numbers[], const size_t element_count, const size_t index)
 {
-    /* size_t i = 0;
+    size_t i = 0;
     size_t n = 0;
+
+    if (element_count == 0 || index > element_count) {
+        return FALSE;
+    }
 	
     for (i = 0; i < element_count; ++i) {
         if (i == index) {
@@ -125,6 +132,6 @@ int remove_at(int numbers[], const size_t element_count, const size_t index)
             }
             return TRUE;
         }
-    } */
+    }
     return FALSE;
 }
