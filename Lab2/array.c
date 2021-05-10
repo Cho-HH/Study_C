@@ -34,7 +34,7 @@ int get_last_index_of(const int numbers[], const size_t element_count, const int
 int get_max_index(const int numbers[], const size_t element_count)
 {
     size_t i = 0;
-    int max_num = INT_MIN;
+    int max_num = numbers[0];
     int max_index = 0;
 	
     if (element_count == 0 || numbers[0] == INT_MIN) {
@@ -54,7 +54,7 @@ int get_max_index(const int numbers[], const size_t element_count)
 int get_min_index(const int numbers[], const size_t element_count)
 {
     size_t i = 0;
-    int min_num = INT_MAX;
+    int min_num = numbers[0];
     int min_index = 0;
 	
     if (element_count == 0) {
