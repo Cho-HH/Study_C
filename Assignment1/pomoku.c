@@ -1,13 +1,13 @@
 #include "pomoku.h"
 
-static size_t board_row = 0;
-static size_t board_column = 0;
-int board[20][20] = { 0, };
-static size_t player_score[2] = { 0, };
+static size_t s_board_row = 0;
+static size_t s_board_column = 0;
+int g_board[20][20] = { 0, };
+static size_t s_player_score[2] = { 0, };
 
 /* for문 돌리기 용 변수*/
-static size_t row = 0;
-static size_t col = 0;
+static size_t s_row = 0;
+static size_t s_col = 0;
 
 void init_game(void)
 {
@@ -17,8 +17,8 @@ void init_game(void)
 			board[row][col] = 2;
 		}
 	}
-	board_row = 15;
-	board_column = 15;
+    board_row = 15;
+    board_column = 15;
 	for(row = 0; row < board_row; ++row) {
 			for(col = 0; col < board_column; ++col) {
 				board[row][col] = -1;
@@ -38,7 +38,7 @@ size_t get_column_count(void)
 	return board_column;
 }
 
-/*static void calculate_score(size_t* const player_score, const color_t color)
+static void calculate_score_recursive(size_t* const player_score, const color_t color)
 {
 	if(board[row][col] != color) {
 		return;
@@ -49,30 +49,30 @@ size_t get_column_count(void)
 			board[row][col] == color;
 		}
 	}) {
-		1.→방향
+		/* 1.→방향 */
 		++col;
-		calculate_score(player_score, color);
-		2.↘방향
+		calculate_score_recursive(player_score, color);
+		/* 2.↘방향 */
 		++row;
 		++col;
-		calculate_score(player_score, color);
-		3.↓방향
+		calculate_score_recursive(player_score, color);
+		/* 3.↓방향 */
 		++row;
-		calculate_score(player_score, color);
+		calculate_score_recursive(player_score, color);
 
 	if(
 	*player_score++;
-}*/
+}
 
 int get_score(const color_t color)
 {
 	switch(color) {
 		case COLOR_BLACK:
-			/*calculate_score(&player_score[0], COLOR_BLACK);*/
+			calculate_score_recursive(&player_score[0], COLOR_BLACK);
 			return player_score[0];
 			break;
 		case COLOR_WHITE:
-			/*calculate_score(&player_score[1], COLOR_WHITE);*/
+			calculate_score_recursive(&player_score[1], COLOR_WHITE);
 			return player_score[1];
 			break;
 		default:
@@ -148,12 +148,12 @@ int insert_row(const color_t color, const size_t row)
 
 int insert_column(const color_t color, const size_t col)
 {
-	return 0;
+    return 0;
 }
 
 int remove_row(const color_t color, const size_t row)
 {
-	return 0;
+    return 0;
 }
 
 int remove_column(const color_t color, const size_t col)
