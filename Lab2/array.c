@@ -15,7 +15,7 @@ int get_index_of(const int numbers[], const size_t element_count, const int num)
 int get_last_index_of(const int numbers[], const size_t element_count, const int num)
 {
     size_t i = 0;
-	int last_index = -1;
+    int last_index = -1;
     for (i = 0; i < element_count; ++i) {
         if (numbers[i] == num) {
             last_index = i;
@@ -63,20 +63,64 @@ int get_min_index(const int numbers[], const size_t element_count)
 
 int is_all_positive(const int numbers[], const size_t element_count)
 {
-    return 0;
+    size_t i = 0;
+	
+    if (element_count == 0) {
+        return FALSE;
+    }
+	
+    for (i = 0; i < element_count; ++i) {
+        if ((numbers[i] & 0x80000000) != 0) {
+            return FALSE;
+        }
+    }
+	
+    return TRUE;
 }
 
 int has_even(const int numbers[], const size_t element_count)
 {
-    return 0;
+    size_t i = 0;
+	
+    for (i = 0; i < element_count; ++i) {
+        if ((numbers[i] & 0x1) == 0) {
+            return TRUE;
+        }
+    }
+	
+    return FALSE;
 }
 
 int insert(int numbers[], const size_t element_count, const int num, const size_t pos)
 {
-    return 0;
+    size_t i = 0;
+    size_t n = 0;
+	
+    for (i = 0; i < element_count; ++i) {
+        if (i == pos) {
+            for (n = element_count; n >= pos; --n) {
+                numbers[n+1] = numbers[n];
+            }
+            numbers[i] = num;
+            return TRUE;
+        }
+    }
+	
+    return FALSE;
 }
 
 int remove_at(int numbers[], const size_t element_count, const size_t index)
 {
-    return 0;
+    size_t i = 0;
+    size_t n = 0;
+	
+    for (i = 0; i < element_count; ++i) {
+        if (i == index) {
+            for (n = index; n < element_count; ++n) {
+                numbers[n] = numbers[n+1];
+            }
+            return TRUE;
+        }
+    }
+    return FALSE;
 }
