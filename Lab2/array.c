@@ -1,8 +1,14 @@
+#include <limits.h>
 #include "array.h"
 
 int get_index_of(const int numbers[], const size_t element_count, const int num)
 {
     size_t i = 0;
+	
+    if (num == INT_MIN) {
+        return -1;
+    }
+	
     for (i = 0; i < element_count; ++i) {
         if (numbers[i] == num) {
             return i;
@@ -31,7 +37,7 @@ int get_max_index(const int numbers[], const size_t element_count)
     int max_num = 0;
     int max_index = 0;
 	
-    if (element_count == 0) {
+    if (element_count == 0 || numbers[0] == INT_MIN) {
         return -1;
     }
 	
@@ -96,29 +102,29 @@ int has_even(const int numbers[], const size_t element_count)
 
 int insert(int numbers[], const size_t element_count, const int num, const size_t pos)
 {
-    /* size_t i = 0;
+    size_t i = 0;
     size_t n = 0;
 	
     if (pos > element_count) {
         return FALSE;
     }
 	
-    for (i = 0; i < element_count; ++i) {
+    for (i = 0; i <= element_count; ++i) {
         if (i == pos) {
             for (n = element_count; n >= pos; --n) {
-                numbers[n + 1] = numbers[n];
+                numbers[n] = numbers[n - 1];
             }
             numbers[i] = num;
             return TRUE;
         }
-    } */
+    }
 	
     return FALSE;
 }
 
 int remove_at(int numbers[], const size_t element_count, const size_t index)
 {
-    /* size_t i = 0;
+    size_t i = 0;
     size_t n = 0;
 
     if (element_count == 0 || index > element_count) {
@@ -132,6 +138,6 @@ int remove_at(int numbers[], const size_t element_count, const size_t index)
             }
             return TRUE;
         }
-    } */
+    }
     return FALSE;
 }
