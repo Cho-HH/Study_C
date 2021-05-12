@@ -3,76 +3,103 @@
 static size_t s_board_row = 0;
 static size_t s_board_column = 0;
 static int s_board[20][20] = { 0, };
-static size_t g_player_score[2] = { 0, };
-
-/* for문 돌리기 용 변수*/
-static size_t s_row = 0;
-static size_t s_col = 0;
+static size_t s_player_score[2] = { 0, };
 
 void init_game(void)
 {
+    size_t row = 0;
+    size_t col = 0;
+	
     for (row = 0; row < 20; ++row) {
         for (col = 0; col < 20; ++col) {
-            board[row][col] = 2;
+            s_board[row][col] = 2;
         }
     }
-    board_row = 15;
-    board_column = 15;
-    for (row = 0; row < board_row; ++row) {
-        for (col = 0; col < board_column; ++col) {
-            board[row][col] = -1;
+    s_board_row = 15;
+    s_board_column = 15;
+	
+    for (row = 0; row < s_board_row; ++row) {
+        for (col = 0; col < s_board_column; ++col) {
+            s_board[row][col] = -1;
         }
     }
-    player_score[0] = 0;
-    player_score[1] = 0;
+    s_player_score[0] = 0;
+    s_player_score[1] = 0;
 }
 
 size_t get_row_count(void)
 {
-    return board_row;
+    return s_board_row;
 }
 
 size_t get_column_count(void)
 {
-    return board_column;
+    return s_board_column;
 }
 
-/*static void calculate_score_recursive(size_t* const player_score, const color_t color)
+static void calculate_score(size_t* const out_player_score, const color_t color)
 {
-	if(board[row][col] != color) {
-		return;
-	}
+    size_t row = 0;
+    size_t col = 0;
+    int score = 0;
+    size_t calculate_stone_row = 0;
+    size_t calculate_stone_col = 0;
 	
-	if(while(row < board_row) {
-		while(col < board_column) {
-			board[row][col] == color;
-		}
-	}) {
-		1.→방향 
-		++col;
-		calculate_score_recursive(player_score, color);
-		2.↘방향 
-		++row;
-		++col;
-		calculate_score_recursive(player_score, color);
-		3.↓방향 
-		++row;
-		calculate_score_recursive(player_score, color);
-
-	if(
-	*player_score++;
-}*/
+    for (row = 0; row < s_board_row; ++row) {
+        for (col = 0; col < s_board_column; ++col) {
+            if (s_board[row][col] == color) {
+                /*점수계산하는 부분*/
+				/* 1. →방향 */
+                calculate_stone_row = row;
+                calculate_stone_col = col;					
+                while(s_board[calculate_stone_row][calculate_stone_col] != color) {
+					++score;
+                    ++calculate_stone_col;
+                }
+                if (score - 4 >= 0) {
+                    *out_player_score = score - 4;				
+                }
+                score = 0;
+				
+                /* 2. ↘방향 */
+                calculate_stone_row = row;
+                calculate_stone_col = col;					
+                while(s_board[calculate_stone_row][calculate_stone_col] != color) {
+					++score;
+                    ++calculate_stone_col;
+					++calculate_stone_row;
+                }
+                if (score - 4 >= 0) {
+                    *out_player_score = score - 4;
+                }
+                score = 0;
+			
+                /* 3. ↓방향 */
+                calculate_stone_row = row;
+                calculate_stone_col = col;				
+                while(s_board[calculate_stone_row][calculate_stone_col] != color) {
+					++score;
+                    ++calculate_stone_row;
+                }
+                if (score - 4 >= 0) {
+                    *out_player_score = score - 4;
+                }
+                score = 0;				
+            }
+        }
+    }  
+}
 
 int get_score(const color_t color)
 {
     switch (color) {
     case COLOR_BLACK:
-        /*calculate_score_recursive(&player_score[0], COLOR_BLACK);*/
-        return player_score[0];
+        calculate_score(&s_player_score[0], COLOR_BLACK);
+        return s_player_score[0];
         break;
     case COLOR_WHITE:
-        /*calculate_score_recursive(&player_score[1], COLOR_WHITE);*/
-        return player_score[1];
+        calculate_score(&s_player_score[1], COLOR_WHITE);
+        return s_player_score[1];
         break;
     default:
         return -1;
@@ -82,9 +109,9 @@ int get_score(const color_t color)
 
 int get_color(const size_t row, const size_t col)
 {
-    if (board[row][col] == COLOR_BLACK) {
-        return 0;
-        } else if (board[row][col] == COLOR_WHITE) {
+    if (s_board[row][col] == COLOR_BLACK) {
+            return 0;
+        } else if (s_board[row][col] == COLOR_WHITE) {
             return 1;
         } else {
             return -1;
@@ -93,7 +120,7 @@ int get_color(const size_t row, const size_t col)
 
 int is_placeable(const size_t row, const size_t col)
 {
-    if (board[row][col] == -1) {
+    if (s_board[row][col] == -1) {
         return TRUE;
     } else {
         return FALSE;
@@ -102,17 +129,17 @@ int is_placeable(const size_t row, const size_t col)
 
 int place_stone(const color_t color, const size_t row, const size_t col)
 {
-    if (board[row][col] != -1) {
+    if (s_board[row][col] != -1) {
 	    return FALSE;
     }
 
     switch (color) {
 	case COLOR_BLACK:
-        board[row][col] = COLOR_BLACK;
+        s_board[row][col] = COLOR_BLACK;
         return TRUE;
         break;
     case COLOR_WHITE:
-        board[row][col] = COLOR_WHITE;
+        s_board[row][col] = COLOR_WHITE;
         return TRUE;
         break;
     default:
