@@ -1,14 +1,15 @@
 #include "pomoku.h"
+#include <stdio.h>
 
-static size_t s_board_row = 0;
-static size_t s_board_column = 0;
+static int s_board_row = 0;
+static int s_board_column = 0;
 static int s_board[20][20] = { 0, };
 static size_t s_player_score[2] = { 0, };
 
 void init_game(void)
 {
-    size_t row = 0;
-    size_t col = 0;
+    int row = 0;
+    int col = 0;
 	
     for (row = 0; row < 20; ++row) {
         for (col = 0; col < 20; ++col) {
@@ -37,85 +38,193 @@ size_t get_column_count(void)
     return s_board_column;
 }
 
-static void calculate_score(size_t* const out_player_score, const color_t color)
+static void check_score(size_t* const player_score, const color_t color, int* score)
 {
-    size_t row = 0;
-    size_t col = 0;
+	++(*score);		
+	if ((*score) - 4 > 0) {
+		*player_score += (*score) - 4;	 
+		printf("\nplayer_score : %d\n\n", *player_score);
+	}
+}
+
+static void calculate_score(size_t* const player_score, const color_t color)
+{
+    int row = 0;
+    int col = 0;
     int score = 0;
-    size_t calculate_stone_row = 0;
-    size_t calculate_stone_col = 0;
+	int diag_row = 0;
+	int diag_col = 0;
+   
+	for (row = 0; row < s_board_row; ++row) {
+		for (col = 0; col < s_board_column; ++col) {
+			if (s_board[row][col] == color) {
+				switch(get_color(row,col)) {
+				case COLOR_BLACK:
+					printf("[%d],[%d] is BLACK\n", row, col);
+					break;
+				case COLOR_WHITE:
+					printf("[%d],[%d] is WHITE\n", row, col);
+					break;
+				default:
+					printf("[%d],[%d] is nothing\n", row, col);
+					break;
+				}	
+			}
+		}
+	}
 	
-    for (row = 0; row < s_board_row; ++row) {
-        for (col = 0; col < s_board_column; ++col) {
-            if (s_board[row][col] == color) {
-                /*점수계산하는 부분*/
-				/* 1. →방향 */
-                calculate_stone_row = row;
-                calculate_stone_col = col;					
-                while(s_board[calculate_stone_row][calculate_stone_col] != color) {
-					++score;
-                    ++calculate_stone_col;
-                }
-                if (score - 4 >= 0) {
-                    *out_player_score = score - 4;				
-                }
-                score = 0;
-				
-                /* 2. ↘방향 */
-                calculate_stone_row = row;
-                calculate_stone_col = col;					
-                while(s_board[calculate_stone_row][calculate_stone_col] != color) {
-					++score;
-                    ++calculate_stone_col;
-					++calculate_stone_row;
-                }
-                if (score - 4 >= 0) {
-                    *out_player_score = score - 4;
-                }
-                score = 0;
-			
-                /* 3. ↓방향 */
-                calculate_stone_row = row;
-                calculate_stone_col = col;				
-                while(s_board[calculate_stone_row][calculate_stone_col] != color) {
-					++score;
-                    ++calculate_stone_row;
-                }
-                if (score - 4 >= 0) {
-                    *out_player_score = score - 4;
-                }
-                score = 0;				
-            }
-        }
-    }  
+	/* → */
+	for (row = 0; row < s_board_row; ++row) {
+		for (col = 0; col < s_board_column; ++col) {
+			if (s_board[row][col] == color) {
+				check_score(player_score, color, &score);
+			} else {
+				score = 0;
+			}
+		}
+		score = 0;
+	}
+	
+	/* ↓ */	    
+	for (col = 0; col < s_board_column; ++col) {
+		for (row = 0; row < s_board_row; ++row) {
+			if (s_board[row][col] == color) {
+				check_score(player_score, color, &score);
+			} else {
+				score = 0;
+			}
+		}
+		score = 0;
+	}
+	
+	/* ↘ */
+	for (col = s_board_column - 1, row = 0; col >= 0;)
+	{
+		if (s_board[row][col] == color) {
+				check_score(player_score, color, &score);
+			} else {
+				score = 0;
+			}
+		diag_row = row;
+		diag_col = col;
+		while (diag_row + 1 < s_board_row && diag_col + 1 < s_board_column)
+		{
+			if (s_board[diag_row + 1][diag_col - 1] == color) {
+				check_score(player_score, color, &score);
+			} else {
+				score = 0;
+			}
+			diag_row++;
+			diag_col++;
+		}
+		score = 0;
+		col--;
+	}
+
+	row++;
+	col++;
+	while (row < s_board_row)
+	{
+		if (s_board[row][col] == color) {
+				check_score(player_score, color, &score);
+			} else {
+				score = 0;
+			}
+		diag_row = row;
+		diag_col = col;
+		while (diag_row + 1 < s_board_row && diag_col + 1 < s_board_column)
+		{
+			if (s_board[diag_row + 1][diag_col - 1] == color) {
+				check_score(player_score, color, &score);
+			} else {
+				score = 0;
+			}
+			diag_col++;
+			diag_row++;
+		}
+		score = 0;
+		row++;
+	}
+	
+	/* ↙ */
+	for (row = 0, col = 0; col < s_board_column;) {
+		if (s_board[row][col] == color) {
+				check_score(player_score, color, &score);
+			} else {
+				score = 0;
+			}
+		diag_row = row;
+		diag_col = col;
+		while (diag_row + 1 < s_board_row && diag_col - 1 >= 0) {
+			if (s_board[diag_row + 1][diag_col - 1] == color) {
+				check_score(player_score, color, &score);
+			} else {
+				score = 0;
+			}
+			diag_row++;
+			diag_col--;
+		}
+		col++;
+		score = 0;
+	}
+
+	col--;
+	row++;
+	while (row < s_board_row)
+	{
+		if (s_board[row][col] == color) {
+				check_score(player_score, color, &score);
+			} else {
+				score = 0;
+			}
+		diag_row = row;
+		diag_col = col;
+		while (diag_row + 1 < s_board_row && diag_col - 1 >= 0)
+		{
+			if (s_board[diag_row + 1][diag_col - 1] == color) {
+				check_score(player_score, color, &score);
+			} else {
+				score = 0;
+			}
+			diag_row++;
+			diag_col--;
+		}
+		row++;
+		score = 0;
+	}
+	
 }
 
 int get_score(const color_t color)
 {
     switch (color) {
     case COLOR_BLACK:
+        s_player_score[0] = 0;
         calculate_score(&s_player_score[0], COLOR_BLACK);
+		printf("score BLACK   : %d\n", s_player_score[0]);
         return s_player_score[0];
         break;
     case COLOR_WHITE:
+        s_player_score[1] = 0;
         calculate_score(&s_player_score[1], COLOR_WHITE);
+		printf("score WHITE   : %d\n", s_player_score[1]);
         return s_player_score[1];
         break;
     default:
         return -1;
         break;
-	}
+    }
 }
 
 int get_color(const size_t row, const size_t col)
 {
     if (s_board[row][col] == COLOR_BLACK) {
-            return 0;
-        } else if (s_board[row][col] == COLOR_WHITE) {
-            return 1;
-        } else {
-            return -1;
-        }
+        return 0;
+    } else if (s_board[row][col] == COLOR_WHITE) {
+        return 1;
+    } else {
+        return -1;
+    }
 }
 
 int is_placeable(const size_t row, const size_t col)
@@ -130,11 +239,11 @@ int is_placeable(const size_t row, const size_t col)
 int place_stone(const color_t color, const size_t row, const size_t col)
 {
     if (s_board[row][col] != -1) {
-	    return FALSE;
+        return FALSE;
     }
 
     switch (color) {
-	case COLOR_BLACK:
+    case COLOR_BLACK:
         s_board[row][col] = COLOR_BLACK;
         return TRUE;
         break;
