@@ -27,19 +27,45 @@ void score_test(void)
 {
     /* hori */
     init_game_and_test();
-    place_stone(COLOR_BLACK, 1, 2);
-	place_stone(COLOR_BLACK, 1, 3);
-	place_stone(COLOR_BLACK, 1, 4);
-	place_stone(COLOR_BLACK, 1, 5);
-    place_stone(COLOR_BLACK, 1, 1);
-    place_stone(COLOR_BLACK, 2, 2);
-    place_stone(COLOR_BLACK, 3, 3);
-	place_stone(COLOR_BLACK, 3, 5);
-    place_stone(COLOR_BLACK, 4, 4);
-	place_stone(COLOR_BLACK, 5, 3);
-	place_stone(COLOR_BLACK, 6, 2);
-	place_stone(COLOR_BLACK, 7, 1);
-	place_stone(COLOR_BLACK, 8, 0);
+    place_stone(COLOR_BLACK, 6, 6);
+	place_stone(COLOR_BLACK, 6, 7);
+	place_stone(COLOR_BLACK, 6, 8);
+	place_stone(COLOR_BLACK, 6, 9);
+	place_stone(COLOR_BLACK, 6, 10);
+	
+	assert(1 == get_score(COLOR_BLACK));
+	
+	place_stone(COLOR_BLACK, 7, 8);
+	place_stone(COLOR_BLACK, 8, 8);
+	place_stone(COLOR_BLACK, 9, 8);
+	place_stone(COLOR_BLACK, 10, 8);
+	
+	assert(2 == get_score(COLOR_BLACK));
+	
+	place_stone(COLOR_BLACK, 5, 8);
+	place_stone(COLOR_BLACK, 7, 6);
+	place_stone(COLOR_BLACK, 8, 5);
+	place_stone(COLOR_BLACK, 9, 4);
+	
+	assert(5 == get_score(COLOR_BLACK));
+	
+	place_stone(COLOR_BLACK, 7, 4);
+	place_stone(COLOR_BLACK, 6, 3);
+	place_stone(COLOR_BLACK, 9, 6);
+	place_stone(COLOR_BLACK, 10, 7);
+	
+	assert(4 == get_score(COLOR_BLACK));
+	
+	
+	/* place_stone(COLOR_BLACK, 11, 9);
+	place_stone(COLOR_BLACK, 12, 10);
+	place_stone(COLOR_BLACK, 9, 6);
+	place_stone(COLOR_BLACK, 10, 6);
+	place_stone(COLOR_BLACK, 6, 7);
+	place_stone(COLOR_BLACK, 6, 8);
+	place_stone(COLOR_BLACK, 6, 9);
+	place_stone(COLOR_BLACK, 6, 10); */
+    
 	
 
     assert(1 == get_score(COLOR_BLACK));

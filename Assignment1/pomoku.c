@@ -30,7 +30,7 @@ void init_game(void)
 
 size_t get_row_count(void)
 {
-    return s_board_row;
+    return s_board_row ;
 }
 
 size_t get_column_count(void)
@@ -49,16 +49,16 @@ static void check_score(size_t* const player_score, int* score)
 
 static void calculate_score(size_t* const player_score, const color_t color)
 {
-    int row = 0;
-    int col = 0;
+    size_t row = 0;
+    size_t col = 0;
     int score = 0;
-    int diag_row = 0;
-    int diag_col = 0;
+    size_t diag_row = 0;
+    size_t diag_col = 0;
    
     for (row = 0; row < s_board_row; ++row) {
         for (col = 0; col < s_board_column; ++col) {
             if (s_board[row][col] == color) {
-                switch(get_color(row,col)) {
+                switch (get_color(row,col)) {
                 case COLOR_BLACK:
                     printf("[%d],[%d] is BLACK\n", row, col);
                     break;
@@ -86,29 +86,31 @@ static void calculate_score(size_t* const player_score, const color_t color)
     }
 	
     /* ↓ */	    
-	for (col = 0; col < s_board_column; ++col) {
-		for (row = 0; row < s_board_row; ++row) {
-			if (s_board[row][col] == color) {
-				check_score(player_score, &score);
-			} else {
-				score = 0;
-			}
-		}
-		score = 0;
-	}
+    for (col = 0; col < s_board_column; ++col) {
+        for (row = 0; row < s_board_row; ++row) {
+            if (s_board[row][col] == color) {
+                check_score(player_score, &score);
+            } else {
+                score = 0;
+            }
+        }
+        score = 0;
+    }
 	
     /* ↘ */
     for (col = s_board_column - 1, row = 0; col >= 0;)
     {
         if (s_board[row][col] == color) {
-                check_score(player_score, &score);
-            } else {
-                score = 0;
-            }
-        diag_row = row;
+            check_score(player_score, &score);
+        } else {
+            score = 0;
+        }
+        if(col == 0) {
+            break;
+		}
         diag_col = col;
-        while (diag_row + 1 < s_board_row && diag_col + 1 < s_board_column)
-        {
+        diag_row = row;
+        while (diag_row + 1 < s_board_row && diag_col + 1 < s_board_column) {
             if (s_board[diag_row + 1][diag_col + 1] == color) {
                 check_score(player_score, &score);
             } else {
@@ -116,24 +118,22 @@ static void calculate_score(size_t* const player_score, const color_t color)
             }
             diag_row++;
             diag_col++;
-        }
-        score = 0;
+        }     
         col--;
+        score = 0;
     }
     
     row++;
     col++;
-    while (row < s_board_row)
-    {
+    while (row < s_board_row) {
         if (s_board[row][col] == color) {
-        	    check_score(player_score, &score);
-            } else {
-                score = 0;
-            }
+        	check_score(player_score, &score);
+        } else {
+            score = 0;
+        }
         diag_row = row;
         diag_col = col;
-        while (diag_row + 1 < s_board_row && diag_col + 1 < s_board_column)
-        {
+        while (diag_row + 1 < s_board_row && diag_col + 1 < s_board_column) {
             if (s_board[diag_row + 1][diag_col + 1] == color) {
                 check_score(player_score, &score);
             } else {
@@ -142,17 +142,17 @@ static void calculate_score(size_t* const player_score, const color_t color)
             diag_col++;
             diag_row++;
         }
-        score = 0;
         row++;
+        score = 0;
     }
     
     /* ↙ */
     for (row = 0, col = 0; col < s_board_column;) {
         if (s_board[row][col] == color) {
-                check_score(player_score, &score);
-            } else {
-                score = 0;
-            }
+            check_score(player_score, &score);
+        } else {
+			score = 0;
+        }
         diag_row = row;
         diag_col = col;
         while (diag_row + 1 < s_board_row && diag_col - 1 >= 0) {
@@ -162,6 +162,9 @@ static void calculate_score(size_t* const player_score, const color_t color)
                 score = 0;
             }
             diag_row++;
+			if(diag_col == 0) {
+				break;
+			}
             diag_col--;
         }
         col++;
@@ -170,23 +173,24 @@ static void calculate_score(size_t* const player_score, const color_t color)
     
     col--;
     row++;
-    while (row < s_board_row)
-    {
+    while (row < s_board_row) {
         if (s_board[row][col] == color) {
-       	        check_score(player_score, &score);
-       	    } else {
-       	        score = 0;
-       	    }
+       	    check_score(player_score, &score);
+       	} else {
+       	    score = 0;
+       	}
         diag_row = row;
         diag_col = col;
-        while (diag_row + 1 < s_board_row && diag_col - 1 >= 0)
-        {
+        while (diag_row + 1 < s_board_row && diag_col - 1 >= 0) {
        	    if (s_board[diag_row + 1][diag_col - 1] == color) {
        	        check_score(player_score, &score);
        	    } else {
        	        score = 0;
        	    }
        	    diag_row++;
+            if(diag_col == 0) {
+                break;
+			}
        	    diag_col--;
         }
         row++;
@@ -201,13 +205,13 @@ int get_score(const color_t color)
     case COLOR_BLACK:
         s_player_score[0] = 0;
         calculate_score(&s_player_score[0], COLOR_BLACK);
-		printf("score BLACK   : %d\n", s_player_score[0]);
+        printf("score BLACK   : %d\n", s_player_score[0]);
         return s_player_score[0];
         break;
     case COLOR_WHITE:
         s_player_score[1] = 0;
         calculate_score(&s_player_score[1], COLOR_WHITE);
-		printf("score WHITE   : %d\n", s_player_score[1]);
+        printf("score WHITE   : %d\n", s_player_score[1]);
         return s_player_score[1];
         break;
     default:
