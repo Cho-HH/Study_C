@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "pomoku.h"
-sa
+
 static size_t s_board_row = 0;
 static size_t s_board_column = 0;
 static int s_board[20][20] = { 0, };
