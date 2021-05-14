@@ -38,7 +38,7 @@ size_t get_column_count(void)
     return s_board_column;
 }
 
-static void check_score(size_t* const player_score, int* score)
+static void check_score(size_t* const player_score, int* const score)
 {
     ++(*score);		
     if ((*score) - 4 > 0) {
@@ -58,7 +58,7 @@ static void calculate_score(size_t* const player_score, const color_t color)
     for (row = 0; row < s_board_row; ++row) {
         for (col = 0; col < s_board_column; ++col) {
             if (s_board[row][col] == color) {
-                switch (get_color(row,col)) {
+                switch (get_color(row, col)) {
                 case COLOR_BLACK:
                     printf("[%d],[%d] is BLACK\n", row, col);
                     break;
@@ -98,6 +98,7 @@ static void calculate_score(size_t* const player_score, const color_t color)
     }
 	
     /* ↘ */
+	score = 0;
     for (col = s_board_column - 1, row = 0; col >= 0;)
     {
         if (s_board[row][col] == color) {
@@ -125,6 +126,7 @@ static void calculate_score(size_t* const player_score, const color_t color)
     
     row++;
     col++;
+	score = 0;
     while (row < s_board_row) {
         if (s_board[row][col] == color) {
         	check_score(player_score, &score);
@@ -147,6 +149,7 @@ static void calculate_score(size_t* const player_score, const color_t color)
     }
     
     /* ↙ */
+	score = 0;
     for (row = 0, col = 0; col < s_board_column;) {
         if (s_board[row][col] == color) {
             check_score(player_score, &score);
@@ -173,6 +176,7 @@ static void calculate_score(size_t* const player_score, const color_t color)
     
     col--;
     row++;
+	score = 0;
     while (row < s_board_row) {
         if (s_board[row][col] == color) {
        	    check_score(player_score, &score);

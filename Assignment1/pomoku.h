@@ -6,7 +6,7 @@
 
 typedef enum color {
     COLOR_BLACK,
-	COLOR_WHITE
+    COLOR_WHITE
 } color_t;
 
 void init_game(void);

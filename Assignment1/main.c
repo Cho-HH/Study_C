@@ -25,68 +25,48 @@ void init_game_and_test(void)
  
 void score_test(void)
 {
-    /* hori */
+   /* hori */
     init_game_and_test();
-    place_stone(COLOR_BLACK, 6, 6);
-	place_stone(COLOR_BLACK, 6, 7);
-	place_stone(COLOR_BLACK, 6, 8);
-	place_stone(COLOR_BLACK, 6, 9);
-	place_stone(COLOR_BLACK, 6, 10);
+    place_stone(COLOR_BLACK, 0, 0);
+    place_stone(COLOR_BLACK, 0, 1);
+    place_stone(COLOR_BLACK, 0, 2);
+	place_stone(COLOR_BLACK, 1, 3);
+	place_stone(COLOR_BLACK, 2, 4);
+	place_stone(COLOR_BLACK, 3, 5);
 	
-	assert(1 == get_score(COLOR_BLACK));
+	place_stone(COLOR_BLACK, 4, 6);
+	place_stone(COLOR_BLACK, 5, 5);
+	place_stone(COLOR_BLACK, 6, 4);
+	place_stone(COLOR_BLACK, 7, 3);
 	
-	place_stone(COLOR_BLACK, 7, 8);
-	place_stone(COLOR_BLACK, 8, 8);
-	place_stone(COLOR_BLACK, 9, 8);
-	place_stone(COLOR_BLACK, 10, 8);
+	place_stone(COLOR_BLACK, 8, 2);
+	place_stone(COLOR_BLACK, 9, 3);
+	place_stone(COLOR_BLACK, 10, 4);
+	place_stone(COLOR_BLACK, 11, 5);
+	place_stone(COLOR_BLACK, 12, 6);
+	place_stone(COLOR_BLACK, 13, 7);
+	place_stone(COLOR_BLACK, 14, 8);
 	
-	assert(2 == get_score(COLOR_BLACK));
-	
-	place_stone(COLOR_BLACK, 5, 8);
-	place_stone(COLOR_BLACK, 7, 6);
-	place_stone(COLOR_BLACK, 8, 5);
-	place_stone(COLOR_BLACK, 9, 4);
-	
-	assert(5 == get_score(COLOR_BLACK));
-	
-	place_stone(COLOR_BLACK, 7, 4);
-	place_stone(COLOR_BLACK, 6, 3);
-	place_stone(COLOR_BLACK, 9, 6);
-	place_stone(COLOR_BLACK, 10, 7);
-	
-	assert(4 == get_score(COLOR_BLACK));
-	
-	
-	/* place_stone(COLOR_BLACK, 11, 9);
-	place_stone(COLOR_BLACK, 12, 10);
-	place_stone(COLOR_BLACK, 9, 6);
-	place_stone(COLOR_BLACK, 10, 6);
-	place_stone(COLOR_BLACK, 6, 7);
-	place_stone(COLOR_BLACK, 6, 8);
-	place_stone(COLOR_BLACK, 6, 9);
-	place_stone(COLOR_BLACK, 6, 10); */
-    
-	
-
+	place_stone(COLOR_BLACK, 5, 7);
+    place_stone(COLOR_BLACK, 0, 3);
+    place_stone(COLOR_BLACK, 0, 4);
+ 
     assert(1 == get_score(COLOR_BLACK));
-	printf("\npass test 1\n\n");
  
     place_stone(COLOR_BLACK, 0, 5);
-	
+ 
     assert(3 == get_score(COLOR_BLACK));
-	printf("\npass test 2\n\n");
-
+ 
     place_stone(COLOR_BLACK, 0, 6);
+ 
     assert(6 == get_score(COLOR_BLACK));
-	printf("\npass test 3\n\n");
-	
-    place_stone(COLOR_BLACK, 1, 0);
-    place_stone(COLOR_BLACK, 2, 0);
-    place_stone(COLOR_BLACK, 3, 0);
-    place_stone(COLOR_BLACK, 4, 0);
+ 
+    place_stone(COLOR_BLACK, 1, 1);
+    place_stone(COLOR_BLACK, 2, 2);
+    place_stone(COLOR_BLACK, 3, 3);
+    place_stone(COLOR_BLACK, 4, 4);
  
     assert(7 == get_score(COLOR_BLACK));
-	printf("\npass test 4\n\n");
  
     init_game_and_test();
     place_stone(COLOR_BLACK, 0, 14);
@@ -96,12 +76,10 @@ void score_test(void)
     place_stone(COLOR_BLACK, 0, 10);
  
     assert(1 == get_score(COLOR_BLACK));
-	printf("\npass test 5\n\n");
  
     place_stone(COLOR_BLACK, 0, 9);
  
     assert(3 == get_score(COLOR_BLACK));
-	printf("\npass test 6\n\n");
  
     place_stone(COLOR_BLACK, 0, 8);
  
@@ -164,13 +142,12 @@ void score_test(void)
     assert(6 == get_score(COLOR_WHITE));
  
     init_game_and_test();
-	
-	place_stone(COLOR_WHITE, 14, 14);
+ 
+    place_stone(COLOR_WHITE, 14, 14);
     place_stone(COLOR_WHITE, 13, 13);
     place_stone(COLOR_WHITE, 12, 12);
     place_stone(COLOR_WHITE, 11, 11);
     place_stone(COLOR_WHITE, 10, 10);
-
  
     assert(1 == get_score(COLOR_WHITE));
  
@@ -182,23 +159,6 @@ void score_test(void)
  
     assert(6 == get_score(COLOR_WHITE));
  
-	init_game_and_test();
-	place_stone(COLOR_WHITE, 4, 1);
-    place_stone(COLOR_WHITE, 5, 2);
-    place_stone(COLOR_WHITE, 6, 3);
-    place_stone(COLOR_WHITE, 7, 4);
-    place_stone(COLOR_WHITE, 8, 5);
-	assert(1 == get_score(COLOR_WHITE));
-	
-	place_stone(COLOR_WHITE, 9, 6);
-	assert(3 == get_score(COLOR_WHITE));
-	
-	place_stone(COLOR_WHITE, 2, 4);
-	place_stone(COLOR_WHITE, 3, 5);
-	place_stone(COLOR_WHITE, 4, 6);
-	place_stone(COLOR_WHITE, 5, 7);
-	place_stone(COLOR_WHITE, 6, 8);
-	assert(4 == get_score(COLOR_WHITE));
     /* right-diag */
     init_game_and_test();
  
@@ -236,3 +196,4 @@ void score_test(void)
  
     assert(6 == get_score(COLOR_WHITE));
 }
+
