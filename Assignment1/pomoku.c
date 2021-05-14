@@ -40,11 +40,11 @@ size_t get_column_count(void)
 
 static void check_score(size_t* const player_score, const color_t color, int* score)
 {
-	++(*score);		
-	if ((*score) - 4 > 0) {
-		*player_score += (*score) - 4;	 
-		printf("\nplayer_score : %d\n\n", *player_score);
-	}
+    ++(*score);		
+    if ((*score) - 4 > 0) {
+        *player_score += (*score) - 4;	 
+        printf("\nplayer_score : %d\n\n", *player_score);
+    }
 }
 
 static void calculate_score(size_t* const player_score, const color_t color)
@@ -52,40 +52,40 @@ static void calculate_score(size_t* const player_score, const color_t color)
     int row = 0;
     int col = 0;
     int score = 0;
-	int diag_row = 0;
-	int diag_col = 0;
+    int diag_row = 0;
+    int diag_col = 0;
    
-	for (row = 0; row < s_board_row; ++row) {
-		for (col = 0; col < s_board_column; ++col) {
-			if (s_board[row][col] == color) {
-				switch(get_color(row,col)) {
-				case COLOR_BLACK:
-					printf("[%d],[%d] is BLACK\n", row, col);
-					break;
-				case COLOR_WHITE:
-					printf("[%d],[%d] is WHITE\n", row, col);
-					break;
-				default:
-					printf("[%d],[%d] is nothing\n", row, col);
-					break;
-				}	
-			}
-		}
-	}
+    for (row = 0; row < s_board_row; ++row) {
+        for (col = 0; col < s_board_column; ++col) {
+            if (s_board[row][col] == color) {
+                switch(get_color(row,col)) {
+                case COLOR_BLACK:
+                    printf("[%d],[%d] is BLACK\n", row, col);
+                    break;
+                case COLOR_WHITE:
+                    printf("[%d],[%d] is WHITE\n", row, col);
+                    break;
+                default:
+                    printf("[%d],[%d] is nothing\n", row, col);
+                    break;
+                }	
+            }
+        }
+    }
 	
-	/* → */
-	for (row = 0; row < s_board_row; ++row) {
-		for (col = 0; col < s_board_column; ++col) {
-			if (s_board[row][col] == color) {
-				check_score(player_score, color, &score);
-			} else {
-				score = 0;
-			}
-		}
-		score = 0;
-	}
+    /* → */
+    for (row = 0; row < s_board_row; ++row) {
+        for (col = 0; col < s_board_column; ++col) {
+            if (s_board[row][col] == color) {
+                check_score(player_score, color, &score);
+            } else {
+                score = 0;
+            }
+        }
+        score = 0;
+    }
 	
-	/* ↓ */	    
+    /* ↓ */	    
 	for (col = 0; col < s_board_column; ++col) {
 		for (row = 0; row < s_board_row; ++row) {
 			if (s_board[row][col] == color) {
@@ -97,102 +97,102 @@ static void calculate_score(size_t* const player_score, const color_t color)
 		score = 0;
 	}
 	
-	/* ↘ */
-	for (col = s_board_column - 1, row = 0; col >= 0;)
-	{
-		if (s_board[row][col] == color) {
-				check_score(player_score, color, &score);
-			} else {
-				score = 0;
-			}
-		diag_row = row;
-		diag_col = col;
-		while (diag_row + 1 < s_board_row && diag_col + 1 < s_board_column)
-		{
-			if (s_board[diag_row + 1][diag_col - 1] == color) {
-				check_score(player_score, color, &score);
-			} else {
-				score = 0;
-			}
-			diag_row++;
-			diag_col++;
-		}
-		score = 0;
-		col--;
-	}
+    /* ↘ */
+    for (col = s_board_column - 1, row = 0; col >= 0;)
+    {
+        if (s_board[row][col] == color) {
+                check_score(player_score, color, &score);
+            } else {
+                score = 0;
+            }
+        diag_row = row;
+        diag_col = col;
+        while (diag_row + 1 < s_board_row && diag_col + 1 < s_board_column)
+        {
+            if (s_board[diag_row + 1][diag_col + 1] == color) {
+                check_score(player_score, color, &score);
+            } else {
+                score = 0;
+            }
+            diag_row++;
+            diag_col++;
+        }
+        score = 0;
+        col--;
+    }
+    
+    row++;
+    col++;
+    while (row < s_board_row)
+    {
+        if (s_board[row][col] == color) {
+        	    check_score(player_score, color, &score);
+            } else {
+                score = 0;
+            }
+        diag_row = row;
+        diag_col = col;
+        while (diag_row + 1 < s_board_row && diag_col + 1 < s_board_column)
+        {
+            if (s_board[diag_row + 1][diag_col + 1] == color) {
+                check_score(player_score, color, &score);
+            } else {
+                score = 0;
+            }
+            diag_col++;
+            diag_row++;
+        }
+        score = 0;
+        row++;
+    }
+    
+    /* ↙ */
+    for (row = 0, col = 0; col < s_board_column;) {
+        if (s_board[row][col] == color) {
+                check_score(player_score, color, &score);
+            } else {
+                score = 0;
+            }
+        diag_row = row;
+        diag_col = col;
+        while (diag_row + 1 < s_board_row && diag_col - 1 >= 0) {
+            if (s_board[diag_row + 1][diag_col - 1] == color) {
+                check_score(player_score, color, &score);
+            } else {
+                score = 0;
+            }
+            diag_row++;
+            diag_col--;
+        }
+        col++;
+        score = 0;
+    }
+    
+    col--;
+    row++;
+    while (row < s_board_row)
+    {
+        if (s_board[row][col] == color) {
+       	        check_score(player_score, color, &score);
+       	    } else {
+       	        score = 0;
+       	    }
+        diag_row = row;
+        diag_col = col;
+        while (diag_row + 1 < s_board_row && diag_col - 1 >= 0)
+        {
+       	    if (s_board[diag_row + 1][diag_col - 1] == color) {
+       	        check_score(player_score, color, &score);
+       	    } else {
+       	        score = 0;
+       	    }
+       	    diag_row++;
+       	    diag_col--;
+        }
+        row++;
+        score = 0;
+    }
 
-	row++;
-	col++;
-	while (row < s_board_row)
-	{
-		if (s_board[row][col] == color) {
-				check_score(player_score, color, &score);
-			} else {
-				score = 0;
-			}
-		diag_row = row;
-		diag_col = col;
-		while (diag_row + 1 < s_board_row && diag_col + 1 < s_board_column)
-		{
-			if (s_board[diag_row + 1][diag_col - 1] == color) {
-				check_score(player_score, color, &score);
-			} else {
-				score = 0;
-			}
-			diag_col++;
-			diag_row++;
-		}
-		score = 0;
-		row++;
-	}
-	
-	/* ↙ */
-	for (row = 0, col = 0; col < s_board_column;) {
-		if (s_board[row][col] == color) {
-				check_score(player_score, color, &score);
-			} else {
-				score = 0;
-			}
-		diag_row = row;
-		diag_col = col;
-		while (diag_row + 1 < s_board_row && diag_col - 1 >= 0) {
-			if (s_board[diag_row + 1][diag_col - 1] == color) {
-				check_score(player_score, color, &score);
-			} else {
-				score = 0;
-			}
-			diag_row++;
-			diag_col--;
-		}
-		col++;
-		score = 0;
-	}
-
-	col--;
-	row++;
-	while (row < s_board_row)
-	{
-		if (s_board[row][col] == color) {
-				check_score(player_score, color, &score);
-			} else {
-				score = 0;
-			}
-		diag_row = row;
-		diag_col = col;
-		while (diag_row + 1 < s_board_row && diag_col - 1 >= 0)
-		{
-			if (s_board[diag_row + 1][diag_col - 1] == color) {
-				check_score(player_score, color, &score);
-			} else {
-				score = 0;
-			}
-			diag_row++;
-			diag_col--;
-		}
-		row++;
-		score = 0;
-	}
-	
 }
 
 int get_score(const color_t color)
@@ -260,25 +260,27 @@ int place_stone(const color_t color, const size_t row, const size_t col)
 /* special moves */
 int insert_row(const color_t color, const size_t row)
 {
-    return 0;
-	/* if(player_score[color] < 3 || board_row >= 20) {
-		return FALSE;
-	} 
+    int* change_board_1 = NULL;
+    int* change_board_2 = NULL;
 	
-	return TRUE;
+    if (player_score[color] < 3 || board_row >= 20) {
+        return FALSE;
+    } 
 	
-	1.현재 있는 보드 맨 밑에 새 행 삽입
-	if(board_row == (row - 1)) {
-		for(col = 0; col < board_col; ++col) {
-			board[board_row + 1][col] = -1;
-	} else {
-		1.현재 있는 돌들을 모두 밑으로 밀어낸다.
-		2.거기에 빈 행을 삽입한다.
-		for(int row = 0; row<
-		++board_row;
-		player_score[color] -= 3;
-		return TRUE;
-	} */
+    player_score[color] -= 3;
+	
+    if (board_row == (row - 1)) {
+   	    for (col = 0; col < board_col; ++col) {
+   	        board[row - 1][col] = -1;
+        }
+    /* } else {
+        1.현재 있는 돌들을 모두 밑으로 밀어낸다.
+        2.거기에 빈 행을 삽입한다.
+        for(int row = 0; row<
+        ++board_row;
+    } */
+	
+    return TRUE;
 }
 
 int insert_column(const color_t color, const size_t col)
