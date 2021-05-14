@@ -262,23 +262,24 @@ int insert_row(const color_t color, const size_t row)
 {
     int* change_board_1 = NULL;
     int* change_board_2 = NULL;
+    int col = 0;
 	
-    if (player_score[color] < 3 || board_row >= 20) {
+    if (s_player_score[color] < 3 || s_board_row >= 20) {
         return FALSE;
     } 
 	
-    player_score[color] -= 3;
+    s_player_score[color] -= 3;
 	
-    if (board_row == (row - 1)) {
-   	    for (col = 0; col < board_col; ++col) {
-   	        board[row - 1][col] = -1;
+    if (s_board_row == (row - 1)) {
+   	    for (col = 0; col < s_board_column; ++col) {
+   	        s_board[row - 1][col] = -1;
         }
     /* } else {
         1.현재 있는 돌들을 모두 밑으로 밀어낸다.
         2.거기에 빈 행을 삽입한다.
         for(int row = 0; row<
-        ++board_row;
-    } */
+        ++board_row;*/
+    }
 	
     return TRUE;
 }
