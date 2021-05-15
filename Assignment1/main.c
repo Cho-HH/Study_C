@@ -27,29 +27,12 @@ void score_test(void)
 {
    /* hori */
     init_game_and_test();
-    place_stone(COLOR_BLACK, 0, 0);
-    place_stone(COLOR_BLACK, 0, 1);
-    place_stone(COLOR_BLACK, 0, 2);
-	place_stone(COLOR_BLACK, 1, 3);
-	place_stone(COLOR_BLACK, 2, 4);
-	place_stone(COLOR_BLACK, 3, 5);
-	
-	place_stone(COLOR_BLACK, 4, 6);
-	place_stone(COLOR_BLACK, 5, 5);
-	place_stone(COLOR_BLACK, 6, 4);
-	place_stone(COLOR_BLACK, 7, 3);
-	
-	place_stone(COLOR_BLACK, 8, 2);
-	place_stone(COLOR_BLACK, 9, 3);
-	place_stone(COLOR_BLACK, 10, 4);
-	place_stone(COLOR_BLACK, 11, 5);
-	place_stone(COLOR_BLACK, 12, 6);
-	place_stone(COLOR_BLACK, 13, 7);
-	place_stone(COLOR_BLACK, 14, 8);
-	
-	place_stone(COLOR_BLACK, 5, 7);
-    place_stone(COLOR_BLACK, 0, 3);
-    place_stone(COLOR_BLACK, 0, 4);
+    place_stone(COLOR_BLACK, 5, 0);
+    place_stone(COLOR_BLACK, 6, 1);
+    place_stone(COLOR_BLACK, 7, 2);
+	place_stone(COLOR_BLACK, 8, 3);
+	place_stone(COLOR_BLACK, 9, 4);
+	place_stone(COLOR_BLACK, 10, 5);
  
     assert(1 == get_score(COLOR_BLACK));
  
