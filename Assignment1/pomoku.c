@@ -229,25 +229,38 @@ int place_stone(const color_t color, const size_t row, const size_t col)
 /* special moves */
 int insert_row(const color_t color, const size_t row)
 {
-    int* change_board_1 = NULL;
-    int* change_board_2 = NULL;
-    int col = 0;
+    size_t col = 0;
+	int i = 0;
+	int j = 0;
 	
     if (s_player_score[color] < 3 || s_board_row >= 20) {
         return FALSE;
     } 
 	
-    s_player_score[color] -= 3;
+    s_player_score[color] -= 3;	
 	
-    if (s_board_row  + 1 == row) {
+    if (s_board_row == row) {
    	    for (col = 0; col < s_board_column; ++col) {
-   	        s_board[row - 1][col] = -1;
+   	        s_board[s_board_row][col] = -1;
         }
     } else {
-        /* 1.현재 있는 돌들을 모두 밑으로 밀어낸다.
-        2.거기에 빈 행을 삽입한다. */
+		/*맨 맽에 한 줄 추가*/
+		for (col = 0; col < s_board_column; ++col) {
+   	        s_board[s_board_row][col] = -1;		
+        }
+		/*가장 밑에 있는 행을 가리키고 */
+        /* 1.현재 있는 돌들을 모두 밑으로 밀어낸다.*/
+		for (i = s_board_row - 1; i >= row; --i) { 
+		    for (j = 0; j < s_board_column; j++) {
+			    s_board[i][j] = s_board[i + 1][j];
+		    }
+		}
+        /*2.거기에 빈 행을 삽입한다. */
+   	    for (col = 0; col < s_board_column; ++col) {
+   	        s_board[row][col] = -1;		
+        }
     }
-	
+	s_board_row += 1;
     return TRUE;
 }
 
