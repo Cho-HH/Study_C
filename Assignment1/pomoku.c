@@ -4,10 +4,14 @@
 static size_t s_board_row = 0;
 static size_t s_board_column = 0;
 static int s_board[20][20] = { 0, };
-static size_t s_player_score[2] = { 0, };
 
+static size_t s_player_score[2] = { 0, };
 static size_t s_check_score[2] = { 0, };
 static size_t s_use_skill[2] = { 0, };
+
+static const size_t s_possible = 0;
+static const size_t s_impossible = 1;
+static size_t s_stone[2][2] = { 0, };
 
 static const int s_can_place_point = -1;
 static const int s_cannot_place_point = 2;
@@ -173,17 +177,13 @@ static void calculate_score(const color_t color)
 }
 
 int get_score(const color_t color)
-{
-	s_player_score[color] = 0;
-		
+{		
     switch (color) {
     case COLOR_BLACK:
-	    calculate_score(COLOR_BLACK);
         printf("score BLACK   : %d\n", s_player_score[0]);		
         return s_player_score[0];
         break;
     case COLOR_WHITE:
-	    calculate_score(COLOR_WHITE);
         printf("score WHITE   : %d\n", s_player_score[1]);
         return s_player_score[1];
         break;
@@ -227,13 +227,17 @@ int place_stone(const color_t color, const size_t row, const size_t col)
         return FALSE;
     }
 	
+	s_player_score[color] = 0;
+	
     switch (color) {
     case COLOR_BLACK:
         s_board[row][col] = COLOR_BLACK;
+		calculate_score(COLOR_BLACK);
         return TRUE;
         break;
     case COLOR_WHITE:
-        s_board[row][col] = COLOR_WHITE;		
+        s_board[row][col] = COLOR_WHITE;	
+        calculate_score(COLOR_WHITE);		
         return TRUE;
         break;
     default:
@@ -258,9 +262,9 @@ int insert_row(const color_t color, const size_t row)
    	        s_board[s_board_row][col] = s_can_place_point;
         }
     } else {		
-		for (i = s_board_row - 1; i >= row; --i) { 
+		for (i = s_board_row - 1; i > row; --i) { 
 		    for (j = 0; j < s_board_column; j++) {
-			    s_board[i + 1][j] = s_board[i][j];
+			    s_board[i][j] = s_board[i - 1][j];
 		    }
 		}
 		
