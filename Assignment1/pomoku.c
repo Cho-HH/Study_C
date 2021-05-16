@@ -3,17 +3,17 @@
 
 static size_t s_board_row = 0;
 static size_t s_board_column = 0;
-static int s_board[20][20] = { 0, };
+static size_t s_board[20][20] = { 0, };
 
 static size_t s_player_score[2] = { 0, };
 static size_t s_check_score[2] = { 0, };
 static size_t s_use_skill[2] = { 0, };
 
-static const size_t s_possible = 0;
-static const size_t s_impossible = 1;
+static const size_t s_possible_calc = 0;
+static const size_t s_impossible_calc = 1;
 static size_t s_stone[2][2] = { 0, };
 
-static const int s_can_place_point = -1;
+static const int s_can_place_point = 3;
 static const int s_cannot_place_point = 2;
 
 void init_game(void)
@@ -34,6 +34,12 @@ void init_game(void)
             s_board[row][col] = s_can_place_point;
         }
     }
+	
+    s_stone[COLOR_BLACK][s_possible_calc] = 0;
+    s_stone[COLOR_WHITE][s_possible_calc] = 1;
+    s_stone[COLOR_BLACK][s_impossible_calc] = 2;
+    s_stone[COLOR_WHITE][s_impossible_calc] = 3;	
+	
     s_player_score[0] = 0;
     s_player_score[1] = 0;
 }
@@ -50,7 +56,7 @@ size_t get_column_count(void)
 
 static void check_score(const color_t color, int* const score, const size_t row, const size_t col)
 {
-    if (s_board[row][col] == color) {
+    if (s_board[row][col] == s_stone[color][s_possible_calc]) {
         ++(*score);		
         if ((*score) - 4 > 0) {
             s_check_score[color] += (*score) - 4;
@@ -195,21 +201,21 @@ int get_score(const color_t color)
 
 int get_color(const size_t row, const size_t col)
 {
-    if (row >= s_board_row || col >= s_board_column) {
+    if (row >= s_board_row || col >= s_board_column || s_board[row][col] == s_can_place_point) {
         return -1;
     }
 	
-    switch (s_board[row][col]) {
-    case COLOR_BLACK: 
+    if (s_board[row][col] == s_stone[COLOR_BLACK][s_possible_calc]) {
         return 0;
-        break;
-    case COLOR_WHITE:
+    } else if (s_board[row][col] == s_stone[COLOR_BLACK][s_impossible_calc]) {
+        return 0;
+    } else if (s_board[row][col] == s_stone[COLOR_WHITE][s_possible_calc]) {
         return 1;
-        break;
-    default:
+    } else if (s_board[row][col] == s_board[COLOR_WHITE][s_impossible_calc]) {
+        return 1;
+    } else {
         return -1;
-        break;	
-    }		
+    }
 }
 
 int is_placeable(const size_t row, const size_t col)
@@ -231,12 +237,12 @@ int place_stone(const color_t color, const size_t row, const size_t col)
 	
     switch (color) {
     case COLOR_BLACK:
-        s_board[row][col] = COLOR_BLACK;
+        s_board[row][col] = s_stone[COLOR_BLACK][s_possible_calc];
 		calculate_score(COLOR_BLACK);
         return TRUE;
         break;
     case COLOR_WHITE:
-        s_board[row][col] = COLOR_WHITE;	
+        s_board[row][col] = s_stone[COLOR_WHITE][s_possible_calc];	
         calculate_score(COLOR_WHITE);		
         return TRUE;
         break;
