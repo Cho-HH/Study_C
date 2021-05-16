@@ -9,7 +9,28 @@ void test_place_stone_combined(void);
 
 int main(void)
 {
-    score_test();
+	init_game();
+	
+    place_stone(COLOR_BLACK, 0, 0);
+    place_stone(COLOR_BLACK, 1, 0);
+    place_stone(COLOR_BLACK, 2, 0);
+    place_stone(COLOR_BLACK, 3, 0);
+    place_stone(COLOR_BLACK, 4, 0);
+	place_stone(COLOR_BLACK, 5, 0);
+	place_stone(COLOR_BLACK, 6, 0);
+	get_score(COLOR_BLACK);
+	assert(1 == insert_row(COLOR_BLACK, 3));
+	place_stone(COLOR_BLACK, 7, 0);
+	get_score(COLOR_BLACK);
+	place_stone(COLOR_BLACK, 4, 5);
+	get_score(COLOR_BLACK);
+	place_stone(COLOR_BLACK, 8, 0);
+	get_score(COLOR_BLACK);
+	place_stone(COLOR_BLACK, 3, 0);
+	get_score(COLOR_BLACK);
+	assert(1 == insert_row(COLOR_BLACK, 4));
+	get_score(COLOR_BLACK);
+
 	
     return 0;
 }
@@ -307,4 +328,3 @@ void test_place_stone_combined(void)
     }
 	printf("pass!!!!!!!!\n");
 }
-
