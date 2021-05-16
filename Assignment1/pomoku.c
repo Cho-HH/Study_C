@@ -277,7 +277,7 @@ int insert_row(const color_t color, const size_t row)
 
 int insert_column(const color_t color, const size_t col)
 {
-    size_t row = 0;
+    /* size_t row = 0;
 	size_t i = 0;
 	size_t j = 0;
 	
@@ -298,12 +298,12 @@ int insert_column(const color_t color, const size_t col)
 		    }
 		}
 		
-        /* 추가하고자 했던 행에 행 추가*/
+        추가하고자 했던 행에 행 추가
    	    for (row = 0; row < s_board_row; ++row) {
    	        s_board[row][col] = s_can_place_point;		
         }
     }
-	s_board_column += 1;
+	s_board_column += 1; */
     return TRUE;
 }
 
