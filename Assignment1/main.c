@@ -9,18 +9,30 @@ void test_place_stone_combined(void);
 
 int main(void)
 {
-	init_game();
+	test_place_stone_combined();
+	/* init_game();
 	
     place_stone(COLOR_BLACK, 0, 0);
     place_stone(COLOR_BLACK, 1, 0);
     place_stone(COLOR_BLACK, 2, 0);
     place_stone(COLOR_BLACK, 3, 0);
     place_stone(COLOR_BLACK, 4, 0);
+	get_score(COLOR_BLACK);
 	place_stone(COLOR_BLACK, 5, 0);
+    get_score(COLOR_BLACK);
 	place_stone(COLOR_BLACK, 6, 0);
 	get_score(COLOR_BLACK);
 	assert(1 == insert_row(COLOR_BLACK, 3));
-	place_stone(COLOR_BLACK, 7, 0);
+	get_score(COLOR_BLACK);
+	
+	place_stone(COLOR_BLACK, 8, 0);
+	get_score(COLOR_BLACK);
+	place_stone(COLOR_BLACK, 3, 0);
+	get_score(COLOR_BLACK); */
+	/* place_stone(COLOR_BLACK, 6, 0); */
+	/* place_stone(COLOR_BLACK, 6, 0);
+	get_score(COLOR_BLACK);
+	
 	get_score(COLOR_BLACK);
 	place_stone(COLOR_BLACK, 4, 5);
 	get_score(COLOR_BLACK);
@@ -29,7 +41,7 @@ int main(void)
 	place_stone(COLOR_BLACK, 3, 0);
 	get_score(COLOR_BLACK);
 	assert(1 == insert_row(COLOR_BLACK, 4));
-	get_score(COLOR_BLACK);
+	get_score(COLOR_BLACK); */
 
 	
     return 0;
@@ -218,6 +230,7 @@ void test_place_stone_combined(void)
                 assert(get_color(i, j) == -1);
                 assert(is_placeable(i, j) == TRUE);
                 assert(place_stone(COLOR_BLACK, i, j) == TRUE);
+				get_score(COLOR_BLACK);
                 assert(place_stone(COLOR_BLACK, i, j) == FALSE);
                 assert(get_color(i, j) == COLOR_BLACK);
                 assert(is_placeable(i, j) == FALSE);
@@ -290,7 +303,7 @@ void test_place_stone_combined(void)
         }
     }
     assert(get_score(COLOR_BLACK) == score);
-	printf("pass");
+	printf("pass\n");
 	
 	assert(insert_row(COLOR_BLACK, 21) == FALSE);
     assert(insert_row(COLOR_BLACK, 20) == FALSE);
@@ -327,4 +340,41 @@ void test_place_stone_combined(void)
         }
     }
 	printf("pass!!!!!!!!\n");
+	
+	init_game();
+    for (i = 0; i < 15; i++) {
+        assert(place_stone(COLOR_WHITE, i, 0) == TRUE);
+    }
+    assert(insert_column(COLOR_WHITE, 21) == FALSE);
+    assert(insert_column(COLOR_WHITE, 20) == FALSE);
+    assert(insert_column(COLOR_WHITE, 19) == FALSE);
+    assert(insert_column(COLOR_WHITE, 18) == FALSE);
+    assert(insert_column(COLOR_WHITE, 17) == FALSE);
+    assert(insert_column(COLOR_WHITE, 16) == FALSE);
+    assert(insert_column(COLOR_WHITE, 15) == TRUE);
+    assert(insert_column(COLOR_WHITE, 16) == TRUE);
+    assert(insert_column(COLOR_WHITE, 17) == TRUE);
+    assert(insert_column(COLOR_WHITE, 18) == TRUE);
+    assert(insert_column(COLOR_WHITE, 19) == TRUE);
+    for (i = 0; i <= MAX; i++) {
+        assert(insert_column(COLOR_WHITE, i) == FALSE);
+    }
+    for (i = 0; i <= MAX; i++) {
+        for (j = 1; j <= MAX; j++) {
+            if (i >= 0 && i < 15 && j >= 1 && j < 20) {
+                assert(get_color(i, j) == -1);
+                assert(is_placeable(i, j) == TRUE);
+                assert(place_stone(COLOR_WHITE, i, j) == TRUE);
+                assert(get_color(i, j) == COLOR_WHITE);
+                assert(is_placeable(i, j) == FALSE);
+            } else {
+                assert(get_color(i, j) == -1);
+                assert(is_placeable(i, j) == FALSE);
+                assert(place_stone(COLOR_WHITE, i, j) == FALSE);
+            }
+        }
+    }
+	
+	get_score(COLOR_WHITE);
+	printf("AAAAAAA\n");
 }
