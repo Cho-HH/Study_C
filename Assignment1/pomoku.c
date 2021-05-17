@@ -7,8 +7,8 @@ static size_t s_board[20][20] = { 0, };
 
 static size_t s_player_score[2] = { 0, };
 
-static const size_t s_CAN_PLACE_POINT = 4;
-static const size_t s_CANNOT_PLACE_POINT = 5;
+static const size_t S_CAN_PLACE_POINT = 4;
+static const size_t S_CANNOT_PLACE_POINT = 5;
 
 void init_game(void)
 {
@@ -17,7 +17,7 @@ void init_game(void)
 
     for (row = 0; row < 20; ++row) {
         for (col = 0; col < 20; ++col) {
-            s_board[row][col] = s_CANNOT_PLACE_POINT;
+            s_board[row][col] = S_CANNOT_PLACE_POINT;
         }
     }
     s_board_row = 15;
@@ -25,7 +25,7 @@ void init_game(void)
 
     for (row = 0; row < s_board_row; ++row) {
         for (col = 0; col < s_board_column; ++col) {
-            s_board[row][col] = s_CAN_PLACE_POINT;
+            s_board[row][col] = S_CAN_PLACE_POINT;
         }
     }
 
@@ -72,7 +72,7 @@ int get_score(const color_t color)
 
 int get_color(const size_t row, const size_t col)
 {
-    if (row >= s_board_row || col >= s_board_column || s_board[row][col] == s_CAN_PLACE_POINT) {
+    if (row >= s_board_row || col >= s_board_column || s_board[row][col] == S_CAN_PLACE_POINT) {
         return -1;
     }
 
@@ -91,7 +91,7 @@ int get_color(const size_t row, const size_t col)
 
 int is_placeable(const size_t row, const size_t col)
 {
-    if (s_board[row][col] == s_CAN_PLACE_POINT && row < s_board_row && col < s_board_column) {
+    if (s_board[row][col] == S_CAN_PLACE_POINT && row < s_board_row && col < s_board_column) {
         return TRUE;
     } else {
         return FALSE;
@@ -105,7 +105,7 @@ int place_stone(const color_t color, const size_t row, const size_t col)
     int check_row = 0;
     int check_col = 0;
 
-    if (s_board[row][col] != s_CAN_PLACE_POINT || row >= s_board_row || col >= s_board_column) {
+    if (s_board[row][col] != S_CAN_PLACE_POINT || row >= s_board_row || col >= s_board_column) {
         return FALSE;
     }
     /*여기서 돌이 5개 이상 있으면 점수를 얻게 해야함 */
@@ -217,7 +217,7 @@ int insert_row(const color_t color, const size_t row)
 
     if (s_board_row == row) {
         for (col = 0; col < s_board_column; ++col) {
-            s_board[row][col] = s_CAN_PLACE_POINT;
+            s_board[row][col] = S_CAN_PLACE_POINT;
         }
     } else {
         for (i = s_board_row; i > row; --i) {
@@ -228,7 +228,7 @@ int insert_row(const color_t color, const size_t row)
 
         /* 추가하고자 했던 행에 행 추가*/
         for (col = 0; col < s_board_column; ++col) {
-            s_board[row][col] = s_CAN_PLACE_POINT;
+            s_board[row][col] = S_CAN_PLACE_POINT;
         }
     }
 
@@ -250,7 +250,7 @@ int insert_column(const color_t color, const size_t col)
 
     if (s_board_column == col) {
         for (row = 0; row < s_board_row; ++row) {
-            s_board[row][col] = s_CAN_PLACE_POINT;
+            s_board[row][col] = S_CAN_PLACE_POINT;
         }
     } else {
         for (i = s_board_column; i > col; --i) {
@@ -260,7 +260,7 @@ int insert_column(const color_t color, const size_t col)
         }
 
         for (row = 0; row < s_board_row; ++row) {
-            s_board[row][col] = s_CAN_PLACE_POINT;
+            s_board[row][col] = S_CAN_PLACE_POINT;
         }
     }
 
@@ -281,7 +281,7 @@ int remove_row(const color_t color, const size_t row)
 
     if (row == s_board_row - 1) {
         for (col = 0; col < s_board_column; ++col) {
-            s_board[row][col] = s_CANNOT_PLACE_POINT;
+            s_board[row][col] = S_CANNOT_PLACE_POINT;
         }
     } else {
         for (i = row; i < s_board_row - 1; ++i) {
@@ -291,7 +291,7 @@ int remove_row(const color_t color, const size_t row)
         }
 		
         for (col = 0; col < s_board_column; ++col) {
-            s_board[s_board_row - 1][col] = s_CANNOT_PLACE_POINT;
+            s_board[s_board_row - 1][col] = S_CANNOT_PLACE_POINT;
         }
     }
 
@@ -312,7 +312,7 @@ int remove_column(const color_t color, const size_t col)
 
     if (col == s_board_column - 1) {
         for (row = 0; row < s_board_row; ++row) {
-            s_board[row][col] = s_CANNOT_PLACE_POINT;
+            s_board[row][col] = S_CANNOT_PLACE_POINT;
         }
     } else {
         for (i = col; i < s_board_column - 2; ++i) {
@@ -322,7 +322,7 @@ int remove_column(const color_t color, const size_t col)
         }
 		
         for (row = 0; row < s_board_row; ++row) {
-            s_board[row][s_board_column - 1] = s_CANNOT_PLACE_POINT;
+            s_board[row][s_board_column - 1] = S_CANNOT_PLACE_POINT;
         }
     }
 
