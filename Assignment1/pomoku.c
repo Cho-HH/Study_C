@@ -257,7 +257,7 @@ int insert_column(const color_t color, const size_t col)
     }
     else {
         for (i = s_board_column; i > col; --i) {
-            for (j = 0; j < row; j++) {
+            for (j = 0; j < s_board_row; j++) {
                 s_board[j][i] = s_board[j][i - 1];
             }
         }
@@ -278,17 +278,17 @@ int remove_row(const color_t color, const size_t row)
     size_t i = 0;
     size_t j = 0;
 
-    if (s_player_score[color] < 3 || row <= 10 || row >= s_board_row || s_board_row <= 10) {
+    if (s_player_score[color] < 3 || row >= s_board_row || s_board_row <= 10) {
         return FALSE;
     }
 
-    if (row == (size_t)s_board_row - 1) {
+    if (row == s_board_row - 1) {
         for (col = 0; col < s_board_column; ++col) {
             s_board[row][col] = s_cannot_place_point;
         }
     }
     else {
-        for (i = row; i < s_board_row - 1; ++i) {
+        for (i = row; i < s_board_row - 2; ++i) {
             for (j = 0; j < s_board_column; ++j) {
                 s_board[i][j] = s_board[i + 1][j];
             }
@@ -310,17 +310,17 @@ int remove_column(const color_t color, const size_t col)
     size_t i = 0;
     size_t j = 0;
 
-    if (s_player_score[color] < 3 || col <= 10 || col >= s_board_column || s_board_column <= 10) {
+    if (s_player_score[color] < 3 || col >= s_board_column || s_board_column <= 10) {
         return FALSE;
     }
 
-    if (col == (size_t)s_board_column - 1) {
+    if (col == s_board_column - 1) {
         for (row = 0; row < s_board_row; ++row) {
             s_board[row][col] = s_cannot_place_point;
         }
     }
     else {
-        for (i = col; i < s_board_column - 1; ++i) {
+        for (i = col; i < s_board_column - 2; ++i) {
             for (j = 0; j < s_board_row; ++j) {
                 s_board[j][i] = s_board[j][i + 1];
             }

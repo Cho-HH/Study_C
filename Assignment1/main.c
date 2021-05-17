@@ -9,23 +9,26 @@ void test_place_stone_combined(void);
 
 int main(void)
 {
-	init_game();
+	test_place_stone_combined();
+	/* init_game();
 	
-    place_stone(COLOR_BLACK, 0, 0);
-    place_stone(COLOR_BLACK, 1, 0);
-    place_stone(COLOR_BLACK, 2, 0);
-    place_stone(COLOR_BLACK, 3, 0);
-    place_stone(COLOR_BLACK, 4, 0);
-	get_score(COLOR_BLACK);
-	place_stone(COLOR_BLACK, 5, 0);
+    place_stone(COLOR_BLACK, 5, 5);
+    place_stone(COLOR_BLACK, 6, 5);
+    place_stone(COLOR_BLACK, 7, 5);
+    place_stone(COLOR_BLACK, 8, 5);
+    place_stone(COLOR_BLACK, 9, 5);
     get_score(COLOR_BLACK);
-	place_stone(COLOR_BLACK, 6, 0);
+	place_stone(COLOR_BLACK, 10, 5);
 	get_score(COLOR_BLACK);
-	assert(1 == insert_row(COLOR_BLACK, 3));
+	assert(1 == insert_row(COLOR_BLACK, 8));
+	get_score(COLOR_BLACK);
+	place_stone(COLOR_BLACK, 8, 5);
 	get_score(COLOR_BLACK);
 	
-	place_stone(COLOR_BLACK, 3, 0);
 	get_score(COLOR_BLACK);
+	
+	place_stone(COLOR_BLACK, 12, 5);
+	get_score(COLOR_BLACK); */
 	/* place_stone(COLOR_BLACK, 3, 0);
 	get_score(COLOR_BLACK); */
 	/* place_stone(COLOR_BLACK, 6, 0); */
@@ -222,7 +225,7 @@ void test_place_stone_combined(void)
  
     /* Place All Positions */
  
-    init_game();
+    /* init_game();
     for (i = 0; i <= MAX; i++) {
         for (j = 0; j <= MAX; j++) {
             if (i >= 0 && i < 15 && j >= 0 && j < 15) {
@@ -376,4 +379,82 @@ void test_place_stone_combined(void)
 	
 	get_score(COLOR_WHITE);
 	printf("AAAAAAA\n");
+	 */
+	 init_game();
+	 get_score(COLOR_BLACK);
+    for (i = 0; i < 15; i++) {
+        assert(place_stone(COLOR_BLACK, 0, i) == TRUE);
+    }
+    assert(remove_row(COLOR_BLACK, 21) == FALSE);
+    assert(remove_row(COLOR_BLACK, 20) == FALSE);
+    assert(remove_row(COLOR_BLACK, 19) == FALSE);
+    assert(remove_row(COLOR_BLACK, 18) == FALSE);
+    assert(remove_row(COLOR_BLACK, 17) == FALSE);
+    assert(remove_row(COLOR_BLACK, 16) == FALSE);
+    assert(remove_row(COLOR_BLACK, 15) == FALSE);
+    assert(remove_row(COLOR_BLACK, 14) == TRUE);
+    assert(remove_row(COLOR_BLACK, 14) == FALSE);
+    assert(remove_row(COLOR_BLACK, 13) == TRUE);
+    assert(remove_row(COLOR_BLACK, 0) == TRUE);
+    assert(remove_row(COLOR_BLACK, 12) == FALSE);
+    assert(remove_row(COLOR_BLACK, 0) == TRUE);
+    assert(remove_row(COLOR_BLACK, 0) == TRUE);
+    for (i = 0; i <= MAX; i++) {
+        assert(remove_row(COLOR_BLACK, i) == FALSE);
+    }
+	get_score(COLOR_BLACK);
+	printf("AAAAAASDSDA");
+    for (i = 0; i <= MAX; i++) {
+        for (j = 0; j <= MAX; j++) {
+            if (i >= 0 && i < 10 && j >= 0 && j < 15) {
+                assert(get_color(i, j) == -1);
+                assert(is_placeable(i, j) == TRUE);
+                assert(place_stone(COLOR_BLACK, i, j) == TRUE);
+                assert(get_color(i, j) == COLOR_BLACK);
+                assert(is_placeable(i, j) == FALSE);
+            } else {
+                assert(get_color(i, j) == -1);
+                assert(is_placeable(i, j) == FALSE);
+                assert(place_stone(COLOR_BLACK, i, j) == FALSE);
+            }
+        }
+    }
+ printf("pasdasdasdas");
+    init_game();
+    for (i = 0; i < 15; i++) {
+        assert(place_stone(COLOR_WHITE, i, 0) == TRUE);
+    }
+    assert(remove_column(COLOR_WHITE, 21) == FALSE);
+    assert(remove_column(COLOR_WHITE, 20) == FALSE);
+    assert(remove_column(COLOR_WHITE, 19) == FALSE);
+    assert(remove_column(COLOR_WHITE, 18) == FALSE);
+    assert(remove_column(COLOR_WHITE, 17) == FALSE);
+    assert(remove_column(COLOR_WHITE, 16) == FALSE);
+    assert(remove_column(COLOR_WHITE, 15) == FALSE);
+    assert(remove_column(COLOR_WHITE, 14) == TRUE);
+    assert(remove_column(COLOR_WHITE, 14) == FALSE);
+    assert(remove_column(COLOR_WHITE, 13) == TRUE);
+    assert(remove_column(COLOR_WHITE, 0) == TRUE);
+    assert(remove_column(COLOR_WHITE, 12) == FALSE);
+    assert(remove_column(COLOR_WHITE, 0) == TRUE);
+    assert(remove_column(COLOR_WHITE, 0) == TRUE);
+    for (i = 0; i <= MAX; i++) {
+        assert(remove_column(COLOR_WHITE, i) == FALSE);
+    }
+    for (i = 0; i <= MAX; i++) {
+        for (j = 0; j <= MAX; j++) {
+            if (i >= 0 && i < 15 && j >= 0 && j < 10) {
+                assert(get_color(i, j) == -1);
+                assert(is_placeable(i, j) == TRUE);
+                assert(place_stone(COLOR_WHITE, i, j) == TRUE);
+                assert(get_color(i, j) == COLOR_WHITE);
+                assert(is_placeable(i, j) == FALSE);
+            } else {
+                assert(get_color(i, j) == -1);
+                assert(is_placeable(i, j) == FALSE);
+                assert(place_stone(COLOR_WHITE, i, j) == FALSE);
+            }
+        }
+    }
+	printf("djhfjkghjkdf");
 }
