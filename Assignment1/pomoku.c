@@ -284,14 +284,14 @@ int remove_row(const color_t color, const size_t row)
             s_board[row][col] = s_CANNOT_PLACE_POINT;
         }
     } else {
-        for (i = row; i < s_board_row - 2; ++i) {
+        for (i = row; i < s_board_row - 1; ++i) {
             for (j = 0; j < s_board_column; ++j) {
                 s_board[i][j] = s_board[i + 1][j];
             }
-
-            for (col = 0; col < s_board_column; ++col) {
-                s_board[s_board_row - 1][col] = s_CANNOT_PLACE_POINT;
-            }
+        }
+		
+        for (col = 0; col < s_board_column; ++col) {
+            s_board[s_board_row - 1][col] = s_CANNOT_PLACE_POINT;
         }
     }
 
@@ -319,10 +319,10 @@ int remove_column(const color_t color, const size_t col)
             for (j = 0; j < s_board_row; ++j) {
                 s_board[j][i] = s_board[j][i + 1];
             }
-
-            for (row = 0; row < s_board_row; ++row) {
-                s_board[row][s_board_column - 1] = s_CANNOT_PLACE_POINT;
-            }
+        }
+		
+        for (row = 0; row < s_board_row; ++row) {
+            s_board[row][s_board_column - 1] = s_CANNOT_PLACE_POINT;
         }
     }
 
@@ -338,12 +338,29 @@ int swap_rows(const color_t color, const size_t row0, const size_t row1)
 
 int swap_columns(const color_t color, const size_t col0, const size_t col1)
 {
+
     return 0;
 }
 
 int copy_row(const color_t color, const size_t src, const size_t dst)
 {
-    return 0;
+    /* size_t i = 0;
+    size_t* src_ptr = s_board + (s_board_column * src);
+    size_t* dst_ptr = s_board + (s_board_column * dst); */
+
+    if (s_player_score[color] < 4 || src >= s_board_column || dst >= s_board_column || src == dst) {
+        return FALSE;
+    }
+    
+   /*  while (i < s_board_column) {
+        *src_ptr = *dst_ptr;
+		i++;
+		src_ptr + i;
+		src_ptr + i;
+    } */
+	
+    s_player_score[color] -= 4;
+    return TRUE;
 }
 
 int copy_column(const color_t color, const size_t src, const size_t dst)

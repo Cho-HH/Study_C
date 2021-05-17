@@ -6,29 +6,24 @@
 void score_test(void);
 void init_game_and_test(void);
 void test_place_stone_combined(void);
+void test_various_score(void);
 
 int main(void)
 {
-	test_place_stone_combined();
-	/* init_game();
+	init_game();
 	
+    place_stone(COLOR_BLACK, 3, 5);
+    place_stone(COLOR_BLACK, 4, 5);
     place_stone(COLOR_BLACK, 5, 5);
-    place_stone(COLOR_BLACK, 6, 5);
+	place_stone(COLOR_BLACK, 6, 5);
     place_stone(COLOR_BLACK, 7, 5);
     place_stone(COLOR_BLACK, 8, 5);
-    place_stone(COLOR_BLACK, 9, 5);
-    get_score(COLOR_BLACK);
-	place_stone(COLOR_BLACK, 10, 5);
-	get_score(COLOR_BLACK);
-	assert(1 == insert_row(COLOR_BLACK, 8));
-	get_score(COLOR_BLACK);
-	place_stone(COLOR_BLACK, 8, 5);
+	place_stone(COLOR_BLACK, 7, 9);
+	place_stone(COLOR_BLACK, 14, 3);
+    get_score(COLOR_BLACK);	
+	assert(1 == remove_row(COLOR_BLACK, 6));
 	get_score(COLOR_BLACK);
 	
-	get_score(COLOR_BLACK);
-	
-	place_stone(COLOR_BLACK, 12, 5);
-	get_score(COLOR_BLACK); */
 	/* place_stone(COLOR_BLACK, 3, 0);
 	get_score(COLOR_BLACK); */
 	/* place_stone(COLOR_BLACK, 6, 0); */
@@ -457,4 +452,147 @@ void test_place_stone_combined(void)
         }
     }
 	printf("djhfjkghjkdf");
+	
+}
+
+typedef enum DIRECTION { DIRECTION_EAST, DIRECTION_WEST, DIRECTION_SOUTH, DIRECTION_NORTH } direction_t;
+ 
+void test_various_score(void)
+{
+    unsigned int i = 0;
+    unsigned int j = 0;
+    unsigned int cnt = 0;
+    unsigned int chain_count;
+    direction_t dir = DIRECTION_EAST;
+ 
+    /* Checker */
+    init_game();
+    for (cnt = 0; cnt < 15 * 15; cnt++) {
+        i = cnt / 15;
+        j = cnt % 15;
+        if (cnt % 2 == 0) {
+            assert(place_stone(COLOR_BLACK, i, j) == TRUE);
+        }
+    }
+    for (cnt = 0; cnt < 15 * 15; cnt++) {
+        i = cnt / 15;
+        j = cnt % 15;
+        if (cnt % 2 == 1) {
+            assert(place_stone(COLOR_BLACK, i, j) == TRUE);
+        }
+    }
+    assert(get_score(COLOR_BLACK) == 2162);
+ 
+    /* Tornado Pattern */
+    i = 0;
+    j = 0;
+    init_game();
+    for (cnt = 0; cnt < 15 * 15; cnt++) {
+        assert(place_stone(COLOR_BLACK, i, j) == TRUE);
+        switch (dir) {
+            case DIRECTION_EAST:
+                if (is_placeable(i, j + 1) == FALSE) {
+                    dir = DIRECTION_SOUTH;
+                    i++;
+                } else {
+                    j++;
+                }
+                break;
+            case DIRECTION_WEST:
+                if (is_placeable(i, j - 1) == FALSE) {
+                    dir = DIRECTION_NORTH;
+                    i--;
+                } else {
+                    j--;
+                }
+                break;
+            case DIRECTION_SOUTH:
+                if (is_placeable(i + 1, j) == FALSE) {
+                    dir = DIRECTION_WEST;
+                    j--;
+                } else {
+                    i++;
+                }
+                break;
+            case DIRECTION_NORTH:
+                if (is_placeable(i - 1, j) == FALSE) {
+                    dir = DIRECTION_EAST;
+                    j++;
+                } else {
+                    i--;
+                }
+                break;
+            default:
+                assert(0);
+        }
+    }
+    assert(get_score(COLOR_BLACK) == 1521);
+ 
+    /* Horizontal + Vertical + Diagonals Combined Chains of 5 stones*/
+    chain_count = 5;
+    for (i = 0; i <= 15 - chain_count; i++) {
+        for (j = 0; j <= 15 - chain_count; j++) {
+            init_game();
+            assert(place_stone(COLOR_BLACK, i+2, j) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+2, j+1) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+2, j+3) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+2, j+4) == TRUE);
+            assert(place_stone(COLOR_BLACK, i, j+2) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+1, j+2) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+3, j+2) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+4, j+2) == TRUE);
+            assert(place_stone(COLOR_BLACK, i, j) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+1, j+1) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+3, j+3) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+4, j+4) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+4, j) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+3, j+1) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+1, j+3) == TRUE);
+            assert(place_stone(COLOR_BLACK, i, j+4) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+2, j+2) == TRUE);
+            assert(get_score(COLOR_BLACK) == 4);
+        }
+    }
+ 
+    /* Horizontal + Vertical + Diagonals Combained Chains of 9 stones*/
+    chain_count = 9;
+    for (i = 0; i <= 15 - chain_count; i++) {
+        for (j = 0; j <= 15 - chain_count; j++) {
+            init_game();
+            assert(place_stone(COLOR_BLACK, i+4, j) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+4, j+1) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+4, j+2) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+4, j+3) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+4, j+5) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+4, j+6) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+4, j+7) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+4, j+8) == TRUE);
+            assert(place_stone(COLOR_BLACK, i, j+4) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+1, j+4) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+2, j+4) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+3, j+4) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+5, j+4) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+6, j+4) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+7, j+4) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+8, j+4) == TRUE);
+            assert(place_stone(COLOR_BLACK, i, j) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+1, j+1) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+2, j+2) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+3, j+3) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+5, j+5) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+6, j+6) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+7, j+7) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+8, j+8) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+8, j) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+7, j+1) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+6, j+2) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+5, j+3) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+3, j+5) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+2, j+6) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+1, j+7) == TRUE);
+            assert(place_stone(COLOR_BLACK, i, j+8) == TRUE);
+            assert(place_stone(COLOR_BLACK, i+4, j+4) == TRUE);
+            assert(get_score(COLOR_BLACK) == 20);
+        }
+    }
 }
