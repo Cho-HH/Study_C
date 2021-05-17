@@ -333,13 +333,40 @@ int remove_column(const color_t color, const size_t col)
 
 int swap_rows(const color_t color, const size_t row0, const size_t row1)
 {
-    return 0;
+    size_t i = 0;
+    size_t temp_num = 0;
+	
+    if (s_player_score[color] < 2 || row0 >= s_board_row || row1 >= s_board_row || row0 == row1) {
+        return FALSE;
+    }
+	
+    for (i = 0; i < s_board_column; i++) {
+        temp_num = s_board[row0][i];
+        s_board[row0][i] = s_board[row1][i];
+        s_board[row1][i] = temp_num;
+    }
+    
+    s_player_score[color] -= 2;
+    return TRUE;
 }
 
 int swap_columns(const color_t color, const size_t col0, const size_t col1)
 {
-
-    return 0;
+    size_t i = 0;
+    size_t temp_num = 0;
+	
+    if (s_player_score[color] < 2 || col0 >= s_board_column || col1 >= s_board_column || col0 == col1) {
+        return FALSE;
+    }
+	
+    for (i = 0; i < s_board_row; i++) {
+        temp_num = s_board[i][col0];
+        s_board[i][col0] = s_board[i][col1];
+        s_board[i][col1] = temp_num;
+    }
+	
+    s_player_score[color] -= 2;
+    return TRUE;
 }
 
 int copy_row(const color_t color, const size_t src, const size_t dst)
@@ -351,8 +378,8 @@ int copy_row(const color_t color, const size_t src, const size_t dst)
     }
     
     while (i < s_board_column) {
-		s_board[dst][i] = s_board[src][i];
-		i++;
+        s_board[dst][i] = s_board[src][i];
+        i++;
     }
 	
     s_player_score[color] -= 4;
@@ -368,8 +395,8 @@ int copy_column(const color_t color, const size_t src, const size_t dst)
     }
     
     while (i < s_board_row) {
-		s_board[i][dst] = s_board[i][src];
-		i++;
+        s_board[i][dst] = s_board[i][src];
+        i++;
     }
 	
     s_player_score[color] -= 4;

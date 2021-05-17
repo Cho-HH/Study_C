@@ -12,17 +12,19 @@ int main(void)
 {       
 	init_game();
 	
+    place_stone(COLOR_BLACK, 3, 4);
     place_stone(COLOR_BLACK, 3, 5);
-    place_stone(COLOR_BLACK, 4, 5);
-    place_stone(COLOR_BLACK, 5, 5);
-	place_stone(COLOR_BLACK, 6, 5);
-    place_stone(COLOR_BLACK, 7, 5);
-    place_stone(COLOR_BLACK, 8, 5);
+	place_stone(COLOR_BLACK, 3, 6);
+    place_stone(COLOR_BLACK, 3, 7);
+    place_stone(COLOR_BLACK, 3, 8);
 	place_stone(COLOR_BLACK, 9, 5);
+	place_stone(COLOR_BLACK, 9, 6);
+	place_stone(COLOR_BLACK, 9, 7);
+	place_stone(COLOR_BLACK, 9, 8);
+	place_stone(COLOR_BLACK, 9, 9);
 	get_score(COLOR_BLACK);
-	copy_row(COLOR_BLACK, 6, 11);
+	assert(1 == swap_rows(COLOR_BLACK, 3, 9));
 	get_score(COLOR_BLACK);
-	
 	/* place_stone(COLOR_BLACK, 3, 0);
 	get_score(COLOR_BLACK); */
 	/* place_stone(COLOR_BLACK, 6, 0); */
@@ -219,7 +221,7 @@ void test_place_stone_combined(void)
  
     /* Place All Positions */
  
-    /* init_game();
+    init_game();
     for (i = 0; i <= MAX; i++) {
         for (j = 0; j <= MAX; j++) {
             if (i >= 0 && i < 15 && j >= 0 && j < 15) {
@@ -373,7 +375,7 @@ void test_place_stone_combined(void)
 	
 	get_score(COLOR_WHITE);
 	printf("AAAAAAA\n");
-	 */
+	
 	 init_game();
 	 get_score(COLOR_BLACK);
     for (i = 0; i < 15; i++) {
