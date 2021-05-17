@@ -315,7 +315,7 @@ int remove_column(const color_t color, const size_t col)
             s_board[row][col] = S_CANNOT_PLACE_POINT;
         }
     } else {
-        for (i = col; i < s_board_column - 2; ++i) {
+        for (i = col; i < s_board_column - 1; ++i) {
             for (j = 0; j < s_board_row; ++j) {
                 s_board[j][i] = s_board[j][i + 1];
             }
@@ -344,20 +344,16 @@ int swap_columns(const color_t color, const size_t col0, const size_t col1)
 
 int copy_row(const color_t color, const size_t src, const size_t dst)
 {
-    /* size_t i = 0;
-    size_t* src_ptr = s_board + (s_board_column * src);
-    size_t* dst_ptr = s_board + (s_board_column * dst); */
+    size_t i = 0;
 
-    if (s_player_score[color] < 4 || src >= s_board_column || dst >= s_board_column || src == dst) {
+    if (s_player_score[color] < 4 || src >= s_board_row || dst >= s_board_row || src == dst) {
         return FALSE;
     }
     
-   /*  while (i < s_board_column) {
-        *src_ptr = *dst_ptr;
+    while (i < s_board_column) {
+		s_board[dst][i] = s_board[src][i];
 		i++;
-		src_ptr + i;
-		src_ptr + i;
-    } */
+    }
 	
     s_player_score[color] -= 4;
     return TRUE;
@@ -365,5 +361,17 @@ int copy_row(const color_t color, const size_t src, const size_t dst)
 
 int copy_column(const color_t color, const size_t src, const size_t dst)
 {
-    return 0;
+    size_t i = 0;
+
+    if (s_player_score[color] < 4 || src >= s_board_column || dst >= s_board_column || src == dst) {
+        return FALSE;
+    }
+    
+    while (i < s_board_row) {
+		s_board[i][dst] = s_board[i][src];
+		i++;
+    }
+	
+    s_player_score[color] -= 4;
+    return TRUE;
 }
