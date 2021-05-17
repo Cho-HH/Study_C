@@ -110,111 +110,99 @@ int place_stone(const color_t color, const size_t row, const size_t col)
         return FALSE;
     }
     /*여기서 돌이 5개 이상 있으면 점수를 얻게 해야함 */
-    s_board[row][col] = color;
+	
+    switch (color) {
+    case COLOR_BLACK:
+        /* intentional fallthrough */
+    case COLOR_WHITE:
+        s_board[row][col] = color;
 
-    check_row = (int)row;
-    check_col = (int)col;
+        check_row = (int)row;
+        check_col = (int)col;
 
-    /* ← */
-    while (s_board[check_row][check_col] == (size_t)color && check_col >= 0) {
-        score++;
-        check_col--;
-    }
+        /* ← */
+        while (s_board[check_row][check_col] == (size_t)color && check_col >= 0) {
+            score++;
+            check_col--;
+        }
+        /* → */
+        check_row = row;
+        check_col = col;
+        while (s_board[check_row][check_col + 1] == (size_t)color && check_col + 1 < (int)s_board_column) {
+            score++;
+            check_col++;
+        }
+        if (score >= 5) {
+            s_player_score[color] += score - 4;
+        }
+        score = 0;
 
-    if (score >= 5) {
-        s_player_score[color] += score - 4;
-    }
-    score = 0; 
+        /* ↑ */
+        check_row = row;
+        check_col = col;
+        while (s_board[check_row][check_col] == (size_t)color && check_row >= 0) {
+            score++;
+            check_row--;
+        }
+        /* ↓ */
+        check_row = row;
+        check_col = col;
+        while (s_board[check_row + 1][check_col] == (size_t)color && check_row + 1 < (int)s_board_row) {
+            score++;
+            check_row++;
+        }
+        if (score >= 5) {
+            s_player_score[color] += score - 4;
+        }
+        score = 0;
 
-    /* → */
-    check_row = row;
-    check_col = col;
-    while (s_board[check_row][check_col] == (size_t)color && check_col < (int)s_board_column) {
-        score++;
-        check_col++;
-    }
-    if (score >= 5) {
-        s_player_score[color] += score - 4;
-    }
-    score = 0; 
+        /* ↖*/
+        check_row = row;
+        check_col = col;
+        while (s_board[check_row][check_col] == (size_t)color && check_row >= 0 && check_col >= 0) {
+            score++;
+            check_row--;
+            check_col--;
+        }
+        /* ↘ */
+        check_row = row;
+        check_col = col;
+        while (s_board[check_row + 1][check_col + 1] == (size_t)color && check_row + 1 < (int)s_board_row && check_col + 1 < (int)s_board_column) {
+            score++;
+            check_row++;
+            check_col++;
+        }
+        if (score >= 5) {
+            s_player_score[color] += score - 4;
+        }
+        score = 0;
 
-    /* ↑ */
-    check_row = row;
-    check_col = col;
-    while (s_board[check_row][check_col] == (size_t)color && check_row >= 0) {
-        score++;
-        check_row--;
+        /* ↙*/
+        check_row = row;
+        check_col = col;
+        while (s_board[check_row][check_col] == (size_t)color && check_row < (int)s_board_row && check_col >= 0) {
+            score++;
+            check_row++;
+            check_col--;
+        }
+        /* ↗ */
+        check_row = row;
+        check_col = col;
+        while (s_board[check_row - 1][check_col + 1] == (size_t)color && check_row  - 1 >= 0 && check_col + 1 < (int)s_board_column) {
+            score++;
+            check_row--;
+            check_col++;
+        }
+        if (score >= 5) {
+            s_player_score[color] += score - 4;
+        }
+        score = 0;
+        return TRUE;
+        break;
+    default:
+        return FALSE;
+        break;
     }
-    if (score >= 5) {
-        s_player_score[color] += score - 4;
-    }
-    score = 0;
-
-    /* ↓ */
-    check_row = row;
-    check_col = col;
-    while (s_board[check_row][check_col] == (size_t)color && check_row < (int)s_board_row) {
-        score++;
-        check_row++;
-    }
-    if (score >= 5) {
-        s_player_score[color] += score - 4;
-    }
-    score = 0;
-
-    /* ↖*/
-    check_row = row;
-    check_col = col;
-    while (s_board[check_row][check_col] == (size_t)color && check_row >= 0 && check_col >= 0) {
-        score++;
-        check_row--;
-        check_col--;
-    }
-    if (score >= 5) {
-        s_player_score[color] += score - 4;
-    }
-    score = 0;
-
-    /* ↘ */
-    check_row = row;
-    check_col = col;
-    while (s_board[check_row][check_col] == (size_t)color && check_row < (int)s_board_row && check_col < (int)s_board_column) {
-        score++;
-        check_row++;
-        check_col++;
-    }
-    if (score >= 5) {
-        s_player_score[color] += score - 4;
-    }
-    score = 0;
-
-    /* ↙*/
-    check_row = row;
-    check_col = col;
-    while (s_board[check_row][check_col] == (size_t)color && check_row < (int)s_board_row && check_col >= 0) {
-        score++;
-        check_row++;
-        check_col--;
-    }
-    if (score >= 5) {
-        s_player_score[color] += score - 4;
-    }
-    score = 0;
-
-    /* ↗ */
-    check_row = row;
-    check_col = col;
-    while (s_board[check_row][check_col] == (size_t)color && check_row >= 0 && check_col < (int)s_board_column) {
-        score++;
-        check_row--;
-        check_col++;
-    }
-    if (score >= 5) {
-        s_player_score[color] += score - 4;
-    }
-    score = 0;
-
-    return TRUE;
 }
 
 /* special moves */

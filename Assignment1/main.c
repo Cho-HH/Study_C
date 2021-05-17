@@ -9,8 +9,7 @@ void test_place_stone_combined(void);
 
 int main(void)
 {
-	test_place_stone_combined();
-	/* init_game();
+	init_game();
 	
     place_stone(COLOR_BLACK, 0, 0);
     place_stone(COLOR_BLACK, 1, 0);
@@ -25,9 +24,9 @@ int main(void)
 	assert(1 == insert_row(COLOR_BLACK, 3));
 	get_score(COLOR_BLACK);
 	
-	place_stone(COLOR_BLACK, 8, 0);
-	get_score(COLOR_BLACK);
 	place_stone(COLOR_BLACK, 3, 0);
+	get_score(COLOR_BLACK);
+	/* place_stone(COLOR_BLACK, 3, 0);
 	get_score(COLOR_BLACK); */
 	/* place_stone(COLOR_BLACK, 6, 0); */
 	/* place_stone(COLOR_BLACK, 6, 0);
