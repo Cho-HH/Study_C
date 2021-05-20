@@ -80,7 +80,7 @@ int get_travel_time(const char* const cab_start_location, const size_t cab_lengt
                 for (m = 0; m < *(cluster_lengths + j); m++) {
                     if (cab_start_location + i >= cluster_current_location) {
                         if (cab_start_location + i < cluster_current_location + *(cluster_lengths + j)) {
-	 	 	                if (cab_start_location + i == cluster_current_location + m) {
+                            if (cab_start_location + i == cluster_current_location + m) {
                                 overlap_count++;
                                 break;
                             }
@@ -88,7 +88,7 @@ int get_travel_time(const char* const cab_start_location, const size_t cab_lengt
                     }
                 }
             }	
-	        printf("%d ", overlap_count);
+            printf("%d ", overlap_count);
             if ((overlap_count & 0x1) == 0) { 
                 travel_time += 0.1;
             } else {
