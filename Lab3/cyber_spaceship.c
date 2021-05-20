@@ -23,8 +23,8 @@ const char* get_longest_safe_zone_or_null(const char* const cab_start_location, 
         *out_longest_safe_area_length = cab_length;
         return cab_start_location;
     } else {
-        /* for (i = 0; i < cab_length; i++) {
-            for (j = 0; j < cluster_count; j++) {								
+         for (i = 0; i < cab_length; i++) {
+            /*for (j = 0; j < cluster_count; j++) {								
                 cluster_current_location = (const char*)*(cluster_start_locations + j);
                 if (cab_start_location + i >= cluster_current_location) {
                     if (cab_start_location + i < cluster_current_location + *(cluster_lengths + j)) {	
@@ -36,22 +36,22 @@ const char* get_longest_safe_zone_or_null(const char* const cab_start_location, 
                         }
                     }
                 }
-            }	
+            }	*/
             
             if ((overlap_count & 0x1) == 0) { 
                 longest_safe_area_length++;
                 save_address = cab_start_location + i;
             } else {
                 longest_safe_area_length = 0;
-            }	 */
+            }	 
             
             /*printf("%d ", (overlap_count & 0x1)); */
-           /*  if (*out_longest_safe_area_length <= longest_safe_area_length) {
+            if (*out_longest_safe_area_length <= longest_safe_area_length) {
                 *out_longest_safe_area_length = longest_safe_area_length;
                 longest_safe_cluster_start_address = save_address - (*out_longest_safe_area_length - 1);
             }
             overlap_count = 0; 
-        }*/
+        }
     }
     /* printf("\ncab_start_address : %p", (void*)cab_start_location);
     printf("\nlongest_safe_cluster_start_address : %p\n", (void*)longest_safe_cluster_start_address); */
