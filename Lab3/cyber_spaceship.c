@@ -28,18 +28,15 @@ const char* get_longest_safe_zone_or_null(const char* const cab_start_location, 
                 cluster_current_location = (const char*)*(cluster_start_locations + j);
                 if (cab_start_location + i >= cluster_current_location) {
                     if (cab_start_location + i < cluster_current_location + *(cluster_lengths + j)) {	
-						if (cab_start_location + i == cluster_current_location) {
-                            overlap_count++;
-							break;
-                        } 
-					}
-                        /*for (m = 0; m < *(cluster_lengths + j); m++) {							
+						overlap_count++;
+						/*for (m = 0; m < *(cluster_lengths + j); m++) {							
                             if (cab_start_location + i == cluster_current_location + m) {
                                 overlap_count++;
 								break;
                             } 
                         }*/
-                    }
+					}
+                       
                 }
             }
             
