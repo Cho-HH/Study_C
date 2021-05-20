@@ -34,14 +34,13 @@ int main(void)
 
     longest_safe_cluster_start_address = get_longest_safe_zone_or_null(cab_start_address, CAB_LENGTH, cluster_start_addresses, cluster_lengths, 5, out_longest_safe_area_length_p);
 
-	printf("\nlongest_safe_area_length : %d\n",*out_longest_safe_area_length_p);
     assert(out_longest_safe_area_length == 15);
     assert(longest_safe_cluster_start_address == cab_start_address + 18); 
 
     time_in_mins = get_travel_time(cab_start_address, CAB_LENGTH, cluster_start_addresses, cluster_lengths, 5);
 
     assert(time_in_mins == 7); 
-
+	printf("\ntest main clear\n\n");
 	test_cab_length_upto_100();
 	test_etc();
 	test_multi_cluster_overlap();
