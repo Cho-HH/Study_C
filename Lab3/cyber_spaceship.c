@@ -24,9 +24,9 @@ const char* get_longest_safe_zone_or_null(const char* const cab_start_location, 
         return cab_start_location;
     } else {
          for (i = 0; i < cab_length; i++) {
-            /*for (j = 0; j < cluster_count; j++) {								
+            for (j = 0; j < cluster_count; j++) {								
                 cluster_current_location = (const char*)*(cluster_start_locations + j);
-                if (cab_start_location + i >= cluster_current_location) {
+                /*if (cab_start_location + i >= cluster_current_location) {
                     if (cab_start_location + i < cluster_current_location + *(cluster_lengths + j)) {	
                         for (m = 0; m < *(cluster_lengths + j); m++) {							
                             if (cab_start_location + i == cluster_current_location + m) {
@@ -35,8 +35,8 @@ const char* get_longest_safe_zone_or_null(const char* const cab_start_location, 
                             } 
                         }
                     }
-                }
-            }	*/
+                }*/
+            }
             
             if ((overlap_count & 0x1) == 0) { 
                 longest_safe_area_length++;
