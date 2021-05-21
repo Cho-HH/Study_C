@@ -4,9 +4,7 @@
 static size_t s_board_row = 0;
 static size_t s_board_column = 0;
 static size_t s_board[20][20] = { 0, };
-
 static size_t s_player_score[2] = { 0, };
-
 static const size_t S_CAN_PLACE_POINT = 4;
 static const size_t S_CANNOT_PLACE_POINT = 5;
 
@@ -108,7 +106,6 @@ int place_stone(const color_t color, const size_t row, const size_t col)
     if (s_board[row][col] != S_CAN_PLACE_POINT || row >= s_board_row || col >= s_board_column) {
         return FALSE;
     }
-    /*여기서 돌이 5개 이상 있으면 점수를 얻게 해야함 */
 	
     switch (color) {
     case COLOR_BLACK:
@@ -232,7 +229,6 @@ int insert_row(const color_t color, const size_t row)
         }
     }
 
-    /*  s_use_skill[color] += 3; */
     s_player_score[color] -= 3;
     s_board_row++;
     return TRUE;
