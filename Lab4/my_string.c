@@ -41,12 +41,12 @@ int index_of(const char* str, const char* word)
     while (*str_ptr != '\0') {
         if (*str_ptr == *word_ptr) {
             save_str_ptr = str_ptr;		
-    		while (*str_ptr == *word_ptr) {
-    		    ++str_ptr;
-    		    ++word_ptr;
-    		    if (*word_ptr == '\0') {
-    			    printf("index : %d\n",save_str_ptr - str);
-    			    return save_str_ptr - str;
+            while (*str_ptr == *word_ptr) {
+                ++str_ptr;
+                ++word_ptr;
+                if (*word_ptr == '\0') {
+                printf("index : %d\n",save_str_ptr - str);
+                return save_str_ptr - str;
                 }
             }
         }
@@ -88,23 +88,52 @@ void reverse_by_words(char* str)
 
 char* tokenize(char* str_or_null, const char* delims)
 {
-    /* static const char* str_ptr = (const char*)str_or_null;
-	const char* save_str_ptr = NULL;
-	const char* delims_ptr = delims;
-	
-	while (*delims_ptr < '\0') {
-	    while (*str_ptr != *delims_ptr && str_ptr != '\0') {
-			save_str_ptr = str_ptr;
-			++str_ptr;
-		}
-	    ++delims_ptr;
-	}
-	
-	return (char*)save_str_ptr; */
-	return NULL;
+    static char* str_ptr = NULL;
+    const char* save_str_ptr = NULL;
+    const char* delims_ptr = delims;
+    
+    if (str_ptr == NULL) {
+        str_ptr = str_or_null;
+        if (str_ptr == NULL) {
+            return NULL;
+        }
+    }
+    
+    save_str_ptr = str_ptr;
+    
+    while (*str_ptr != '\0') {		
+        delims_ptr = delims;
+        while (*delims_ptr != '\0') {
+            if (*str_ptr == *delims_ptr) {	
+                *str_ptr = '\0';
+                ++str_ptr;
+                printf("ssdadas : %s\n",save_str_ptr);
+                return (char*)save_str_ptr;
+            }
+            ++delims_ptr;
+        }
+        ++str_ptr;
+    }
+    
+    return NULL;
 }
 
 char* reverse_tokenize(char* str_or_null, const char* delims)
-{
-	return NULL;
+{	
+    char* token_first_ptr = tokenize(str_or_null, delims);
+    const char* const save_token_first_ptr = (const char* const)token_first_ptr;
+    size_t token_length = get_string_length(token_first_ptr);
+    char temp = 0;
+    char* token_last_ptr = token_first_ptr + token_length - 1;
+    
+    while (token_first_ptr < token_last_ptr) {
+        temp = *token_first_ptr;
+        *token_first_ptr = *token_last_ptr;
+        *token_last_ptr = temp;
+        ++token_first_ptr;
+        --token_last_ptr;
+    }
+    
+    printf("reverse token : %s\n",save_token_first_ptr);
+    return (char*)save_token_first_ptr;
 }
