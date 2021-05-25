@@ -35,19 +35,21 @@ void reverse(char* str)
 int index_of(const char* str, const char* word)
 {
     const char* str_ptr = str;
-    const char* save_str_ptr = str_ptr;
+    const char* check_str_ptr = str_ptr;
     const char* word_ptr = word;
-	 
+	const char* save_str_ptr = str_ptr;
+	
 	if (*word == '\0') {
 		return 0;
 	}
 	
 	while (*str_ptr != '\0') {
 		if (*str_ptr == *word_ptr) {
+			check_str_ptr = str_ptr;
 			save_str_ptr = str_ptr;
-			while (*str_ptr == *word_ptr) {
+			while (*check_str_ptr == *word_ptr) {
 				++word_ptr;
-				++str_ptr;
+				++check_str_ptr;
 				if (*word_ptr == '\0') {
 					printf("index : %d\n",save_str_ptr - str);
 					return save_str_ptr - str;
@@ -112,7 +114,7 @@ char* tokenize(char* str_or_null, const char* delims)
             if (*str_ptr == *delims_ptr) {	
                 *str_ptr = '\0';
                 ++str_ptr;
-                printf("ssdadas : %s\n",save_str_ptr);
+                printf("token_ptr : %s\n",save_str_ptr);
                 return (char*)save_str_ptr;
             }
             ++delims_ptr;
