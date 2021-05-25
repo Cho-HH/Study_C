@@ -20,7 +20,7 @@ void reverse(char* str)
     char temp = 0;
     char* str_ptr = str + str_length - 1;
     char* first_ptr = str;
-    	
+
     while (first_ptr < str_ptr) {
         temp = *str_ptr;
         *str_ptr = *first_ptr;
@@ -37,20 +37,21 @@ int index_of(const char* str, const char* word)
     const char* str_ptr = str;
     const char* save_str_ptr = NULL;
     const char* word_ptr = word;
-    
+	
     while (*str_ptr != '\0') {
         if (*str_ptr == *word_ptr) {
             save_str_ptr = str_ptr;		
             while (*str_ptr == *word_ptr) {
-                ++str_ptr;
-                ++word_ptr;
+				++word_ptr;
+				++str_ptr;
                 if (*word_ptr == '\0') {
-                printf("index : %d\n",save_str_ptr - str);
-                return save_str_ptr - str;
+					printf("index : %d\n",save_str_ptr - str);
+					return save_str_ptr - str;
                 }
-            }
+            }			
         }
-        ++str_ptr;
+		word_ptr = word;
+		++str_ptr; 
     }
     
     printf("index : -1\n");
