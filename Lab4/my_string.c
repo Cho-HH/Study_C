@@ -88,22 +88,23 @@ void reverse_by_words(char* str)
 
 char* tokenize(char* str_or_null, const char* delims)
 {
-    static const char* str_ptr = str_or_null;
+    /* static const char* str_ptr = (const char*)str_or_null;
 	const char* save_str_ptr = NULL;
 	const char* delims_ptr = delims;
 	
-	while (delims_ptr < '\0') {
-	    while (str_ptr != delims_ptr && str_ptr != '\0') {
+	while (*delims_ptr < '\0') {
+	    while (*str_ptr != *delims_ptr && str_ptr != '\0') {
 			save_str_ptr = str_ptr;
 			++str_ptr;
 		}
 	    ++delims_ptr;
 	}
 	
-	return save_str_ptr;
+	return (char*)save_str_ptr; */
+	return NULL;
 }
 
 char* reverse_tokenize(char* str_or_null, const char* delims)
 {
-	return 1;
+	return NULL;
 }

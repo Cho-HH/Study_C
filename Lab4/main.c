@@ -32,7 +32,7 @@ int main(void)
 
     assert(strcmp(str_cpy, str) == 0);
 
-    /* assert(tokenize(NULL, " ") == NULL);
+    assert(tokenize(NULL, " ") == NULL);
 
     token = tokenize(str_cpy, " ");
     assert(token == str_cpy);
@@ -53,7 +53,7 @@ int main(void)
     token = reverse_tokenize(NULL, " ");
     token = reverse_tokenize(NULL, " ");
     assert(token == str_cpy + 17);
-    assert(strcmp(token, "wolley") == 0);  */
+    assert(strcmp(token, "wolley") == 0); 
 
     return 0;
 }
