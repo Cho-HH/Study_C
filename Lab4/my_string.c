@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "my_string.h"
 
+static char* token_ptr = NULL;
+	
 static size_t get_string_length(const char* const str)
 {
     size_t str_length = 0u;
@@ -95,31 +97,32 @@ void reverse_by_words(char* str)
 
 char* tokenize(char* str_or_null, const char* delims)
 {
-    static char* str_ptr = NULL;
     const char* save_str_ptr = NULL;
     const char* delims_ptr = delims;
     
-    if (str_ptr == NULL) {
-        str_ptr = str_or_null;
-        if (str_ptr == NULL) {
+    if (token_ptr == NULL) {
+        token_ptr = str_or_null;
+        if (token_ptr == NULL) {
             return NULL;
         }
     }
     
-    save_str_ptr = str_ptr;
+    save_str_ptr = token_ptr;
     
-    while (*str_ptr != '\0') {		
+    while (*token_ptr != '\0') {		
         delims_ptr = delims;
         while (*delims_ptr != '\0') {
-            if (*str_ptr == *delims_ptr) {	
-                *str_ptr = '\0';
-                ++str_ptr;
+            if (*token_ptr == *delims_ptr) {	
+			    while (*token_ptr == *delims_ptr) {
+					*token_ptr = '\0';
+					++token_ptr;
+				}
                 printf("token_ptr : %s\n",save_str_ptr);
                 return (char*)save_str_ptr;
             }
             ++delims_ptr;
         }
-        ++str_ptr;
+        ++token_ptr;
     }
     
     return NULL;
