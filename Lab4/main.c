@@ -37,14 +37,17 @@ int main(void)
     assert(index_of(str, "my") == 3);
     assert(index_of(str, "X") == 0);
     assert(index_of(str, "") == 0);
+	printf("5675675675675");
     assert(index_of(NULL, "X") == -1);
+	printf("21321312321312");
     assert(index_of(str, "X    ") == -1);
     assert(index_of(str, "mui") == 14);
+	printf("aaaaaa");
     assert(index_of(single, "a") == 0);
     assert(index_of(empty, "") == 0);
     assert(index_of("", "a") == -1);
     assert(index_of("    ", "a") == -1);
-
+    printf("dsadasdsasad");
     /* TOKENIZER */
     assert(tokenize(NULL, " !") == NULL);
 
