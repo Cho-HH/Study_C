@@ -114,30 +114,30 @@ char* tokenize(char* str_or_null, const char* delims)
 	
     /*Xa ,my name is mui*/
     while (*s_token_ptr != '\0') {		        
-	    delims_ptr = delims;
-	    while (*delims_ptr != '\0') {
-	        if (*s_token_ptr == *delims_ptr) {
-	            *s_token_ptr = '\0';				
-	            break;
-	        }
-	        ++delims_ptr;
-	    }		
-	    delims_ptr = delims;
-	    if (*s_token_ptr == '\0') {
-	        while (*delims_ptr != '\0') {
-	            if (*(s_token_ptr + 1) == *delims_ptr) {
-	                break;
-	            }
-	            ++delims_ptr;
-	        }			
-	        if (*delims_ptr == '\0') {
-	            ++s_token_ptr;
-	            printf("save_token : %s\n",save_token_ptr);
-	            printf("token_ptr : %c\n",*s_token_ptr);
-	            return (char*)save_token_ptr;
-	        }
-	    }		
-	    ++s_token_ptr;
+        delims_ptr = delims;
+        while (*delims_ptr != '\0') {
+            if (*s_token_ptr == *delims_ptr) {
+                *s_token_ptr = '\0';				
+                break;
+            }
+            ++delims_ptr;
+        }		
+        delims_ptr = delims;
+        if (*s_token_ptr == '\0') {
+            while (*delims_ptr != '\0') {
+                if (*(s_token_ptr + 1) == *delims_ptr) {
+                    break;
+                }
+                ++delims_ptr;
+            }			
+            if (*delims_ptr == '\0') {
+                ++s_token_ptr;
+                printf("save_token : %s\n",save_token_ptr);
+                printf("token_ptr : %c\n",*s_token_ptr);
+                return (char*)save_token_ptr;
+            }
+        }		
+        ++s_token_ptr;
     }
    
 		
