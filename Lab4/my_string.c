@@ -162,7 +162,7 @@ char* tokenize(char* str_or_null, const char* delims)
 
         if (*(s_token_ptr + 1) == '\0') {
             return (char*)s_save_token_ptr;
-        }        
+        }     
         ++s_token_ptr;
     }
 
