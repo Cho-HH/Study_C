@@ -1,60 +1,172 @@
 #include <assert.h>
+#include <stdio.h>
 #include <string.h>
-#include "my_string.h"
 
-#define _CRT_SECURE_NO_WARNINGS
+#include "my_string.h"
 
 int main(void)
 {
-    const char* str = "We all live in a yellow submarine";
-    char str_cpy[34];
-    const char* token;
+    /*
+    1. reverse()
+    */
+    {
+        char empty[] = "";
+        char empty_reverse[] = "";
 
-    strncpy(str_cpy, str, 33);
-    str_cpy[33] = '\0';
+        char one_char[] = "a";
+        char one_char_reverse[] = "a";
 
+        char even_num_chars[] = "able";
+        char even_num_chars_reverse[] = "elba";
 
-    reverse(str_cpy);
-    assert(strcmp("enirambus wolley a ni evil lla eW", str_cpy) == 0);
+        char odd_num_chars[] = "apple";
+        char odd_num_chars_reverse[] = "elppa";
 
-    assert(index_of(str, "all ") == 3);
-    assert(index_of(str, "marine") == 27);
-    assert(index_of(str, "all good") == -1);
-    assert(index_of(str, "marinett") == -1);
+        reverse(empty);
+        assert(strcmp(empty, empty_reverse) == 0);
 
-    reverse(str_cpy);
+        reverse(one_char);
+        assert(strcmp(one_char, one_char_reverse) == 0);
 
-    assert(strcmp(str_cpy, str) == 0);
+        reverse(even_num_chars);
+        assert(strcmp(even_num_chars, even_num_chars_reverse) == 0);
 
-    reverse_by_words(str_cpy);
+        reverse(odd_num_chars);
+        assert(strcmp(odd_num_chars, odd_num_chars_reverse) == 0);
+    }
+    
+    /*
+        2. index_of()
+    */
+    {
+        char str[] = "I am a boy and you are a girl, we like banana";
+        char empty_str[] = "";
+        char empty[] = "";
+        char one_char_word1[] = "a";
+        char one_char_word2[] = "m";
+        char mult_chars_word1[] = "am";
+        char mult_chars_word2[] = "an";
+        char word_not_found1[] = "band";
+        char word_not_found2[] = "z";
+        char word_not_found3[] = "your";
+        int index;
 
-    assert(strcmp("eW lla evil ni a wolley enirambus", str_cpy) == 0);
-    reverse_by_words(str_cpy);
+        index = strstr(str, empty) - str;
+        assert(index_of(str, empty) == index);
 
-    assert(strcmp(str_cpy, str) == 0);
+        assert(index_of(empty_str, empty) == 0);
 
-    assert(tokenize(NULL, " ") == NULL);
+        index = strstr(str, one_char_word1) - str;
+        assert(index_of(str, one_char_word1) == index);
 
-    token = tokenize(str_cpy, " ");
-    assert(token == str_cpy);
-    assert(strcmp(token, "We") == 0);
+        index = strstr(str, one_char_word2) - str;
+        assert(index_of(str, one_char_word2) == index);
 
-    token = tokenize(NULL, " ");
-    assert(token == str_cpy + 3);
-    assert(strcmp(token, "all") == 0);
+        assert(index_of(str, word_not_found1) == -1);
 
-    token = tokenize(NULL, " ");
-    assert(token == str_cpy + 7);
-    assert(strcmp(token, "live") == 0);
+        assert(index_of(str, word_not_found2) == -1);
 
-    token = reverse_tokenize(NULL, " ");
-    assert(token == str_cpy + 12);
-    assert(strcmp(token, "ni") == 0);
+        assert(index_of(str, word_not_found3) == -1);
+    }
 
-    token = reverse_tokenize(NULL, " ");
-    token = reverse_tokenize(NULL, " ");
-    assert(token == str_cpy + 17);
-    assert(strcmp(token, "wolley") == 0);
+    /*
+        3. reverse_by_words()
+    */
+    {
+        char empty[] = "";
+        char empty_reverse[] = "";
 
+        char one_word[] = "a";
+        char one_word_reverse[] = "a";
+
+        char mult_words[] = "I am a boy and you are a girl";
+        char mult_words_reverse[] = "I ma a yob dna uoy era a lrig";
+        
+        reverse_by_words(empty);
+        assert(strcmp(empty, empty_reverse) == 0);
+
+        reverse_by_words(one_word);
+        assert(strcmp(one_word, one_word_reverse) == 0);
+
+        reverse_by_words(mult_words);
+        assert(strcmp(mult_words, mult_words_reverse) == 0);
+    }
+
+    /*
+        4. tokenize()
+    */
+    {
+        const char* one_delim = " ";
+        const char* mult_delim = " ,!";
+        char str_strtok[] = "I am a boy, and you are a girl!";
+        char str_tokenize[] = "I am a boy, and you are a girl!";
+
+        char str_strtok2[] = "!,I    am  a boy,  and    you   are a   girl!";
+        char str_tokenize2[] = "!,I    am  a boy,  and    you   are a   girl!";
+        char* token_strtok = strtok(str_strtok, one_delim);
+        char* token_tokenize = tokenize(str_tokenize, one_delim);
+
+        while (token_strtok != NULL && token_tokenize != NULL) {
+            assert(strcmp(token_strtok, token_tokenize) == 0);
+            token_strtok = strtok(NULL, one_delim);
+            token_tokenize = tokenize(NULL, one_delim);
+        }
+		printf("mmmmmmmmmmmmmmmmmmmmmmmmm\n");
+        token_strtok = strtok(str_strtok2, mult_delim);
+        token_tokenize = tokenize(str_tokenize2, mult_delim);
+
+        while (token_strtok != NULL && token_tokenize != NULL) {
+            assert(strcmp(token_strtok, token_tokenize) == 0);
+			printf("dasdsadas12121\n");
+            token_strtok = strtok(NULL, mult_delim);
+            token_tokenize = tokenize(NULL, mult_delim);
+        }
+    }
+	printf("PASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS\n");
+    /*
+        5. reverse_tokenize()
+    */
+    {
+        const char* one_delim = " ";
+        const char* mult_delim = " ,!";
+        char str_strtok[] = "I am a boy, and you are a girl!";
+        char str_tokenize[] = "I am a boy, and you are a girl!";
+
+        char str_strtok2[] = "!,I    am  a boy,  and    you   are a   girl!";
+        char str_tokenize2[] = "!,I    am  a boy,  and    you   are a   girl!";
+        char* token_strtok = strtok(str_strtok, one_delim);
+        char* token_tokenize = reverse_tokenize(str_tokenize, one_delim);
+        if (token_strtok != NULL) {
+            reverse(token_strtok);
+        }
+
+        while (token_strtok != NULL && token_tokenize != NULL) {
+            puts(token_strtok);
+            puts(token_tokenize);
+            assert(strcmp(token_strtok, token_tokenize) == 0);
+            token_strtok = strtok(NULL, one_delim);
+            if (token_strtok != NULL) {
+                reverse(token_strtok);
+            }
+            token_tokenize = reverse_tokenize(NULL, one_delim);
+        }
+
+        token_strtok = strtok(str_strtok2, mult_delim);
+        reverse(token_strtok);
+        token_tokenize = reverse_tokenize(str_tokenize2, mult_delim);
+
+        while (token_strtok != NULL && token_tokenize != NULL) {
+            puts(token_strtok);
+            puts(token_tokenize);
+            assert(strcmp(token_strtok, token_tokenize) == 0);
+            token_strtok = strtok(NULL, mult_delim);
+            if (token_strtok != NULL) {
+                reverse(token_strtok);
+            }
+            token_tokenize = reverse_tokenize(NULL, mult_delim);
+        }
+    }
+    puts("End");
     return 0;
 }
+

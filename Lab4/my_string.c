@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include "my_string.h"
-
-static char* s_token_ptr = NULL;
 	
 static size_t get_string_length(const char* const str)
 {
@@ -97,7 +95,8 @@ void reverse_by_words(char* str)
 
 char* tokenize(char* str_or_null, const char* delims)
 {
-    const char* save_token_ptr = NULL;
+	static char* s_token_ptr = NULL;
+    static const char* s_save_token_ptr = NULL;
     const char* delims_ptr = delims;
     
     if (s_token_ptr == NULL) {
@@ -108,10 +107,30 @@ char* tokenize(char* str_or_null, const char* delims)
     }
     if (s_token_ptr != NULL && str_or_null != NULL) {
         s_token_ptr = str_or_null;
+		s_save_token_ptr = NULL;
     }
 	
-    save_token_ptr = s_token_ptr;
+	if (s_save_token_ptr != NULL) {
+		s_save_token_ptr = s_token_ptr;
+	} else {
+		while (*s_token_ptr != '\0') {
+			while (*delims_ptr != '\0') {
+				if (*s_token_ptr == *delims_ptr) {
+					++s_token_ptr;
+					break;
+				}
+				++delims_ptr;
+			}
+			if (*delims_ptr == '\0') {
+				s_save_token_ptr = s_token_ptr;
+				break;
+				printf("s_save_token : %c\n",*s_save_token_ptr);
+			}
+			++s_token_ptr;
+		}
+	}
 	
+	/*"!,I    am  a boy,  and    you   are a   girl!";*/
     /*Xa ,my name is mui*/
     while (*s_token_ptr != '\0') {		        
         delims_ptr = delims;
@@ -120,9 +139,10 @@ char* tokenize(char* str_or_null, const char* delims)
                 *s_token_ptr = '\0';				
                 break;
             }
-            ++delims_ptr;
+            ++delims_ptr;			
         }		
         delims_ptr = delims;
+        /*지금 가리키는 것이 \0이고, 다음이 delims에 걸리지 않는지 확인*/
         if (*s_token_ptr == '\0') {
             while (*delims_ptr != '\0') {
                 if (*(s_token_ptr + 1) == *delims_ptr) {
@@ -131,16 +151,16 @@ char* tokenize(char* str_or_null, const char* delims)
                 ++delims_ptr;
             }			
             if (*delims_ptr == '\0') {
-                ++s_token_ptr;
-                printf("save_token : %s\n",save_token_ptr);
-                printf("token_ptr : %c\n",*s_token_ptr);
-                return (char*)save_token_ptr;
+                ++s_token_ptr;				
+                printf("save_token : %s\n",s_save_token_ptr);
+                printf("token_ptr : %c\n\n",*s_token_ptr);
+                return (char*)s_save_token_ptr;
             }
         }		
         ++s_token_ptr;
     }
    
-		
+	printf("return NULL!!!!!!\n");
     return NULL;
 }
 
@@ -152,6 +172,10 @@ char* reverse_tokenize(char* str_or_null, const char* delims)
     char temp = 0;
     char* token_last_ptr = token_first_ptr + token_length - 1;
     
+	if (token_first_ptr == NULL) {
+		return NULL;
+	}
+	
     while (token_first_ptr < token_last_ptr) {
         temp = *token_first_ptr;
         *token_first_ptr = *token_last_ptr;
