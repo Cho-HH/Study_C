@@ -95,7 +95,7 @@ void reverse_by_words(char* str)
 
 char* tokenize(char* str_or_null, const char* delims)
 {
-	static char* s_token_ptr = NULL;
+    static char* s_token_ptr = NULL;
     static const char* s_save_token_ptr = NULL;
     const char* delims_ptr = delims;
     
@@ -107,31 +107,29 @@ char* tokenize(char* str_or_null, const char* delims)
     }
     if (s_token_ptr != NULL && str_or_null != NULL) {
         s_token_ptr = str_or_null;
-		s_save_token_ptr = NULL;
+        s_save_token_ptr = NULL;
     }
 	
-	if (s_save_token_ptr != NULL) {
-		s_save_token_ptr = s_token_ptr;
-	} else {
-		while (*s_token_ptr != '\0') {
-			while (*delims_ptr != '\0') {
-				if (*s_token_ptr == *delims_ptr) {
-					++s_token_ptr;
-					break;
-				}
-				++delims_ptr;
-			}
-			if (*delims_ptr == '\0') {
-				s_save_token_ptr = s_token_ptr;
-				break;
-				printf("s_save_token : %c\n",*s_save_token_ptr);
-			}
-			++s_token_ptr;
-		}
-	}
+    if (s_save_token_ptr != NULL) {
+        s_save_token_ptr = s_token_ptr;
+    } else {
+        while (*s_token_ptr != '\0') {
+            while (*delims_ptr != '\0') {
+                if (*s_token_ptr == *delims_ptr) {
+                    ++s_token_ptr;
+                    break;
+                }
+                ++delims_ptr;
+            }
+            if (*delims_ptr == '\0') {
+                s_save_token_ptr = s_token_ptr;
+                printf("s_save_token : %c\n",*s_save_token_ptr);
+                break;
+            }
+            ++s_token_ptr;
+        }
+    }
 	
-	/*"!,I    am  a boy,  and    you   are a   girl!";*/
-    /*Xa ,my name is mui*/
     while (*s_token_ptr != '\0') {		        
         delims_ptr = delims;
         while (*delims_ptr != '\0') {
@@ -152,15 +150,14 @@ char* tokenize(char* str_or_null, const char* delims)
             }			
             if (*delims_ptr == '\0') {
                 ++s_token_ptr;				
-                printf("save_token : %s\n",s_save_token_ptr);
-                printf("token_ptr : %c\n\n",*s_token_ptr);
+                printf("save_token : %s\n", s_save_token_ptr);
+                printf("token_ptr : %c\n\n", *s_token_ptr);
                 return (char*)s_save_token_ptr;
             }
         }		
         ++s_token_ptr;
     }
    
-	printf("return NULL!!!!!!\n");
     return NULL;
 }
 
