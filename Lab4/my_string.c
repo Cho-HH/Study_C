@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "my_string.h"
 
-static char* token_ptr = NULL;
+static char* s_token_ptr = NULL;
 	
 static size_t get_string_length(const char* const str)
 {
@@ -31,7 +31,7 @@ void reverse(char* str)
         --str_ptr;
     }		
     
-    printf("%s\n",str);
+    printf("%s\n", str);
 }
 
 int index_of(const char* str, const char* word)
@@ -39,28 +39,28 @@ int index_of(const char* str, const char* word)
     const char* str_ptr = str;
     const char* check_str_ptr = str_ptr;
     const char* word_ptr = word;
-	const char* save_str_ptr = str_ptr;
+    const char* save_str_ptr = str_ptr;
 	
-	if (*word == '\0') {
-		return 0;
-	}
+    if (*word == '\0') {
+        return 0;
+    }
 	
-	while (*str_ptr != '\0') {
-		if (*str_ptr == *word_ptr) {
-			check_str_ptr = str_ptr;
-			save_str_ptr = str_ptr;
-			while (*check_str_ptr == *word_ptr) {
-				++word_ptr;
-				++check_str_ptr;
-				if (*word_ptr == '\0') {
-					printf("index : %d\n",save_str_ptr - str);
-					return save_str_ptr - str;
-				}
-			}
-		}
-		word_ptr = word;
-		++str_ptr;
-	}
+    while (*str_ptr != '\0') {
+        if (*str_ptr == *word_ptr) {
+            check_str_ptr = str_ptr;
+            save_str_ptr = str_ptr;
+            while (*check_str_ptr == *word_ptr) {
+                ++word_ptr;
+                ++check_str_ptr;
+                if (*word_ptr == '\0') {
+                    printf("index : %d\n",save_str_ptr - str);
+                    return save_str_ptr - str;
+                }
+            }
+        }
+        word_ptr = word;
+        ++str_ptr;
+    }
 	
     printf("index : -1\n");
     return -1;	
@@ -73,56 +73,56 @@ void reverse_by_words(char* str)
     char* word_last_ptr = NULL;
     const char* check_ptr = (const char*)str;
     
-	while (*check_ptr != '\0') {
-	    word_first_ptr = (char*)check_ptr;
-	    while (*check_ptr != ' ' && *check_ptr != '\0') {
-	        word_last_ptr = (char*)check_ptr;
-	        ++check_ptr;
-	    }
+    while (*check_ptr != '\0') {
+        word_first_ptr = (char*)check_ptr;
+        while (*check_ptr != ' ' && *check_ptr != '\0') {
+            word_last_ptr = (char*)check_ptr;
+            ++check_ptr;
+        }
 	
-	    while (word_first_ptr < word_last_ptr) {
-	        temp = *word_first_ptr;
-	        *word_first_ptr = *word_last_ptr;
-	        *word_last_ptr = temp;
-	        ++word_first_ptr;
-	        --word_last_ptr;
-	    }
-	    if (*check_ptr == ' ') {
-	        ++check_ptr;
-	    }
+        while (word_first_ptr < word_last_ptr) {
+            temp = *word_first_ptr;
+            *word_first_ptr = *word_last_ptr;
+            *word_last_ptr = temp;
+            ++word_first_ptr;
+            --word_last_ptr;
+        }
+        if (*check_ptr == ' ') {
+            ++check_ptr;
+        }
     }
     	
-    printf("%s\n",str);
+    printf("%s\n", str);
 }
 
 char* tokenize(char* str_or_null, const char* delims)
 {
-    const char* save_str_ptr = NULL;
+    const char* save_token_ptr = NULL;
     const char* delims_ptr = delims;
     
-    if (token_ptr == NULL) {
-        token_ptr = str_or_null;
-        if (token_ptr == NULL) {
+    if (s_token_ptr == NULL) {
+        s_token_ptr = str_or_null;
+        if (s_token_ptr == NULL) {
             return NULL;
         }
     }
-    
-    save_str_ptr = token_ptr;
-    
-    while (*token_ptr != '\0') {		
-        delims_ptr = delims;
+    if (s_token_ptr != NULL && str_or_null != NULL) {
+		s_token_ptr = str_or_null;
+	}
+	
+    save_token_ptr = s_token_ptr;
+	/*X  my name is mui*/
+    while (*s_token_ptr != '\0') {		        
+		delims_ptr = delims;
         while (*delims_ptr != '\0') {
-            if (*token_ptr == *delims_ptr) {	
-			    while (*token_ptr == *delims_ptr) {
-					*token_ptr = '\0';
-					++token_ptr;
-				}
-                printf("token_ptr : %s\n",save_str_ptr);
-                return (char*)save_str_ptr;
+            if (*s_token_ptr == *delims_ptr) {	
+			    *s_token_ptr = '\0';	
+				++s_token_ptr;
+				return (char*) save_token_ptr;
             }
             ++delims_ptr;
         }
-        ++token_ptr;
+        ++s_token_ptr;
     }
     
     return NULL;
