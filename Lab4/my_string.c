@@ -1,16 +1,20 @@
 #include <stdio.h>
 #include "my_string.h"
-	
+
 static size_t get_string_length(const char* const str)
 {
     size_t str_length = 0u;
     const char* str_ptr = (const char*)str;
-	
+
+    if (str == NULL) {
+        return -1;
+    }
+
     while (*str_ptr != '\0') {
         ++str_ptr;
         ++str_length;
     }
-	
+
     return str_length;
 }
 
@@ -27,8 +31,8 @@ void reverse(char* str)
         *first_ptr = temp;
         ++first_ptr;
         --str_ptr;
-    }		
-    
+    }
+
     printf("%s\n", str);
 }
 
@@ -38,11 +42,11 @@ int index_of(const char* str, const char* word)
     const char* check_str_ptr = str_ptr;
     const char* word_ptr = word;
     const char* save_str_ptr = str_ptr;
-	
+
     if (*word == '\0') {
         return 0;
     }
-	
+
     while (*str_ptr != '\0') {
         if (*str_ptr == *word_ptr) {
             check_str_ptr = str_ptr;
@@ -59,9 +63,9 @@ int index_of(const char* str, const char* word)
         word_ptr = word;
         ++str_ptr;
     }
-	
+
     printf("index : -1\n");
-    return -1;	
+    return -1;
 }
 
 void reverse_by_words(char* str)
@@ -70,14 +74,14 @@ void reverse_by_words(char* str)
     char* word_first_ptr = NULL;
     char* word_last_ptr = NULL;
     const char* check_ptr = (const char*)str;
-    
+
     while (*check_ptr != '\0') {
         word_first_ptr = (char*)check_ptr;
         while (*check_ptr != ' ' && *check_ptr != '\0') {
             word_last_ptr = (char*)check_ptr;
             ++check_ptr;
         }
-	
+
         while (word_first_ptr < word_last_ptr) {
             temp = *word_first_ptr;
             *word_first_ptr = *word_last_ptr;
@@ -89,7 +93,7 @@ void reverse_by_words(char* str)
             ++check_ptr;
         }
     }
-    	
+
     printf("%s\n", str);
 }
 
@@ -98,7 +102,7 @@ char* tokenize(char* str_or_null, const char* delims)
     static char* s_token_ptr = NULL;
     static const char* s_save_token_ptr = NULL;
     const char* delims_ptr = delims;
-    
+
     if (s_token_ptr == NULL) {
         s_token_ptr = str_or_null;
         if (s_token_ptr == NULL) {
@@ -109,10 +113,11 @@ char* tokenize(char* str_or_null, const char* delims)
         s_token_ptr = str_or_null;
         s_save_token_ptr = NULL;
     }
-	
+
     if (s_save_token_ptr != NULL) {
         s_save_token_ptr = s_token_ptr;
-    } else {
+    }
+    else {
         while (*s_token_ptr != '\0') {
             while (*delims_ptr != '\0') {
                 if (*s_token_ptr == *delims_ptr) {
@@ -123,22 +128,22 @@ char* tokenize(char* str_or_null, const char* delims)
             }
             if (*delims_ptr == '\0') {
                 s_save_token_ptr = s_token_ptr;
-                printf("s_save_token : %c\n",*s_save_token_ptr);
+                printf("s_save_token : %c\n", *s_save_token_ptr);
                 break;
             }
             ++s_token_ptr;
         }
     }
-	
-    while (*s_token_ptr != '\0') {		        
+
+    while (*s_token_ptr != '\0') {
         delims_ptr = delims;
         while (*delims_ptr != '\0') {
             if (*s_token_ptr == *delims_ptr) {
-                *s_token_ptr = '\0';				
+                *s_token_ptr = '\0';
                 break;
             }
-            ++delims_ptr;			
-        }		
+            ++delims_ptr;
+        }
         delims_ptr = delims;
         /*지금 가리키는 것이 \0이고, 다음이 delims에 걸리지 않는지 확인*/
         if (*s_token_ptr == '\0') {
@@ -147,32 +152,32 @@ char* tokenize(char* str_or_null, const char* delims)
                     break;
                 }
                 ++delims_ptr;
-            }			
-            if (*delims_ptr == '\0') {
-                ++s_token_ptr;				
+            }
+            if (*delims_ptr == '\0' || *(s_token_ptr + 1) == '\0') {
+                ++s_token_ptr;
                 printf("save_token : %s\n", s_save_token_ptr);
                 printf("token_ptr : %c\n\n", *s_token_ptr);
                 return (char*)s_save_token_ptr;
             }
-        }		
+        }
         ++s_token_ptr;
     }
-   
+
     return NULL;
 }
 
 char* reverse_tokenize(char* str_or_null, const char* delims)
-{	
+{
     char* token_first_ptr = tokenize(str_or_null, delims);
     const char* const save_token_first_ptr = (const char* const)token_first_ptr;
     size_t token_length = get_string_length(token_first_ptr);
     char temp = 0;
     char* token_last_ptr = token_first_ptr + token_length - 1;
-    
-	if (token_first_ptr == NULL) {
-		return NULL;
-	}
-	
+
+    if (token_first_ptr == NULL) {
+        return NULL;
+    }
+
     while (token_first_ptr < token_last_ptr) {
         temp = *token_first_ptr;
         *token_first_ptr = *token_last_ptr;
@@ -180,7 +185,7 @@ char* reverse_tokenize(char* str_or_null, const char* delims)
         ++token_first_ptr;
         --token_last_ptr;
     }
-    
-    printf("reverse token : %s\n",save_token_first_ptr);
+
+    printf("reverse token : %s\n", save_token_first_ptr);
     return (char*)save_token_first_ptr;
 }
