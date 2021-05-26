@@ -116,8 +116,7 @@ char* tokenize(char* str_or_null, const char* delims)
 
     if (s_save_token_ptr != NULL) {
         s_save_token_ptr = s_token_ptr;
-    }
-    else {
+    } else {
         while (*s_token_ptr != '\0') {
             while (*delims_ptr != '\0') {
                 if (*s_token_ptr == *delims_ptr) {
@@ -153,13 +152,17 @@ char* tokenize(char* str_or_null, const char* delims)
                 }
                 ++delims_ptr;
             }
-            if (*delims_ptr == '\0' || *(s_token_ptr + 1) == '\0') {
+            if (*delims_ptr == '\0') {
                 ++s_token_ptr;
                 printf("save_token : %s\n", s_save_token_ptr);
                 printf("token_ptr : %c\n\n", *s_token_ptr);
                 return (char*)s_save_token_ptr;
             }
         }
+
+        if (*(s_token_ptr + 1) == '\0') {
+            return (char*)s_save_token_ptr;
+        }        
         ++s_token_ptr;
     }
 
