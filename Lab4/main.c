@@ -64,6 +64,7 @@ int main(void)
     assert(token == str + 11);
     assert(strcmp(token, "is") == 0);
 
+	printf("zzzzzzzzzzzzzz\n");
     token = reverse_tokenize(NULL, " ");
     assert(token == str + 14);
     assert(strcmp(token, "ium") == 0);
