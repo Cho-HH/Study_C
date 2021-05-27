@@ -121,14 +121,13 @@ char* tokenize(char* str_or_null, const char* delims)
             delims_ptr = delims;
             while (*delims_ptr != '\0') {
                 if (*s_token_ptr == *delims_ptr) {
-                    /*++s_token_ptr;*/
                     break;
                 }
                 ++delims_ptr;
             }
             if (*delims_ptr == '\0') {
                 s_save_token_ptr = s_token_ptr;
-				++s_token_ptr;
+                ++s_token_ptr;
                 printf("s_save_token : %c\n", *s_save_token_ptr);
                 break;
             }
@@ -138,6 +137,7 @@ char* tokenize(char* str_or_null, const char* delims)
 
     while (*s_token_ptr != '\0') {
         delims_ptr = delims;
+        /*지금 가리키는 것이 delim에 걸리면 NULL로 바꿔줌*/
         while (*delims_ptr != '\0') {
             if (*s_token_ptr == *delims_ptr) {
                 *s_token_ptr = '\0';
@@ -146,7 +146,7 @@ char* tokenize(char* str_or_null, const char* delims)
             ++delims_ptr;
         }
         delims_ptr = delims;
-        /*지금 가리키는 것이 \0이고, 다음이 delims에 걸리지 않는지 확인*/
+        /*지금 가리키는 것이 \0이고, 다음이 delims에 걸리지 않는지 확인,그러면 토큰화됨*/
         if (*s_token_ptr == '\0') {
             while (*delims_ptr != '\0') {
                 if (*(s_token_ptr + 1) == *delims_ptr) {
