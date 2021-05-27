@@ -116,17 +116,19 @@ char* tokenize(char* str_or_null, const char* delims)
 
     if (s_save_token_ptr != NULL) {
         s_save_token_ptr = s_token_ptr;
-    } else {
+    } else { /*"?Hello" 처럼 delim으로 문장이 시작할 경우, H에 포인터를 잡아주는 작업*/
         while (*s_token_ptr != '\0') {
+            delims_ptr = delims;
             while (*delims_ptr != '\0') {
                 if (*s_token_ptr == *delims_ptr) {
-                    ++s_token_ptr;
+                    /*++s_token_ptr;*/
                     break;
                 }
                 ++delims_ptr;
             }
             if (*delims_ptr == '\0') {
                 s_save_token_ptr = s_token_ptr;
+				++s_token_ptr;
                 printf("s_save_token : %c\n", *s_save_token_ptr);
                 break;
             }
@@ -159,7 +161,7 @@ char* tokenize(char* str_or_null, const char* delims)
                 return (char*)s_save_token_ptr;
             }
         }
-
+        /*문장의 제일 마지막 토큰 반환*/
         if (*(s_token_ptr + 1) == '\0') {
             return (char*)s_save_token_ptr;
         }     
