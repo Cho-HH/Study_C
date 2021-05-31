@@ -94,7 +94,7 @@ int print_receipt(const char* filename, time_t timestamp)
     fprintf(file, "%s\n", s_write_message);
     
     fprintf(file, "==================================================\n");
-    fprintf(file, "%50s\n", "Tax#-51234");
+    fprintf(file, "%50s", "Tax#-51234");
     
     if(fclose(file) == EOF) {
         perror("error while closing file");
