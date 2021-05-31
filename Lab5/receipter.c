@@ -94,13 +94,16 @@ int print_receipt(const char* filename, time_t timestamp)
     
     /*Messasge*/
     if (s_write_message[0] != '\0') {
-        fprintf(file, "%s\n", s_write_message);
-    }
-    /* if (message_len > MAX_WIDTH) {
-		
-	} else {
-		fprintf(file, "%s\n", s_write_message);
-	} */
+        if (message_len > MAX_WIDTH) {
+            for (i = message_len; i >= MAX_WIDTH; i--) {
+                s_write_message[i] = s_write_message[i - 1];
+            }
+            s_write_message[MAX_WIDTH] = '\n';
+            fprintf(file, "%s\n", s_write_message);
+        } else {
+            fprintf(file, "%s\n", s_write_message);
+        }
+       }
     
     fprintf(file, "==================================================\n");
     fprintf(file, "%50s", "Tax#-51234");

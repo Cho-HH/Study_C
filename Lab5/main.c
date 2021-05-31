@@ -22,7 +22,7 @@ int main(void)
 
     set_tip(20.55);
 
-    set_message("Thanks for dining with us!"); 
+    set_message("Thanks for dining with us!132138743aaaaaaaaaaaaaaaa"); 
 
     assert(TRUE == print_receipt("receipt0.txt", time));
 
