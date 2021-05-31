@@ -64,7 +64,7 @@ int print_receipt(const char* filename, time_t timestamp)
     
     fprintf(file, "Charles' Seafood\n");
     fprintf(file, "--------------------------------------------------\n");
-    fprintf(file, "%d-%02d-%d %d:%d:%d                          %05d\n", t->tm_year + 1900, t->tm_mon + 1, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec, s_receipter_number);
+    fprintf(file, "%d-%02d-%d %d:%02d:%02d                          %05d\n", t->tm_year + 1900, t->tm_mon + 1, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec, s_receipter_number);
     fprintf(file, "--------------------------------------------------\n");
     
     /*Food List*/
@@ -93,7 +93,9 @@ int print_receipt(const char* filename, time_t timestamp)
     fprintf(file, "%17.2f\n\n", s_subtotal + s_tip_price + (s_subtotal * 0.05));
     
     /*Messasge*/
-	fprintf(file, "%s\n", s_write_message);
+    if (s_write_message[0] != '\0') {
+        fprintf(file, "%s\n", s_write_message);
+    }
     /* if (message_len > MAX_WIDTH) {
 		
 	} else {
