@@ -39,7 +39,7 @@ void set_tip(double tip)
 
 void set_message(const char* message)
 {
-   /*최대 75글자, 76번째에 널문자를 넣어줌*/
+    /*최대 75글자, 76번째에 널문자를 넣어줌*/
     strncpy(s_write_message, message, MAX_MESSAGE);
     s_write_message[MAX_MESSAGE - 1] = '\0';
 }
@@ -50,7 +50,7 @@ int print_receipt(const char* filename, time_t timestamp)
     struct tm* t = localtime(&timestamp);
     size_t i = 0u;
     static size_t s_receipter_number = 0u;
-	size_t message_len = strlen(s_write_message);
+    size_t message_len = strlen(s_write_message);
     
     if (s_item_count == 0) {
         return FALSE;
