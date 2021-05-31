@@ -4,8 +4,8 @@
 #include "receipter.h"
 
 #define MAX_WIDTH (50)
-/*마지막 널문자가 들어갈 자리 포함*/
-#define MAX_MESSAGE (76)
+/*끝자리에 널문자를 넣어주기 위함, 77은 중간에 \n을 삽입하기위해 뒤로 한칸 미룰 공간*/
+#define MAX_MESSAGE (77)
 #define MAX_FOOD_NAME (26) 
 
 static size_t s_item_count = 0u;
@@ -41,7 +41,7 @@ void set_message(const char* message)
 {
     /*최대 75글자, 76번째에 널문자를 넣어줌*/
     strncpy(s_write_message, message, MAX_MESSAGE);
-    s_write_message[MAX_MESSAGE - 1] = '\0';
+    s_write_message[MAX_MESSAGE - 2] = '\0';
 }
 
 int print_receipt(const char* filename, time_t timestamp)
@@ -95,7 +95,7 @@ int print_receipt(const char* filename, time_t timestamp)
     /*Messasge*/
     if (s_write_message[0] != '\0') {
         if (message_len > MAX_WIDTH) {
-            for (i = message_len; i >= MAX_WIDTH; i--) {
+            for (i = message_len + 1; i > MAX_WIDTH; i--) {
                 s_write_message[i] = s_write_message[i - 1];
             }
             s_write_message[MAX_WIDTH] = '\n';
@@ -103,7 +103,7 @@ int print_receipt(const char* filename, time_t timestamp)
         } else {
             fprintf(file, "%s\n", s_write_message);
         }
-       }
+    }
     
     fprintf(file, "==================================================\n");
     fprintf(file, "%50s", "Tax#-51234");
