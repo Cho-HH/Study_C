@@ -6,10 +6,10 @@
 #define MAX_WIDTH (50)
 /*마지막 널문자가 들어갈 자리 포함*/
 #define MAX_MESSAGE (76)
-#define MAX_food_name (26) 
+#define MAX_FOOD_NAME (26) 
 
 static size_t s_item_count = 0u;
-static char s_food_name[10][MAX_food_name] = { 0, };
+static char s_food_name[10][MAX_FOOD_NAME] = { 0, };
 static double s_food_price[10] = { 0, };
 static double s_subtotal = 0.0;
 
@@ -23,8 +23,8 @@ int add_item(const char* name, double price)
         return FALSE;
     }
     
-    strncpy(s_food_name[s_item_count], name, MAX_food_name);
-    s_food_name[s_item_count][MAX_food_name - 1] = '\0';
+    strncpy(s_food_name[s_item_count], name, MAX_FOOD_NAME);
+    s_food_name[s_item_count][MAX_FOOD_NAME - 1] = '\0';
     s_food_price[s_item_count] = price;
     
     s_subtotal += price;
@@ -48,7 +48,7 @@ int print_receipt(const char* filename, time_t timestamp)
     FILE* file;
     struct tm* t = localtime(&timestamp);
     size_t i = 0u;
-    static size_t receipter_number = 0u;
+    static size_t s_receipter_number = 0u;
     
     if (s_item_count == 0) {
         return FALSE;
@@ -96,12 +96,12 @@ int print_receipt(const char* filename, time_t timestamp)
     fprintf(file, "==================================================\n");
     fprintf(file, "%50s", "Tax#-51234");
     
-    if(fclose(file) == EOF) {
+    if (fclose(file) == EOF) {
         perror("error while closing file");
     }
     
-    receipter_number++;
-	memset(s_write_message, 0, MAX_MESSAGE);
+    s_receipter_number++;
+    memset(s_write_message, 0, MAX_MESSAGE);
     s_subtotal = 0.0;
     s_item_count = 0u;
     s_tip_price = 0.0;
