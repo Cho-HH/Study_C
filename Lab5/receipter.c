@@ -62,7 +62,7 @@ int print_receipt(const char* filename, time_t timestamp)
     
     fprintf(file, "Charles' Seafood\n");
     fprintf(file, "--------------------------------------------------\n");
-    fprintf(file, "%d-%d-%d %d:%d:%d                           %05d\n", t->tm_year + 1900, t->tm_mon + 1, t->tm_hour, t->tm_hour, t->tm_min, t->tm_sec, receipter_number);
+    fprintf(file, "%d-%d-%d %d:%d:%d                           %05d\n", t->tm_year + 1900, t->tm_mon + 1, t->tm_hour, t->tm_hour, t->tm_min, t->tm_sec, s_receipter_number);
     fprintf(file, "--------------------------------------------------\n");
     
     /*Food List*/
