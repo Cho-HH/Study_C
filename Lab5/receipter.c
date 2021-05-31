@@ -39,6 +39,7 @@ void set_tip(double tip)
 
 void set_message(const char* message)
 {
+   /*최대 75글자, 76번째에 널문자를 넣어줌*/
     strncpy(s_write_message, message, MAX_MESSAGE);
     s_write_message[MAX_MESSAGE - 1] = '\0';
 }
@@ -49,6 +50,7 @@ int print_receipt(const char* filename, time_t timestamp)
     struct tm* t = localtime(&timestamp);
     size_t i = 0u;
     static size_t s_receipter_number = 0u;
+	size_t message_len = strlen(s_write_message);
     
     if (s_item_count == 0) {
         return FALSE;
@@ -62,7 +64,7 @@ int print_receipt(const char* filename, time_t timestamp)
     
     fprintf(file, "Charles' Seafood\n");
     fprintf(file, "--------------------------------------------------\n");
-    fprintf(file, "%d-%d-%d %d:%d:%d                           %05d\n", t->tm_year + 1900, t->tm_mon + 1, t->tm_hour, t->tm_hour, t->tm_min, t->tm_sec, s_receipter_number);
+    fprintf(file, "%d-%02d-%d %d:%d:%d                          %05d\n", t->tm_year + 1900, t->tm_mon + 1, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec, s_receipter_number);
     fprintf(file, "--------------------------------------------------\n");
     
     /*Food List*/
@@ -91,7 +93,12 @@ int print_receipt(const char* filename, time_t timestamp)
     fprintf(file, "%17.2f\n\n", s_subtotal + s_tip_price + (s_subtotal * 0.05));
     
     /*Messasge*/
-    fprintf(file, "%s\n", s_write_message);
+	fprintf(file, "%s\n", s_write_message);
+    /* if (message_len > MAX_WIDTH) {
+		
+	} else {
+		fprintf(file, "%s\n", s_write_message);
+	} */
     
     fprintf(file, "==================================================\n");
     fprintf(file, "%50s", "Tax#-51234");
