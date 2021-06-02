@@ -62,7 +62,6 @@ int translate(int argc, const char** argv)
     char str[MAX_BUFFER] = { 0, };
     char argv1_buffer[MAX_BUFFER] = { 0, };
     char argv2_buffer[MAX_BUFFER] = { 0, };
-    char* check_str = NULL;
     int argv1_len = 0;
     int argv2_len = 0;
     int i = 0;
@@ -96,8 +95,8 @@ int translate(int argc, const char** argv)
         }
         argv2_len = strlen(argv2_buffer);
         
-        printf("first argv1_len : %d\n", argv1_len);
-        printf("first argv2_len : %d\n", argv2_len);
+        /*printf("first argv1_len : %d\n", argv1_len);
+        printf("first argv2_len : %d\n", argv2_len);*/
         
         if (argv1_len > argv2_len) {
             for (i = argv2_len; i < argv1_len; i++) {
@@ -115,19 +114,21 @@ int translate(int argc, const char** argv)
             }
         }
         
-        printf("argv1 : %s, argv1_len : %d\n", argv1_buffer, strlen(argv1_buffer));
-        printf("argv2 : %s, argv2_len : %d\n",argv2_buffer, strlen(argv2_buffer));
-        
-        if (fgets(str, MAX_BUFFER, stdin) != NULL) {
-            for (check_str = str; *check_str != '\0'; check_str++) {
-                for (i = 0; *(argv1_buffer + i) != '\0'; i++) { /*argv[1][i]*/				
-                    if (*check_str == *(argv1_buffer + i)) {
-                        *check_str = *(argv2_buffer + i);
-                        break;
-                    }
+        /*printf("argv1 : %s, argv1_len : %d\n", argv1_buffer, strlen(argv1_buffer));
+        printf("argv2 : %s, argv2_len : %d\n",argv2_buffer, strlen(argv2_buffer));*/
+        while (1) {
+            j = getchar();
+            if (j == EOF) {
+                break;
+            }
+            for (i = 0; *(argv1_buffer + i) != '\0'; i++) { /*argv[1][i]*/				
+                if (j == *(argv1_buffer + i)) {
+                    j = *(argv2_buffer + i);
+                    break;
                 }
-            }			
-        }     	  
+            }
+            putchar(j);
+        }
     } else if (argc == 4) {		
         if (argv[1][0] == '-' && argv[1][1] == 'i' && argv[1][2] == '\0') {
             if (strlen(argv[2]) > MAX_BUFFER || strlen(argv[3]) > MAX_BUFFER) {
@@ -154,8 +155,8 @@ int translate(int argc, const char** argv)
             }
             argv2_len = strlen(argv2_buffer);
             
-            printf("first argv1_len : %d\n", argv1_len);
-            printf("first argv2_len : %d\n", argv2_len);
+            /*printf("first argv1_len : %d\n", argv1_len);
+            printf("first argv2_len : %d\n", argv2_len);*/
             
             if (argv1_len > argv2_len) {
                 for (i = argv2_len; i < argv1_len; i++) {
@@ -173,19 +174,22 @@ int translate(int argc, const char** argv)
                 }
             }
             
-            printf("argv1 : %s, argv1_len : %d\n", argv1_buffer, strlen(argv1_buffer));
-            printf("argv2 : %s, argv2_len : %d\n",argv2_buffer, strlen(argv2_buffer));
+            /*printf("argv1 : %s, argv1_len : %d\n", argv1_buffer, strlen(argv1_buffer));
+            printf("argv2 : %s, argv2_len : %d\n",argv2_buffer, strlen(argv2_buffer));*/
             
-            if (fgets(str, MAX_BUFFER, stdin) != NULL) {
-                for (check_str = str; *check_str != '\0'; check_str++) {
-                    for (i = 0; *(argv1_buffer + i) != '\0'; i++) { /*argv[1][i]*/				
-                        if (*check_str == *(argv1_buffer + i)  || *check_str == (*(argv1_buffer + i) ^ 0x20)) {
-                            *check_str = *(argv2_buffer + i);
-                            break;
-                        }
+            while (1) {
+                j = getchar();
+                if (j == EOF) {
+                    break;
+                }
+                for (i = 0; *(argv1_buffer + i) != '\0'; i++) { /*argv[1][i]*/				
+                    if (j == *(argv1_buffer + i)) {
+                        j = *(argv2_buffer + i);
+                        break;
                     }
-                }			
-            } 
+                }
+                putchar(j);
+            }
         } else {
             printf("ERROR_CODE_INVALID_FLAG");
             return ERROR_CODE_INVALID_FLAG;
@@ -195,6 +199,6 @@ int translate(int argc, const char** argv)
         return ERROR_CODE_WRONG_ARGUMENTS_NUMBER;
     }
     
-    printf("%s", str);
+    printf("%s\n", str);
     return 0;
 }
