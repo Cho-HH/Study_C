@@ -188,7 +188,7 @@ int translate(int argc, const char** argv)
             } 
         } else {
             printf("ERROR_CODE_INVALID_FLAG");
-            return ERROR_CODE_INVALID_FLAG;z
+            return ERROR_CODE_INVALID_FLAG;
         }
     } else {
         printf("ERROR_CODE_WRONG_ARGUMENTS_NUMBER");
