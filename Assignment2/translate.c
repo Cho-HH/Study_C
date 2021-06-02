@@ -115,7 +115,7 @@ int translate(int argc, const char** argv)
         }
         
         /*printf("argv1 : %s, argv1_len : %d\n", argv1_buffer, strlen(argv1_buffer));
-        printf("argv2 : %s, argv2_len : %d\n",argv2_buffer, strlen(argv2_buffer));*/
+        printf("argv2 : %s, argv2_len : %d\n", argv2_buffer, strlen(argv2_buffer));*/
         while (1) {
             j = getchar();
             if (j == EOF) {
@@ -175,7 +175,7 @@ int translate(int argc, const char** argv)
             }
             
             /*printf("argv1 : %s, argv1_len : %d\n", argv1_buffer, strlen(argv1_buffer));
-            printf("argv2 : %s, argv2_len : %d\n",argv2_buffer, strlen(argv2_buffer));*/
+            printf("argv2 : %s, argv2_len : %d\n", argv2_buffer, strlen(argv2_buffer));*/
             
             while (1) {
                 j = getchar();
@@ -183,7 +183,7 @@ int translate(int argc, const char** argv)
                     break;
                 }
                 for (i = 0; *(argv1_buffer + i) != '\0'; i++) { /*argv[1][i]*/				
-                    if (j == *(argv1_buffer + i)) {
+                    if (j == *(argv1_buffer + i) || j == (*(argv1_buffer + i) ^ 0x20)) {
                         j = *(argv2_buffer + i);
                         break;
                     }
