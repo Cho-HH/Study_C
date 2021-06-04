@@ -117,6 +117,7 @@ int range(char str[], int str_length)
         check_first_range++;
         check_range_mark++;
         check_last_range++;
+		/*check_non_use_range_mark++;*/
     }
     
     
@@ -196,7 +197,7 @@ int translate_buffer(const char** argv, size_t argv1_num, size_t argv2_num, size
     }
 
 	/*printf("argv1_buffer : %s, argv1_buffer_length : %d\n", argv1_buffer, argv1_len);
-	printf("argv2_buffer : %s\n");*/
+	printf("argv2_buffer : %s\n", argv2_buffer);*/
 	if (is_flag == FALSE) {
 		while (1) {
 			j = getchar();
