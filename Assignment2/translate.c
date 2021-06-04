@@ -1,4 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <string.h>
 #include "translate.h"
@@ -59,20 +58,22 @@ int escape_check(char str[])
     return 0;
 }
 
-int range(char str[], int str_length)
+int range(char str[])
 {
     char* check_first_range = str;
     char* check_range_mark = str + 1;
     char* check_last_range = str + 2;
-    /*char* check_non_use_range_mark = str + 3;*/
-    char* save_first_range = NULL;
     char* save_range_mark = NULL;
     char* save_last_range = NULL;
+	char* save_first_range = NULL;
     int range = 0;
     int i = 0;
+    char* tmp = NULL;
+    char* tmp2  = NULL;
+    int str_len = 0;
     
-    while (*check_last_range != '\0') {
-        if (*check_range_mark == '-') {
+    while (*check_last_range != '\0' && *check_first_range != '\0') {
+        if (*check_range_mark == '-') {			
             if (*check_last_range - *check_first_range < 0) {
                 return 1;
             } else if (*check_last_range - *check_first_range == 0) {
@@ -93,31 +94,46 @@ int range(char str[], int str_length)
                     save_last_range++;
                 }
                 *(save_last_range - 1) = '\0';
+                check_first_range++;
+                check_range_mark++;
+                check_last_range++;
             } else if (*check_last_range - *check_first_range == 2) {
                 *check_range_mark = *check_first_range + 1;
+                check_first_range += 2;
+                check_range_mark += 2;
+                check_last_range += 2;
             } else { 
-                range = *check_last_range - *check_first_range - 1;
-                if (str_length + range >= MAX_BUFFER) {
+				str_len = strlen(str);
+                range = *check_last_range - *check_first_range - 2;
+                if (str_len + range >= MAX_BUFFER) {
                     return 2;
                 }		
-                save_last_range = str + str_length + range - 1;
-                save_first_range = str + str_length;
-                while (save_first_range != check_first_range) {
-                    *save_last_range = *save_first_range;
-                    save_last_range--;
-                    save_first_range--;					
+				
+                /*a-d에서 d의 주소*/
+                save_first_range = check_last_range;
+                /*abcd에서 d의주소*/
+                save_last_range = check_last_range + range;
+                tmp = save_last_range;
+                tmp2 = str + str_len + range + 1;
+                while (tmp2 != save_last_range - 1) {
+                    *tmp2 = *(tmp2 - range);
+                    tmp2--;
                 }
                 save_range_mark = check_range_mark;
-                for (i = 1; i <= range; i++) {
+                for (i = 1; i <= range + 1; i++) {
                     *save_range_mark = (*check_first_range) + i;
                     save_range_mark++;
                 }
+                check_first_range = tmp;
+                check_range_mark = check_first_range + 1;
+                check_last_range = check_first_range + 2;
+				
             }		
         } 
+		
         check_first_range++;
         check_range_mark++;
         check_last_range++;
-		/*check_non_use_range_mark++;*/
     }
     
     
@@ -143,17 +159,14 @@ int translate_buffer(const char** argv, size_t argv1_num, size_t argv2_num, size
     argv1_buffer[MAX_BUFFER - 1] = '\0';		
     error = escape_check(argv1_buffer);
     if (error == 1) {
-		printf("ERROR_CODE_INVALID_FORMAT");
         return ERROR_CODE_INVALID_FORMAT;
     }
 	argv1_len = strlen(argv1_buffer);
 	if (argv1_len >= 3) {
-		error = range(argv1_buffer, argv1_len);
+		error = range(argv1_buffer);
 		if (error == 1) {
-			printf("ERROR_CODE_INVALID_RANGE");
 			return ERROR_CODE_INVALID_RANGE;
 		} else if (error == 2) {
-			printf("ERROR_CODE_ARGUMENT_TOO_LONG");
 			return ERROR_CODE_ARGUMENT_TOO_LONG;
 		}
 	}
@@ -163,17 +176,14 @@ int translate_buffer(const char** argv, size_t argv1_num, size_t argv2_num, size
 	argv2_buffer[MAX_BUFFER - 1] = '\0';
     error = escape_check(argv2_buffer);
     if (error == 1) {
-		printf("ERROR_CODE_INVALID_FORMAT");
         return ERROR_CODE_INVALID_FORMAT;
     }
 	argv2_len = strlen(argv2_buffer);
 	if (argv2_len >= 3) {
-		error = range(argv2_buffer, argv2_len);
+		error = range(argv2_buffer);
 		if (error == 1) {
-			printf("ERROR_CODE_INVALID_RANGE");
 			return ERROR_CODE_INVALID_RANGE;
 		} else if (error == 2) {
-			printf("ERROR_CODE_ARGUMENT_TOO_LONG");
 			return ERROR_CODE_ARGUMENT_TOO_LONG;
 		}
 	}
