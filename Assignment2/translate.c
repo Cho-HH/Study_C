@@ -65,11 +65,11 @@ int range(char str[])
     char* check_last_range = str + 2;
     char* save_range_mark = NULL;
     char* save_last_range = NULL;
-	char* save_first_range = NULL;
+    char* save_first_range = NULL;
     int range = 0;
     int i = 0;
     char* tmp = NULL;
-    char* tmp2  = NULL;
+    char* tmp2 = NULL;
     int str_len = 0;
     
     while (*check_last_range != '\0' && *check_first_range != '\0') {
@@ -103,7 +103,7 @@ int range(char str[])
                 check_range_mark += 2;
                 check_last_range += 2;
             } else { 
-				str_len = strlen(str);
+                str_len = strlen(str);
                 range = *check_last_range - *check_first_range - 2;
                 if (str_len + range >= MAX_BUFFER) {
                     return 2;
@@ -142,8 +142,8 @@ int range(char str[])
 
 int translate_buffer(const char** argv, size_t argv1_num, size_t argv2_num, size_t is_flag) 
 {
-	size_t error = 0u;
-	char argv1_buffer[MAX_BUFFER] = { 0, };
+    size_t error = 0u;
+    char argv1_buffer[MAX_BUFFER] = { 0, };
     char argv2_buffer[MAX_BUFFER] = { 0, };
     int argv1_len = 0;
     int argv2_len = 0;
@@ -151,42 +151,42 @@ int translate_buffer(const char** argv, size_t argv1_num, size_t argv2_num, size
     int j = 0;
     char save_char = 0;
 	
-	if (strlen(argv[argv1_num]) >= MAX_BUFFER || strlen(argv[argv2_num]) >= MAX_BUFFER) {
+    if (strlen(argv[argv1_num]) >= MAX_BUFFER || strlen(argv[argv2_num]) >= MAX_BUFFER) {
         return ERROR_CODE_ARGUMENT_TOO_LONG;
     }
 	
-	strncpy(argv1_buffer, argv[argv1_num], MAX_BUFFER);
+    strncpy(argv1_buffer, argv[argv1_num], MAX_BUFFER);
     argv1_buffer[MAX_BUFFER - 1] = '\0';		
     error = escape_check(argv1_buffer);
     if (error == 1) {
         return ERROR_CODE_INVALID_FORMAT;
     }
-	argv1_len = strlen(argv1_buffer);
-	if (argv1_len >= 3) {
-		error = range(argv1_buffer);
-		if (error == 1) {
-			return ERROR_CODE_INVALID_RANGE;
-		} else if (error == 2) {
-			return ERROR_CODE_ARGUMENT_TOO_LONG;
-		}
-	}
+    argv1_len = strlen(argv1_buffer);
+    if (argv1_len >= 3) {
+        error = range(argv1_buffer);
+        if (error == 1) {
+            return ERROR_CODE_INVALID_RANGE;
+        } else if (error == 2) {
+            return ERROR_CODE_ARGUMENT_TOO_LONG;
+        }
+    }
     argv1_len = strlen(argv1_buffer);
 	
     strncpy(argv2_buffer, argv[argv2_num], MAX_BUFFER); 
-	argv2_buffer[MAX_BUFFER - 1] = '\0';
+    argv2_buffer[MAX_BUFFER - 1] = '\0';
     error = escape_check(argv2_buffer);
     if (error == 1) {
         return ERROR_CODE_INVALID_FORMAT;
     }
-	argv2_len = strlen(argv2_buffer);
-	if (argv2_len >= 3) {
-		error = range(argv2_buffer);
-		if (error == 1) {
-			return ERROR_CODE_INVALID_RANGE;
-		} else if (error == 2) {
-			return ERROR_CODE_ARGUMENT_TOO_LONG;
-		}
-	}
+    argv2_len = strlen(argv2_buffer);
+    if (argv2_len >= 3) {
+        error = range(argv2_buffer);
+        if (error == 1) {
+            return ERROR_CODE_INVALID_RANGE;
+        } else if (error == 2) {
+            return ERROR_CODE_ARGUMENT_TOO_LONG;
+        }
+    }
     argv2_len = strlen(argv2_buffer);
 	
     if (argv1_len > argv2_len) {
@@ -247,7 +247,7 @@ int translate(int argc, const char** argv)
         return translate_buffer(argv, 1, 2, FALSE);
     } else if (argc == 4) {		
         if (argv[1][0] == '-' && argv[1][1] == 'i' && argv[1][2] == '\0') {
-			return translate_buffer(argv, 2, 3, TRUE);
+            return translate_buffer(argv, 2, 3, TRUE);
         } else {
             return ERROR_CODE_INVALID_FLAG;
         }
