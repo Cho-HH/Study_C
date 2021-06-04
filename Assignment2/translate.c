@@ -196,24 +196,24 @@ int translate_buffer(const char** argv, size_t argv1_num, size_t argv2_num, size
         }
     }
 
-	/*printf("argv1_buffer : %s, argv1_buffer_length : %d\n", argv1_buffer, argv1_len);
-	printf("argv2_buffer : %s\n", argv2_buffer);*/
-	if (is_flag == FALSE) {
-		while (1) {
-			j = getchar();
-			if (j == EOF) {
-				break;
-			}
-			for (i = 0; *(argv1_buffer + i) != '\0'; i++) {		
-				if (j == *(argv1_buffer + i)) {
-					j = *(argv2_buffer + i);
-					break;
-				}
-			}
-			putchar(j);
-		}
-	} else if (is_flag == TRUE) {
-		while (1) {
+    /*printf("argv1_buffer : %s, argv1_buffer_length : %d\n", argv1_buffer, argv1_len);
+    printf("argv2_buffer : %s\n", argv2_buffer);*/
+    if (is_flag == FALSE) {
+        while (1) {
+            j = getchar();
+            if (j == EOF) {
+                break;
+            }
+            for (i = 0; *(argv1_buffer + i) != '\0'; i++) {		
+                if (j == *(argv1_buffer + i)) {
+                    j = *(argv2_buffer + i);
+                    break;
+                }
+            }
+            putchar(j);
+        }
+    } else if (is_flag == TRUE) {
+        while (1) {
             j = getchar();
             if (j == EOF) {
                 break;
@@ -226,9 +226,9 @@ int translate_buffer(const char** argv, size_t argv1_num, size_t argv2_num, size
             }
             putchar(j);
         }
-	}
-	
-	return 0;
+    }
+    
+    return 0;
 }
 
 int translate(int argc, const char** argv)
