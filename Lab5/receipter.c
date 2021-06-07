@@ -3,10 +3,12 @@
 #include <time.h>
 #include "receipter.h"
 
-#define MAX_WIDTH (50)
-/*끝자리에 널문자를 넣어주기 위함, 77은 중간에 \n을 삽입하기위해 뒤로 한칸 미룰 공간*/
-#define MAX_MESSAGE (77)
-#define MAX_FOOD_NAME (26) 
+enum {
+	MAX_WIDTH = 50,
+	/*끝자리에 널문자를 넣어주기 위함, 77은 중간에 \n을 삽입하기위해 뒤로 한칸 미룰 공간*/
+	MAX_MESSAGE = 77,
+	MAX_FOOD_NAME = 26
+};
 
 static size_t s_item_count = 0u;
 static char s_food_name[10][MAX_FOOD_NAME] = { 0, };

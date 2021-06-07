@@ -2,9 +2,9 @@
 #include <string.h>
 #include "translate.h"
 
-#define MAX_BUFFER (512)
-#define TRUE (1)
-#define FALSE (0)
+enum {
+	MAX_BUFFER = 512
+};
 
 int escape_check(char str[])
 {
