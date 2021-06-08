@@ -12,7 +12,9 @@ int main(void)
     int version;
 
     version = get_character("Superman_v1.txt", &superman_v1);
+	printf("%d\n", version);
     assert(version == 1);
+	
     assert(strcmp(superman_v1.name, "player_15") == 0);
     assert(superman_v1.level == 10);
     assert(superman_v1.health == 100);

@@ -17,28 +17,29 @@ int get_character(const char* filename, character_v3_t* out_character)
         perror("error while opening file");
         return -1;
     }
-    
+
     check_version = filename + strlen(filename) - 5;
+
     switch (*check_version) {
     case '1':
         read_ver_1(out_character, file);
+        fclose(file);
         return 1;
         break;
     case '2':
         read_ver_2(out_character, file);
+        fclose(file);
         return 2;
         break;
     case '3':
         read_ver_3(out_character, file);
+        fclose(file);
         return 3;
         break;
     default:
+        fclose(file);
         return 0;
         break;
-    }
-    
-    if (fclose(file) == EOF) {
-        perror("error while closing file");
     }
     
     return 0;
