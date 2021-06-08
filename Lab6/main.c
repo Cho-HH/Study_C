@@ -12,22 +12,6 @@ int main(void)
     int version;
 
     version = get_character("Superman_v1.txt", &superman_v1);
-
-	printf("superman_v1.level : %d\n", superman_v1.level);
-	printf("superman_v1.health : %d\n", superman_v1.health);
-	printf("superman_v1.mana :%d\n", superman_v1.mana);
-	printf("superman_v1.strength : %d\n", superman_v1.strength);
-	printf("superman_v1.dexterity : %d\n", superman_v1.dexterity);
-	printf("superman_v1.intelligence : %d\n", superman_v1.intelligence);
-	printf("superman_v1.armour : %d\n", superman_v1.armour);
-	printf("superman_v1.evasion : %d\n", superman_v1.evasion);
-	printf("superman_v1.leadership : %d\n", superman_v1.leadership);
-	printf("superman_v1.minion_count : %d\n", superman_v1.minion_count);
-	printf("superman_v1.elemental_resistance.fire : %d\n", superman_v1.elemental_resistance.fire);
-	printf("superman_v1.elemental_resistance.cold : %d\n", superman_v1.elemental_resistance.cold);
-	printf("superman_v1.elemental_resistance.lightning : %d\n", superman_v1.elemental_resistance.lightning);
-	
-	
     assert(version == 1);
     assert(strcmp(superman_v1.name, "player_15") == 0);
     assert(superman_v1.level == 10);

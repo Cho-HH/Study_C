@@ -20,7 +20,6 @@ int get_character(const char* filename, character_v3_t* out_character)
     }
     
     check_version = filename + strlen(filename) - 5;
-    printf("version : %c\n", *check_version);
     switch (*check_version) {
     case '1':
         read_ver_1(out_character, file);
@@ -69,29 +68,28 @@ void read_ver_1(character_v3_t* out_character, FILE* file)
         key[4], &value[4], key[5], &value[5], key[6], &value[6], key[7], &value[7]);
     	
     for (i = 0; i < 8; i++) {
-        if (strcmp(key[i], "lvl") == 0) {
+        if (strcmp(*(key + i), "lvl") == 0) {
             out_character->level = value[i];
             out_character->leadership = value[i] / 10;
-        } else if (strcmp(key[i], "id") == 0) {
+        } else if (strcmp(*(key + i), "id") == 0) {
             sprintf(out_character->name, "%s%d", name, value[i]);			
-        } else if (strcmp(key[i], "str") == 0) {
+        } else if (strcmp(*(key + i), "str") == 0) {
             out_character->strength = value[i];
-        } else if (strcmp(key[i], "dex") == 0) {
+        } else if (strcmp(*(key + i), "dex") == 0) {
             out_character->dexterity = value[i];
             out_character->evasion = value[i] / 2;
-        } else if (strcmp(key[i], "intel") == 0) {
+        } else if (strcmp(*(key + i), "intel") == 0) {
             out_character->intelligence = value[i];
-        } else if (strcmp(key[i], "def") == 0) {
+        } else if (strcmp(*(key + i), "def") == 0) {
             out_character->armour = value[i];
             out_character->elemental_resistance.fire = value[i] / 12;
             out_character->elemental_resistance.cold = value[i] / 12;
             out_character->elemental_resistance.lightning = value[i] / 12;
-        } else if (strcmp(key[i], "hp") == 0) {
+        } else if (strcmp(*(key + i), "hp") == 0) {
             out_character->health = value[i];
-        } else if (strcmp(key[i], "mp") == 0) {
+        } else if (strcmp(*(key + i), "mp") == 0) {
             out_character->mana = value[i];
         } 
-        printf("key : %s, value : %d\n", key[i], value[i]);
     } 
     out_character->minion_count = 0;	
 }
