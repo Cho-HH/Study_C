@@ -81,7 +81,6 @@ void read_ver_1(character_v3_t* out_character, FILE* file)
         } 
     } 
     out_character->minion_count = 0;	
-
    
     if (fclose(file) == EOF) {
         perror("error while closing file");
@@ -163,6 +162,7 @@ void read_ver_3(character_v3_t* out_character, FILE* file)
 void check_name(char character_name[], const char* name)
 {  
     const char* tmp = name;
+
     while (*tmp != '\0') {
         if ((*tmp < '0' || *tmp > '9') && (*tmp < 'A' || *tmp > 'Z') && *tmp != '_' && (*tmp < 'a' || *tmp > 'z')) {
             return;
