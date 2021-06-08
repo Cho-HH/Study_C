@@ -4,7 +4,7 @@
 enum { 
     MAX_BUFFER = 512,
     /*널문자 제외 50글자*/
-    MAX_NAME = 51,
+    MAX_NAME = 50,
     MAX_MINION = 3
 };
 
