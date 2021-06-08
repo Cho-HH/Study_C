@@ -1,5 +1,4 @@
 /*#define _CRT_SECURE_NO_WARNINGS*/
-#include <assert.h>
 #include <stdio.h>
 #include <string.h>
 #include "character_deserializer.h"
@@ -34,7 +33,7 @@ int get_character(const char* filename, character_v3_t* out_character)
         return 3;
         break;
     default:
-        assert(0);
+        return 0;
         break;
     }
     
@@ -63,9 +62,7 @@ void read_ver_1(character_v3_t* out_character, FILE* file)
         tmp++;
     }
     
-    sscanf(buffer, "%s %d %s %d %s %d %s %d %s %d %s %d %s %d %s %d",
-        key[0], &value[0], key[1], &value[1], key[2], &value[2], key[3], &value[3], 
-        key[4], &value[4], key[5], &value[5], key[6], &value[6], key[7], &value[7]);
+    sscanf(buffer, "%s %d %s %d %s %d %s %d %s %d %s %d %s %d %s %d", key[0], &value[0], key[1], &value[1], key[2], &value[2], key[3], &value[3], key[4], &value[4], key[5], &value[5], key[6], &value[6], key[7], &value[7]);
     	
     for (i = 0; i < 8; i++) {
         if (strcmp(*(key + i), "lvl") == 0) {
@@ -110,10 +107,7 @@ void read_ver_2(character_v3_t* out_character, FILE* file)
         tmp++;
     }
 
-    sscanf(buffer, "%s %d %d %d %d %d %d %d %d %d",
-        out_character->name, &out_character->level, &out_character->strength,
-        &out_character->dexterity, &out_character->intelligence, &out_character->armour,
-        &out_character->evasion, &magic_resist, &out_character->health, &out_character->mana);
+    sscanf(buffer, "%s %d %d %d %d %d %d %d %d %d", out_character->name, &out_character->level, &out_character->strength, &out_character->dexterity, &out_character->intelligence, &out_character->armour, &out_character->evasion, &magic_resist, &out_character->health, &out_character->mana);
     	
     out_character->leadership = out_character->level / 10;
     out_character->minion_count = 0;
@@ -139,12 +133,7 @@ void read_ver_3(character_v3_t* out_character, FILE* file)
         tmp++;
     }
     
-    sscanf(buffer, "%s %d %d %d %d %d %d %d %d %d %d %d %d %d",
-        out_character->name, &out_character->level, &out_character->health,
-        &out_character->mana, &out_character->strength, &out_character->dexterity,
-        &out_character->intelligence, &out_character->armour, &out_character->evasion,
-        &out_character->elemental_resistance.fire, &out_character->elemental_resistance.cold,
-        &out_character->elemental_resistance.lightning, &out_character->leadership, &out_character->minion_count);
+    sscanf(buffer, "%s %d %d %d %d %d %d %d %d %d %d %d %d %d", out_character->name, &out_character->level, &out_character->health, &out_character->mana, &out_character->strength, &out_character->dexterity, &out_character->intelligence, &out_character->armour, &out_character->evasion, &out_character->elemental_resistance.fire, &out_character->elemental_resistance.cold, &out_character->elemental_resistance.lightning, &out_character->leadership, &out_character->minion_count);
     
     if (out_character->minion_count > 0) {
         fgets(buffer, MAX_BUFFER, file);
