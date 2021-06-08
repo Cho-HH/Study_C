@@ -38,11 +38,11 @@ int get_character(const char* filename, character_v3_t* out_character)
         break;
     default:
         fclose(file);
-        return 0;
+        return -1;
         break;
     }
     
-    return 0;
+    return -1;
 }
 
 void read_ver_1(character_v3_t* out_character, FILE* file)
@@ -70,7 +70,8 @@ void read_ver_1(character_v3_t* out_character, FILE* file)
             out_character->level = value[i];
             out_character->leadership = value[i] / 10;
         } else if (strcmp(*(key + i), "id") == 0) {
-            sprintf(out_character->name, "%s%d", name, value[i]);			
+            sprintf(out_character->name, "%s%d", name, value[i]);	
+            out_character->name[MAX_NAME - 1] = '\0';			
         } else if (strcmp(*(key + i), "str") == 0) {
             out_character->strength = value[i];
         } else if (strcmp(*(key + i), "dex") == 0) {
@@ -109,7 +110,7 @@ void read_ver_2(character_v3_t* out_character, FILE* file)
     }
 
     sscanf(buffer, "%s %d %d %d %d %d %d %d %d %d", out_character->name, &out_character->level, &out_character->strength, &out_character->dexterity, &out_character->intelligence, &out_character->armour, &out_character->evasion, &magic_resist, &out_character->health, &out_character->mana);
-    	
+    out_character->name[MAX_NAME - 1] = '\0';
     out_character->leadership = out_character->level / 10;
     out_character->minion_count = 0;
     out_character->elemental_resistance.fire = magic_resist / 3;
@@ -135,7 +136,8 @@ void read_ver_3(character_v3_t* out_character, FILE* file)
     }
     
     sscanf(buffer, "%s %d %d %d %d %d %d %d %d %d %d %d %d %d", out_character->name, &out_character->level, &out_character->health, &out_character->mana, &out_character->strength, &out_character->dexterity, &out_character->intelligence, &out_character->armour, &out_character->evasion, &out_character->elemental_resistance.fire, &out_character->elemental_resistance.cold, &out_character->elemental_resistance.lightning, &out_character->leadership, &out_character->minion_count);
-    
+    out_character->name[MAX_NAME - 1] = '\0';
+	
     if (out_character->minion_count > 0) {
         fgets(buffer, MAX_BUFFER, file);
         for (i = 0; i < out_character->minion_count; i++) {
@@ -148,6 +150,7 @@ void read_ver_3(character_v3_t* out_character, FILE* file)
                 tmp++;
             }
             sscanf(buffer, "%s %d %d %d", out_character->minions[i].name, &out_character->minions[i].health, &out_character->minions[i].strength, &out_character->minions[i].defence);
+            out_character->minions[i].name[MAX_NAME - 1] = '\0';
         }
     }
 }
