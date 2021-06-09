@@ -11,28 +11,30 @@ void check_name(char character_name[], const char* name);
 int get_character(const char* filename, character_v3_t* out_character)
 {
     FILE* file;
+	char buffer[MAX_BUFFER] =  { 0, };
     const char* check_version = NULL;
-    
+	
     file = fopen(filename, "r");
     if (file == NULL) {
         perror("error while opening file");
         return -1;
     }
 
-    check_version = filename + strlen(filename) - 5;
-
-    if (*check_version == '1') {
-        read_ver_1(out_character, file);
-        return 1;
-    } else if (*check_version == '2') {
-        read_ver_2(out_character, file);
-        return 2;
-    } else if (*check_version == '3') {
-        read_ver_3(out_character, file);
-        return 3;
+    fgets(buffer, MAX_BUFFER, file);
+    check_version = buffer;
+    while (*check_version != '\0') {
+        if (*check_version == ':') {
+            read_ver_1(out_character, file);
+            return 1;
+        } else if (*check_version == '|') {
+            read_ver_3(out_character, file);
+            return 3;
+        }
+        check_version++;
     }
-    
-    return -1;
+       
+    read_ver_2(out_character, file);
+    return 2;
 }
 
 void read_ver_1(character_v3_t* out_character, FILE* file)
@@ -44,6 +46,7 @@ void read_ver_1(character_v3_t* out_character, FILE* file)
     int value[8] = { 0, };
     char name[MAX_NAME] = "player_";
     
+    rewind(file);
     fgets(buffer, MAX_BUFFER, file);
     tmp = buffer;
     while (*tmp != '\0') {
@@ -52,7 +55,7 @@ void read_ver_1(character_v3_t* out_character, FILE* file)
         }
         tmp++;
     }
-    
+    printf("%s\n", name);
     sscanf(buffer, "%s %d %s %d %s %d %s %d %s %d %s %d %s %d %s %d", key[0], &value[0], key[1], &value[1], key[2], &value[2], key[3], &value[3], key[4], &value[4], key[5], &value[5], key[6], &value[6], key[7], &value[7]);
     	
     for (i = 0; i < 8; i++) {
@@ -82,6 +85,7 @@ void read_ver_1(character_v3_t* out_character, FILE* file)
     } 
     out_character->minion_count = 0;	
    
+   printf("%s\n", out_character->name);
     if (fclose(file) == EOF) {
         perror("error while closing file");
     }
@@ -94,6 +98,7 @@ void read_ver_2(character_v3_t* out_character, FILE* file)
     char* tmp = NULL;
     int magic_resist = 0;
     
+    rewind(file);
     fgets(buffer, MAX_BUFFER, file);
     fgets(buffer, MAX_BUFFER, file);
     tmp = buffer;
@@ -124,6 +129,7 @@ void read_ver_3(character_v3_t* out_character, FILE* file)
     char* tmp = NULL;
     size_t i = 0;
     
+    rewind(file);
     fgets(buffer, MAX_BUFFER, file);
     fgets(buffer, MAX_BUFFER, file);
     

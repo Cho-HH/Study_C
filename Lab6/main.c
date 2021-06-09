@@ -12,6 +12,7 @@ int main(void)
     int version;
 
     version = get_character("Superman_v1.txt", &superman_v1);
+	printf("version : %d\n", version);
     assert(version == 1);
 
     assert(strcmp(superman_v1.name, "player_15") == 0);
