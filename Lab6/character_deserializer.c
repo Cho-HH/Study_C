@@ -11,7 +11,7 @@ void check_name(char character_name[], const char* name);
 int get_character(const char* filename, character_v3_t* out_character)
 {
     FILE* file;
-	char buffer[MAX_BUFFER] =  { 0, };
+    char buffer[MAX_BUFFER] =  { 0, };
     const char* check_version = NULL;
 	
     file = fopen(filename, "r");
@@ -85,7 +85,6 @@ void read_ver_1(character_v3_t* out_character, FILE* file)
     } 
     out_character->minion_count = 0;	
    
-   printf("%s\n", out_character->name);
     if (fclose(file) == EOF) {
         perror("error while closing file");
     }
@@ -109,7 +108,10 @@ void read_ver_2(character_v3_t* out_character, FILE* file)
         tmp++;
     }
 
-    sscanf(buffer, "%s %d %d %d %d %d %d %d %d %d", name_buffer, &out_character->level, &out_character->strength, &out_character->dexterity, &out_character->intelligence, &out_character->armour, &out_character->evasion, &magic_resist, &out_character->health, &out_character->mana);
+    sscanf(buffer, "%s %d %d %d %d %d %d %d %d %d", 
+         name_buffer, &out_character->level, &out_character->strength,
+         &out_character->dexterity, &out_character->intelligence, &out_character->armour, 
+         &out_character->evasion, &magic_resist, &out_character->health, &out_character->mana);
     check_name(out_character->name, name_buffer);
     out_character->leadership = out_character->level / 10;
     out_character->minion_count = 0;

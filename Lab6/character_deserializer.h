@@ -4,7 +4,7 @@
 enum { 
     MAX_BUFFER = 512,
     /*널문자 제외 50글자*/
-    MAX_NAME = 51,
+    MAX_NAME = 50,
     MAX_MINION = 3
 };
 
@@ -13,7 +13,7 @@ typedef struct {
     unsigned int strength;
     unsigned int defence;
     char name[MAX_NAME];
-    char padding;
+    char padding[2];
 } minion_t;
 
 typedef struct {
@@ -24,7 +24,7 @@ typedef struct {
 
 typedef struct {
     char name[MAX_NAME];
-    char padding;
+    char padding[2];
     unsigned int level;
     unsigned int health;
     unsigned int mana;
