@@ -108,10 +108,7 @@ void read_ver_2(character_v3_t* out_character, FILE* file)
         tmp++;
     }
 
-    sscanf(buffer, "%s %d %d %d %d %d %d %d %d %d", 
-            name_buffer, &out_character->level, &out_character->strength,
-            &out_character->dexterity, &out_character->intelligence, &out_character->armour, 
-            &out_character->evasion, &magic_resist, &out_character->health, &out_character->mana);
+    sscanf(buffer, "%s %d %d %d %d %d %d %d %d %d", name_buffer, &out_character->level, &out_character->strength, &out_character->dexterity, &out_character->intelligence, &out_character->armour, &out_character->evasion, &magic_resist, &out_character->health, &out_character->mana);
     check_name(out_character->name, name_buffer);
     out_character->leadership = out_character->level / 10;
     out_character->minion_count = 0;
