@@ -24,7 +24,7 @@ int get_character(const char* filename, character_v3_t* out_character)
     /*다음줄을 가리키고 있는 스트림위치를 다시 처음으로 되돌린다.*/
     rewind(file);
     check_version = buffer;
-    while (*check_version != '\0') {
+    while (*check_version != '\0' && *check_version != '\n') {
         if (*check_version == ':') {
             read_ver_1(out_character, file);
             return 1;
