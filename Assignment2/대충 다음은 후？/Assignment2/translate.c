@@ -160,17 +160,17 @@ int translate_buffer(const char** argv, size_t argv1_num, size_t argv2_num, size
         return ERROR_CODE_ARGUMENT_TOO_LONG;
     }
 	
-	error = escape_check_buffer(&argv1_len, argv1_buffer, argv, argv1_num);
-	if (error != 0) {
-		return error;
-	} 
+    error = escape_check_buffer(&argv1_len, argv1_buffer, argv, argv1_num);
+    if (error != 0) {
+        return error;
+    } 
 
-	error = escape_check_buffer(&argv2_len, argv2_buffer, argv, argv2_num);
-	if (error != 0) {
-		return error;
-	} 
+    error = escape_check_buffer(&argv2_len, argv2_buffer, argv, argv2_num);
+    if (error != 0) {
+        return error;
+    } 
 	
-	check_argv1_len(argv1_len, argv2_len, argv2_buffer);
+    check_argv1_len(argv1_len, argv2_len, argv2_buffer);
    
     for (i = argv1_len - 1; i >= 0; i--) {
         save_char = argv1_buffer[i];
@@ -185,7 +185,7 @@ int translate_buffer(const char** argv, size_t argv1_num, size_t argv2_num, size
     printf("argv1_buffer : %s\n", argv1_buffer);
     printf("argv2_buffer : %s\n", argv2_buffer);
 	
-	translate_result(argv1_buffer, argv2_buffer, is_flag);
+    translate_result(argv1_buffer, argv2_buffer, is_flag);
     
     return 0;
 }
@@ -208,7 +208,7 @@ int translate(int argc, const char** argv)
 int escape_check_buffer (int* argv_len, char argv_buffer[], const char** argv, size_t argv_num) 
 {
 	/*escape문자를 확인하고 난 뒤의 buffer*/
-	int error = 0;
+    int error = 0;
 	
 	strncpy(argv_buffer, argv[argv_num], MAX_BUFFER);
     argv_buffer[MAX_BUFFER - 1] = '\0';		
@@ -243,27 +243,27 @@ void check_argv1_len(int argv1_len, int argv2_len, char argv2_buffer[])
 
 void translate_result(char argv1_buffer[], char argv2_buffer[], size_t is_flag)
 {
-	int i = 0;
-	int j = 0;
-	
+    int i = 0;
+    int j = 0;
+    
     while (1) {
         j = getchar();
         if (j == EOF) {
             break;
         }
         for (i = 0; *(argv1_buffer + i) != '\0'; i++) {
-			if (is_flag == TRUE) {
-				if (j == *(argv1_buffer + i) || j == (*(argv1_buffer + i) ^ 0x20)) {
-					j = *(argv2_buffer + i);
-					break;
-				}
-			} else  {
-				if (j == *(argv1_buffer + i)) {
-					j = *(argv2_buffer + i);
-					break;
-				}
-			}
-        }
+            if (is_flag == TRUE) {
+                if (j == *(argv1_buffer + i) || j == (*(argv1_buffer + i) ^ 0x20)) {
+                    j = *(argv2_buffer + i);
+                    break;
+                }
+            } else {
+                if (j == *(argv1_buffer + i)) {
+                    j = *(argv2_buffer + i);
+                    break;
+                }
+            }
+        }       
         putchar(j);
     }
 }
