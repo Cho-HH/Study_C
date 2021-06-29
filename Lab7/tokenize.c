@@ -23,7 +23,7 @@ char** tokenize_malloc(const char* str, const char* delim)
     
     get_array(str, delim, word_array);
     
-   /* for (j = 0; j <= word_count; j++) {
+    /*for (j = 0; j <= word_count; j++) {
     	printf("len : %d\t%s\n", strlen(word_array[j]), word_array[j]);
     }*/
     
