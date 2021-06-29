@@ -1,0 +1,6 @@
+my name is woojung. today bangsong is fun.
+nice to meet you! so, I want to play game.
+what? Flurry too mo tea!
+word_count : 23
+sentence_count : 6
+paragraph_count : 3

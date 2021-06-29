@@ -33,7 +33,7 @@ void reverse(char* str)
         --str_ptr;
     }
 
-    printf("%s\n", str);
+    /*printf("reverse : %s\n", str);*/
 }
 
 int index_of(const char* str, const char* word)
@@ -100,7 +100,7 @@ void reverse_by_words(char* str)
 char* tokenize(char* str_or_null, const char* delims)
 {
     static char* s_token_ptr = NULL;
-    static const char* s_save_token_ptr = NULL;
+    size_t token_count = 0u;
     const char* delims_ptr = delims;
 
     if (s_token_ptr == NULL) {
@@ -109,88 +109,46 @@ char* tokenize(char* str_or_null, const char* delims)
             return NULL;
         }
     }
-    if (s_token_ptr != NULL && str_or_null != NULL) {
-        s_token_ptr = str_or_null;
-        s_save_token_ptr = NULL;
-    }
-
-    if (s_save_token_ptr != NULL) {
-        s_save_token_ptr = s_token_ptr;
-    } else { /*"?Hello" 처럼 delim으로 문장이 시작할 경우, H에 포인터를 잡아주는 작업*/
-        while (*s_token_ptr != '\0') {
-            delims_ptr = delims;
-            while (*delims_ptr != '\0') {
-                if (*s_token_ptr == *delims_ptr) {
-                    break;
-                }
-                ++delims_ptr;
-            }
-            if (*delims_ptr == '\0') {
-                s_save_token_ptr = s_token_ptr;
-                ++s_token_ptr;
-                printf("s_save_token : %c\n", *s_save_token_ptr);
-                break;
-            }
-            ++s_token_ptr;
-        }
+    if (*s_token_ptr == '\0') {
+        return NULL;
     }
 
     while (*s_token_ptr != '\0') {
         delims_ptr = delims;
-        /*지금 가리키는 것이 delim에 걸리면 NULL로 바꿔줌*/
         while (*delims_ptr != '\0') {
             if (*s_token_ptr == *delims_ptr) {
-                *s_token_ptr = '\0';
-                break;
-            }
-            ++delims_ptr;
-        }
-        delims_ptr = delims;
-        /*지금 가리키는 것이 \0이고, 다음이 delims에 걸리지 않는지 확인,그러면 토큰화됨*/
-        if (*s_token_ptr == '\0') {
-            while (*delims_ptr != '\0') {
-                if (*(s_token_ptr + 1) == *delims_ptr) {
-                    break;
+                /* 실행되자마자 s_token_ptr가 delims면 다음 포인터로*/
+                if (token_count == 0) {
+                    goto next_ptr;
                 }
-                ++delims_ptr;
+                else {
+                    *s_token_ptr = '\0';
+                    goto end;
+                }
             }
-            if (*delims_ptr == '\0') {
-                ++s_token_ptr;
-                printf("save_token : %s\n", s_save_token_ptr);
-                printf("token_ptr : %c\n\n", *s_token_ptr);
-                return (char*)s_save_token_ptr;
-            }
+            delims_ptr++;
         }
-        /*문장의 제일 마지막 토큰 반환*/
-        if (*(s_token_ptr + 1) == '\0') {
-            return (char*)s_save_token_ptr;
-        }     
-        ++s_token_ptr;
+        /*delims가 아닌 글자가 들어오면 ++ */
+        token_count++;
+next_ptr:
+        s_token_ptr++;
     }
 
-    return NULL;
+/*s_token_ptr == '\0' 일 때*/
+end:
+    return s_token_ptr++ - token_count;
 }
 
 char* reverse_tokenize(char* str_or_null, const char* delims)
 {
     char* token_first_ptr = tokenize(str_or_null, delims);
-    const char* const save_token_first_ptr = (const char* const)token_first_ptr;
-    size_t token_length = get_string_length(token_first_ptr);
-    char temp = 0;
-    char* token_last_ptr = token_first_ptr + token_length - 1;
 
     if (token_first_ptr == NULL) {
         return NULL;
     }
 
-    while (token_first_ptr < token_last_ptr) {
-        temp = *token_first_ptr;
-        *token_first_ptr = *token_last_ptr;
-        *token_last_ptr = temp;
-        ++token_first_ptr;
-        --token_last_ptr;
-    }
+    reverse(token_first_ptr);
 
-    printf("reverse token : %s\n", save_token_first_ptr);
-    return (char*)save_token_first_ptr;
+    printf("reverse token : %s\n", token_first_ptr);
+    return token_first_ptr;
 }

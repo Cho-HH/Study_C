@@ -44,12 +44,13 @@ int main(void)
     assert(index_of(empty, "") == 0);
     assert(index_of("", "a") == -1);
     assert(index_of("    ", "a") == -1); */
-	printf("09090909090\n");
+	printf("--------------------------\n\n");
     /* TOKENIZER */
     assert(tokenize(NULL, " !") == NULL);
 
     token = tokenize(str, " ");
     assert(token == str);
+    printf("%s\n", token);
     assert(strcmp(token, "X") == 0);
 
     token = tokenize(NULL, " ");
@@ -62,6 +63,7 @@ int main(void)
 
     token = tokenize(NULL, " ");
     assert(token == str + 11);
+    printf("%s\n", token);
     assert(strcmp(token, "is") == 0);
 
     token = reverse_tokenize(NULL, " ");
