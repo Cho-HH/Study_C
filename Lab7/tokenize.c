@@ -1,4 +1,5 @@
 /*#define _CRT_SECURE_NO_WARNINGS*/
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,20 +12,21 @@ char** tokenize_malloc(const char* str, const char* delim)
 {
     char** word_array = NULL;
     size_t word_count = 0u;
-    /*size_t j = 0u;*/
+    /*size_t i = 0u;
+    size_t j = 0u;*/
     
     word_count = get_word_count(str, delim);
     
     /*printf("word_count : %d\n", word_count);*/
     
-    word_array = (char**)malloc(sizeof(char*) * word_count + 1);
+    word_array = (char**)malloc(sizeof(char*) * (word_count + 1));
     
     get_array(str, delim, word_array);
     
-    /*for (j = 0; j < word_count; j++) {
+   /* for (j = 0; j <= word_count; j++) {
     	printf("len : %d\t%s\n", strlen(word_array[j]), word_array[j]);
-    }
-    */
+    }*/
+    
     return word_array;
 }
 
@@ -73,7 +75,6 @@ static void get_array(const char* str, const char* delim, char** words)
     const char* delim_ptr = delim;
     const char* str_ptr = str;
     size_t spelling_count = 0u;
-    size_t word_count = 0u;
     size_t i = 0u;
     
     word_array = words;
@@ -89,7 +90,6 @@ static void get_array(const char* str, const char* delim, char** words)
                     strncpy(word_array[i], str_ptr - spelling_count, spelling_count);
                     word_array[i++][spelling_count] = '\0';
                     spelling_count = 0;
-                    word_count++;
                     goto next_ptr;
                 }
             }
@@ -100,7 +100,6 @@ static void get_array(const char* str, const char* delim, char** words)
             word_array[i] = (char*)malloc(spelling_count * sizeof(char) + 1);
             strncpy(word_array[i], str_ptr - spelling_count + 1, spelling_count);
             word_array[i++][spelling_count] = '\0';
-            word_count++;
             goto next_ptr;
         }
         spelling_count++;
