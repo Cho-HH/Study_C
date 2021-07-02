@@ -50,9 +50,6 @@ void dispose(void)
     char** p_word = NULL;
     size_t i = 0u;
 
-    size_t n = 0;
-    size_t k = 0;
-
     for (i = 0; i < s_total_paragraph_count; i++) {
         p_sen = p_para[i];
         while (*p_sen != NULL) {
@@ -60,23 +57,20 @@ void dispose(void)
             while (*p_word != NULL) {
                 free(*p_word);
                 *p_word = NULL;
-                printf("free word %d\n", n++);
                 p_word++;
             }
             n = 0;
             free(*p_sen);
             *p_sen = NULL;
-            printf("free sentence %d\n", k++);
             p_sen++;
         }
         k = 0;
         free(p_para[i]);
         p_para[i] = NULL;
-        printf("free para %d\n", i);
     }
     free(p_para);
-    p_para = NULL;
     printf("finish dispose s_pdocu\n");
+    s_pdocu = NULL;
     s_doc = NULL;
     s_total_word_count = 0;
     s_total_sentence_count = 0;
@@ -300,8 +294,7 @@ static void set_sentence_and_words()
                                 s_pdocu[i][j][n++][spell_count] = '\0';
                                 spell_count = 0;
                                 goto next_ptr;
-                            }
-                            else {
+                            } else {
                                 goto next_ptr;
                             }
                         }
