@@ -1,6 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
-
 #include <assert.h>
+#include <stdio.h>
 #include <string.h>
 #include "document_analyzer.h"
 
@@ -14,11 +14,15 @@ int main(void)
     size_t i = 0U;
     size_t j = 0U;
 
-   /* assert(load_document("doesntexist.txt") == FALSE);
-    assert(load_document("input2.txt") == TRUE);*/
+    printf("%d\n", get_total_word_count());
 
     test_empty();
-    /*assert(get_total_word_count() == 58U);
+
+    assert(load_document("doesntexist.txt") == FALSE);
+    assert(load_document("input.txt") == TRUE);
+    assert(load_document("input1.txt") == FALSE);
+
+    assert(get_total_word_count() == 58U);
     assert(get_total_sentence_count() == 9U);
     assert(get_total_paragraph_count() == 3U);
 
@@ -58,11 +62,20 @@ int main(void)
     assert(strcmp(sentence[i++], "Is") == 0);
     assert(strcmp(sentence[i++], "this") == 0);
     assert(strcmp(sentence[i++], "too") == 0);
-    assert(strcmp(sentence[i++], "easy") == 0);*/
+    assert(strcmp(sentence[i++], "easy") == 0);
 
-    /*assert(print_as_tree("output.txt") == TRUE);*/
+    assert(print_as_tree("output.txt") == TRUE);
 
     dispose();
+    load_document("input1.txt");
+    print_as_tree("output1.txt");
+    dispose();
+
+    assert(get_total_word_count() == 0);
+    load_document("input2.txt");
+    assert(get_total_word_count() == 45);
+    dispose();
+    printf("test finish\n");
 
     return 0;
 }
