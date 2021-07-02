@@ -15,10 +15,22 @@ static char**** s_pdocu = NULL;
 static FILE* s_doc = NULL;
 
 static void get_paragraph_count();
-static void set_sentence_and_words();
+/*static void set_sentence_and_words();*/
 
 int load_document(const char* document)
 {   
+    const char* ptr = NULL;
+    char str[MAX_LENGTH] = "";
+    unsigned char check_just_new_line = 0;
+    size_t word_count = 0u;
+    size_t sentence_count = 0;
+    size_t i = 0u;
+    size_t j = 0u;
+    size_t n = 0u;
+    const char* tmp_ptr = NULL;
+    const char* tmp_word_ptr = NULL;
+    size_t spell_count = 0u;
+
     if (s_doc != NULL) {
         perror("already exist opening file\n");
         return FALSE;
@@ -34,7 +46,77 @@ int load_document(const char* document)
 
     s_pdocu = (char****)malloc(sizeof(char***) * s_total_paragraph_count);
 
-    set_sentence_and_words();
+    while (fgets(str, MAX_LENGTH, s_doc) != NULL) {
+        ptr = str;
+        check_just_new_line = TRUE;
+        while (*ptr != '\0') {
+            if (*ptr == '.' || *ptr == '!' || *ptr == '?') {
+                sentence_count++;
+                if (*(ptr + 1) == ' ') {
+                    ptr++;
+                }
+            }
+
+            if (*ptr != '\n') {
+                check_just_new_line = FALSE;
+            }
+
+            ptr++;
+        }
+
+        if (check_just_new_line == FALSE && *ptr == '\0') {
+            s_pdocu[i] = (char***)malloc(sizeof(char**) * (sentence_count + 1));
+            s_pdocu[i][sentence_count] = NULL;
+
+            tmp_ptr = str;
+            tmp_word_ptr = str;
+            while (*tmp_ptr != '\0') {
+                if (*tmp_ptr == ' ' || *tmp_ptr == ',') {
+                    word_count++;
+                    tmp_ptr++;
+                }
+                if (*tmp_ptr == '.' || *tmp_ptr == '!' || *tmp_ptr == '?') {
+                    word_count++;
+                    s_total_word_count += word_count;
+                    s_pdocu[i][j] = (char**)malloc(sizeof(char*) * (word_count + 1));
+                    s_pdocu[i][j][word_count] = NULL;
+
+                    /*set words*/
+                    while (tmp_word_ptr != (tmp_ptr + 1)) {
+                        if (*tmp_word_ptr == ' ' || *tmp_word_ptr == ',' || *tmp_word_ptr == '.' || *tmp_word_ptr == '!' || *tmp_word_ptr == '?') {
+                            if (spell_count != 0) {
+                                s_pdocu[i][j][n] = (char*)malloc(sizeof(char) * (spell_count + 1));
+                                strncpy(s_pdocu[i][j][n], tmp_word_ptr - spell_count, spell_count);
+                                s_pdocu[i][j][n++][spell_count] = '\0';
+                                spell_count = 0;
+                                goto next_ptr;
+                            }
+                            else {
+                                goto next_ptr;
+                            }
+                        }
+                        spell_count++;
+                    next_ptr:
+                        tmp_word_ptr++;
+                    }
+                    /**/
+
+                    n = 0;
+                    if (*(tmp_ptr + 1) == ' ') {
+                        tmp_ptr++;
+                    }
+                    word_count = 0;
+                    j++;
+                }
+                tmp_ptr++;
+            }
+            i++;
+            j = 0;
+            puts("");
+        }
+        s_total_sentence_count += sentence_count;
+        sentence_count = 0;
+    }
 
     if (fclose(s_doc) == EOF) {
         perror("error while closing document");
@@ -141,12 +223,14 @@ size_t get_paragraph_sentence_count(const char*** paragraph)
 
 const char** get_sentence_or_null(const size_t paragraph_index, const size_t sentence_index)
 {
-    const char*** p = (const char***)s_pdocu[paragraph_index];
+    const char*** p = NULL; 
     size_t i = 0u;
 
     if (s_doc == NULL || paragraph_index >= s_total_paragraph_count) {
         return NULL;
     }
+
+    p = (const char***)s_pdocu[paragraph_index];
 
     while (i <= sentence_index) {
         if (*(p + i) == NULL) {
@@ -234,88 +318,9 @@ static void get_paragraph_count()
     rewind(s_doc);
 }
 
-static void set_sentence_and_words()
+/*static void set_sentence_and_words()
 {
-    const char* ptr = NULL;
-    char str[MAX_LENGTH] = "";
-    unsigned char check_just_new_line = 0;
-    size_t word_count = 0u;
-    size_t sentence_count = 0;
-    size_t i = 0u;
-    size_t j = 0u;
-    size_t n = 0u;
-    const char* tmp_ptr = NULL;
-    const char* tmp_word_ptr = NULL;
-    size_t spell_count = 0u;
 
-    while (fgets(str, MAX_LENGTH, s_doc) != NULL) {
-        ptr = str;
-        check_just_new_line = TRUE;
-        while (*ptr != '\0') {
-            if (*ptr == '.' || *ptr == '!' || *ptr == '?') {
-                sentence_count++;
-                if (*(ptr + 1) == ' ') {
-                    ptr++;
-                }
-            }
 
-            if (*ptr != '\n') {
-                check_just_new_line = FALSE;
-            }
-
-            ptr++;
-        }
-
-        if (check_just_new_line == FALSE && *ptr == '\0') {
-            s_pdocu[i] = (char***)malloc(sizeof(char**) * (sentence_count + 1));
-            s_pdocu[i][sentence_count] = NULL;
-
-            tmp_ptr = str;
-            tmp_word_ptr = str;
-            while (*tmp_ptr != '\0') {
-                if (*tmp_ptr == ' ' || *tmp_ptr == ',') {
-                    word_count++;
-                    tmp_ptr++;
-                }
-                if (*tmp_ptr == '.' || *tmp_ptr == '!' || *tmp_ptr == '?') {
-                    word_count++;
-                    s_total_word_count += word_count;
-                    s_pdocu[i][j] = (char**)malloc(sizeof(char*) * (word_count + 1));
-                    s_pdocu[i][j][word_count] = NULL;
-
-                    /*set words*/
-                    while (tmp_word_ptr != (tmp_ptr + 1)) {
-                        if (*tmp_word_ptr == ' ' || *tmp_word_ptr == ',' || *tmp_word_ptr == '.' || *tmp_word_ptr == '!' || *tmp_word_ptr == '?') {
-                            if (spell_count != 0) {
-                                s_pdocu[i][j][n] = (char*)malloc(sizeof(char) * (spell_count + 1));
-                                strncpy(s_pdocu[i][j][n], tmp_word_ptr - spell_count, spell_count);
-                                s_pdocu[i][j][n++][spell_count] = '\0';
-                                spell_count = 0;
-                                goto next_ptr;
-                            } else {
-                                goto next_ptr;
-                            }
-                        }
-                        spell_count++;
-next_ptr:
-                        tmp_word_ptr++;
-                    }
-                    /**/
-
-                    n = 0;
-                    if (*(tmp_ptr + 1) == ' ') {
-                        tmp_ptr++;
-                    }
-                    word_count = 0;
-                    j++;
-                }
-                tmp_ptr++;
-            }
-            i++;
-            j = 0;
-            puts("");
-        }
-        s_total_sentence_count += sentence_count;
-        sentence_count = 0;
-    }
-}
+   
+}*/

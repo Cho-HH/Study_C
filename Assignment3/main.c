@@ -15,6 +15,7 @@ int main(void)
     size_t j = 0U;
 
     printf("%d\n", get_total_word_count());
+    assert(get_sentence_or_null(0, 3) == NULL);
 
     test_empty();
 
@@ -70,7 +71,8 @@ int main(void)
     load_document("input1.txt");
     print_as_tree("output1.txt");
     dispose();
-
+    assert(get_sentence_or_null(0, 3) == NULL);
+    test_empty();
     assert(get_total_word_count() == 0);
     load_document("input2.txt");
     assert(get_total_word_count() == 45);
