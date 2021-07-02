@@ -59,12 +59,10 @@ void dispose(void)
                 *p_word = NULL;
                 p_word++;
             }
-            n = 0;
             free(*p_sen);
             *p_sen = NULL;
             p_sen++;
         }
-        k = 0;
         free(p_para[i]);
         p_para[i] = NULL;
     }
