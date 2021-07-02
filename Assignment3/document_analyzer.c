@@ -12,7 +12,7 @@ static size_t s_total_paragraph_count = 0u;
 
 static char**** s_pDocu = NULL;
 
-static FILE* s_doc;
+static FILE* s_doc = NULL;
 
 static void get_paragraph_count();
 
@@ -152,16 +152,28 @@ void dispose(void)
 
 size_t get_total_word_count(void)
 {
+    if (s_doc == NULL) {
+        return 0;
+    }
+
     return s_total_word_count;
 }
 
 size_t get_total_sentence_count(void)
 {
+    if (s_doc == NULL) {
+        return 0;
+    }
+
     return s_total_sentence_count;
 }
 
 size_t get_total_paragraph_count(void)
 {
+    if (s_doc == NULL) {
+        return 0;
+    }
+
     return s_total_paragraph_count;
 }
 
@@ -241,6 +253,10 @@ int print_as_tree(const char* filename)
     const char*** p_sen = NULL;
     const char** p_word = NULL;
 
+    if (s_total_word_count == 0) {
+        return FALSE;
+    }
+
     s_doc = fopen(filename, "w");
     if (s_doc == NULL) {
         perror("error while opening document");
@@ -262,6 +278,7 @@ int print_as_tree(const char* filename)
         n = 0;
     }
 
+    fprintf(s_doc, "%d\n", s_total_word_count);
     fclose(s_doc);
 
     return TRUE;

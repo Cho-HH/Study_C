@@ -4,6 +4,9 @@
 #include <string.h>
 #include "document_analyzer.h"
 
+void test_empty(void);
+void test_document(void);
+
 int main(void)
 {
     const char** sentence = NULL;
@@ -11,10 +14,11 @@ int main(void)
     size_t i = 0U;
     size_t j = 0U;
 
-    assert(load_document("doesntexist.txt") == FALSE);
-    assert(load_document("input.txt") == TRUE);
+   /* assert(load_document("doesntexist.txt") == FALSE);
+    assert(load_document("input2.txt") == TRUE);*/
 
-    assert(get_total_word_count() == 58U);
+    test_empty();
+    /*assert(get_total_word_count() == 58U);
     assert(get_total_sentence_count() == 9U);
     assert(get_total_paragraph_count() == 3U);
 
@@ -54,11 +58,86 @@ int main(void)
     assert(strcmp(sentence[i++], "Is") == 0);
     assert(strcmp(sentence[i++], "this") == 0);
     assert(strcmp(sentence[i++], "too") == 0);
-    assert(strcmp(sentence[i++], "easy") == 0);
+    assert(strcmp(sentence[i++], "easy") == 0);*/
 
-    assert(print_as_tree("output.txt") == TRUE);
+    /*assert(print_as_tree("output.txt") == TRUE);*/
 
     dispose();
 
     return 0;
+}
+
+void test_empty(void)
+{
+    assert(load_document("input_empty.txt") == TRUE);
+    assert(print_as_tree("output_empty.txt") == FALSE);
+    assert(get_total_word_count() == 0U);
+    assert(get_total_sentence_count() == 0U);
+    assert(get_total_paragraph_count() == 0U);
+
+    dispose();
+
+    puts("test_empty");
+}
+
+void test_document(void)
+{
+    const char** sentence = NULL;
+    const char*** paragraph = NULL;
+    assert(get_paragraph_or_null(0) == NULL);
+    assert(get_sentence_or_null(0, 0) == NULL);
+    assert(get_total_word_count() == 0U);
+    assert(get_total_sentence_count() == 0U);
+    assert(get_total_paragraph_count() == 0U);
+    assert(print_as_tree("output_document.txt") == FALSE);
+
+    assert(load_document("document.txt") == TRUE);
+
+    assert(get_total_word_count() == 62U);
+    assert(get_total_sentence_count() == 6U);
+    assert(get_total_paragraph_count() == 3U);
+
+    paragraph = get_paragraph_or_null(0);
+    assert(paragraph != NULL);
+    assert(get_paragraph_word_count(paragraph) == 19);
+    assert(get_paragraph_sentence_count(paragraph) == 1);
+    sentence = get_sentence_or_null(0, 0);
+    assert(sentence != NULL);
+    assert(get_sentence_word_count(sentence) == 19);
+    assert(get_sentence_or_null(0, 1) == NULL);
+
+    paragraph = get_paragraph_or_null(1);
+    assert(paragraph != NULL);
+    assert(get_paragraph_word_count(paragraph) == 28);
+    assert(get_paragraph_sentence_count(paragraph) == 3);
+    sentence = get_sentence_or_null(1, 0);
+    assert(sentence != NULL);
+    assert(get_sentence_word_count(sentence) == 10);
+    sentence = get_sentence_or_null(1, 1);
+    assert(sentence != NULL);
+    assert(get_sentence_word_count(sentence) == 9);
+    sentence = get_sentence_or_null(1, 2);
+    assert(sentence != NULL);
+    assert(get_sentence_word_count(sentence) == 9);
+    assert(get_sentence_or_null(1, 3) == NULL);
+
+    paragraph = get_paragraph_or_null(2);
+    assert(paragraph != NULL);
+    assert(get_paragraph_word_count(paragraph) == 15);
+    assert(get_paragraph_sentence_count(paragraph) == 2);
+    sentence = get_sentence_or_null(2, 0);
+    assert(sentence != NULL);
+    assert(get_sentence_word_count(sentence) == 8);
+    sentence = get_sentence_or_null(2, 1);
+    assert(sentence != NULL);
+    assert(get_sentence_word_count(sentence) == 7);
+    assert(get_sentence_or_null(2, 2) == NULL);
+
+    assert(get_paragraph_or_null(3) == NULL);
+
+    assert(print_as_tree("output_document.txt") == TRUE);
+
+    dispose();
+
+    puts("test_document");
 }

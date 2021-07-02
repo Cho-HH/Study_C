@@ -1,70 +1,57 @@
 Paragraph 0:
     Sentence 0:
-        Let's
-        make
-        a
-        simple
-        setence
-        here
+        You
+        better
+        watch
+        out
     Sentence 1:
-        My
-        second
-        sentence
+        You
+        better
+        not
+        cry
     Sentence 2:
-        Is
-        this
-        too
-        easy
+        You
+        better
+        not
+        pout
     Sentence 3:
-        Should
-        I
-        make
-        the
-        assignments
-        harder
-Paragraph 1:
-    Sentence 0:
-        This
-        is
-        the
-        second
-        paragraph
-    Sentence 1:
-        I
-        wonder
-        how
-        many
-        sentences
+        I'm
+        telling
         you
-        will
-        see
-        here
-Paragraph 2:
-    Sentence 0:
-        POCU
+        why
+    Sentence 4:
+        \n\nSanta
+        Clause
         is
-        fun
-    Sentence 1:
-        Stick
-        around
+        coming
+        to
+        town
+        for
+        reals
+    Sentence 5:
+        It's
+        no
+        Joke
+    Sentence 6:
+        \n\nHe's
+        making
+        a
+        list
+    Sentence 7:
+        He's
+        checking
+        it
+        twice
+    Sentence 8:
+        Gonna
+        find
+        out
+        who's
+        naughty
         and
-        you
-        will
-        have
-        MORE
-        fun
-    Sentence 2:
-        Just
-        one
-        more
-        assignment
-        after
-        this
-        one
-        and
-        that
-        one
-        will
+        nice
+    Sentence 9:
+        So
         be
-        fun
-        too
+        nice
+45
