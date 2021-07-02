@@ -30,6 +30,10 @@ int load_document(const char* document)
     const char* tmp_word_ptr = NULL;
     size_t spell_count = 0u;
 
+    if (s_doc != NULL) {
+        return FALSE;
+    }
+
     s_doc = fopen(document, "r");
     if (s_doc == NULL) {
         perror("error while opening document");
@@ -278,8 +282,11 @@ int print_as_tree(const char* filename)
         n = 0;
     }
 
-    fprintf(s_doc, "%d\n", s_total_word_count);
     fclose(s_doc);
+    s_doc = NULL;
+    s_total_word_count = 0;
+    s_total_sentence_count = 0;
+    s_total_paragraph_count = 0;
 
     return TRUE;
 }
