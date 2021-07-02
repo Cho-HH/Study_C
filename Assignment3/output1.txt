@@ -9,6 +9,7 @@ Paragraph 0:
         bangsong
         is
         fun
+
 Paragraph 1:
     Sentence 0:
         nice
@@ -26,6 +27,7 @@ Paragraph 1:
     Sentence 3:
         don't
         you
+
 Paragraph 2:
     Sentence 0:
         what
@@ -34,6 +36,7 @@ Paragraph 2:
         too
         mo
         tae
+
 Paragraph 3:
     Sentence 0:
         Good
