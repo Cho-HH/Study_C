@@ -62,11 +62,11 @@ size_t get_matching_parentheses(parenthesis_t* parentheses, size_t max_size, con
     }
     
     for (i = 0; i < max_size; i++) {
-    	if (*(tmp_pp + i) != NULL) {
-    		free(*(tmp_pp + i));
-    		*(tmp_pp + i) = NULL;
-    		/*puts("free");*/
-    	}
+        if (*(tmp_pp + i) != NULL) {
+            free(*(tmp_pp + i));
+            *(tmp_pp + i) = NULL;
+            /*puts("free");*/
+        }
     }
     
     free(tmp_pp);
@@ -86,5 +86,5 @@ size_t get_matching_parentheses(parenthesis_t* parentheses, size_t max_size, con
 
 static int set_ascending(const void* parentheses_1, const void* parentheses_2)
 {
-	return ((parenthesis_t*)parentheses_1)->opening_index - ((parenthesis_t*)parentheses_2)->opening_index;
+    return ((parenthesis_t*)parentheses_1)->opening_index - ((parenthesis_t*)parentheses_2)->opening_index;
 }
