@@ -10,7 +10,7 @@ size_t get_matching_parentheses(parenthesis_t* parentheses, size_t max_size, con
     const char* str_ptr = str;
     size_t parentheses_count = 0u;
     size_t i = 0u;
-    int j = 0u;
+    int j = 0;
     size_t str_len = strlen(str);
     int** parentheses_stack = (int**)malloc(sizeof(int*) * str_len);	
     int** tmp_pp = parentheses_stack;
@@ -78,7 +78,7 @@ size_t get_matching_parentheses(parenthesis_t* parentheses, size_t max_size, con
     
     puts("");
     for (i = 0; i < parentheses_count; i++) {
-    	printf("opening : %d, closing : %d\n", parentheses[i].opening_index, parentheses[i].closing_index);
+        printf("opening : %d, closing : %d\n", parentheses[i].opening_index, parentheses[i].closing_index);
     }
     puts("");
     puts("");
