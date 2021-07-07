@@ -11,10 +11,11 @@ size_t get_matching_parentheses(parenthesis_t* parentheses, size_t max_size, con
     size_t parentheses_count = 0u;
     size_t i = 0u;
     int j = 0u;
-    int** parentheses_stack = (int**)malloc(sizeof(int*) * max_size);	
+    size_t str_len = strlen(str);
+    int** parentheses_stack = (int**)malloc(sizeof(int*) * str_len);	
     int** tmp_pp = parentheses_stack;
     
-    for (i = 0; i < max_size; i++) {
+    for (i = 0; i < str_len; i++) {
         *(parentheses_stack + i) = NULL;
     }
     
@@ -32,7 +33,7 @@ size_t get_matching_parentheses(parenthesis_t* parentheses, size_t max_size, con
                 if (parentheses_stack[j] != NULL && parentheses_stack[j][0] == '(') {
                     parentheses[parentheses_count].opening_index = parentheses_stack[j][1];
                     parentheses[parentheses_count++].closing_index = str_ptr - str;
-                    /*puts("find and free");*/
+                    puts("find and free");
                     free(parentheses_stack[j]);
                     parentheses_stack[j] = NULL;
                     break;
@@ -45,7 +46,7 @@ size_t get_matching_parentheses(parenthesis_t* parentheses, size_t max_size, con
                 if (parentheses_stack[j] != NULL && parentheses_stack[j][0] == *str_ptr - 2) {
                     parentheses[parentheses_count].opening_index = parentheses_stack[j][1];
                     parentheses[parentheses_count++].closing_index = str_ptr - str;
-                    /*puts("find and free");*/
+                    puts("find and free");
                     free(parentheses_stack[j]);
                     parentheses_stack[j] = NULL;
                     break;
@@ -61,26 +62,26 @@ size_t get_matching_parentheses(parenthesis_t* parentheses, size_t max_size, con
         str_ptr++;
     }
     
-    for (i = 0; i < max_size; i++) {
+    for (i = 0; i < str_len; i++) {
         if (*(tmp_pp + i) != NULL) {
             free(*(tmp_pp + i));
             *(tmp_pp + i) = NULL;
-            /*puts("free");*/
+            puts("free");
         }
     }
     
     free(tmp_pp);
-    /*puts("free stack");
-    printf("parentheses_count : %d\n", parentheses_count);*/
+    puts("free stack");
+    printf("parentheses_count : %d\n", parentheses_count);
     
     qsort(parentheses, parentheses_count, sizeof(parenthesis_t), set_ascending);
     
-    /*puts("");
+    puts("");
     for (i = 0; i < parentheses_count; i++) {
     	printf("opening : %d, closing : %d\n", parentheses[i].opening_index, parentheses[i].closing_index);
     }
     puts("");
-    puts("");*/
+    puts("");
     return parentheses_count;
 }
 
