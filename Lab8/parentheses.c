@@ -10,7 +10,7 @@
 typedef struct {
     char parenthesis;
     int index;
-}parentheses_stack_t;
+} parentheses_stack_t;
 
 static int set_ascending(const void*, const void*);
 
