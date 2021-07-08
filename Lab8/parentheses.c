@@ -9,6 +9,7 @@
 
 typedef struct {
     char parenthesis;
+    char padding_bit[3];
     int index;
 } parentheses_stack_t;
 
@@ -20,7 +21,7 @@ size_t get_matching_parentheses(parenthesis_t* parentheses, size_t max_size, con
     size_t parentheses_count = 0u;
     size_t i = 0u;
     int j = 0;
-    size_t str_len = strlen(str);
+    size_t str_len = strlen(str);    
     parentheses_stack_t** parentheses_stack = (parentheses_stack_t**)malloc(sizeof(parentheses_stack_t*) * str_len);
     parentheses_stack_t** tmp_pp = parentheses_stack;
     
