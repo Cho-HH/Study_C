@@ -1,7 +1,16 @@
+/*만약 구조체의 패딩비트를 없애서 딱 5바이트만 사용하고 싶다면*/
+/*#pragma pack(1) (== 패딩비트를 1로 만듦) */
+/*사용하면 됨. but, 최적의 패빙비트가 4바이트이므로 최적화문제(?)발생 가능 */
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include "parentheses.h"
+
+typedef struct {
+    char parenthesis;
+    int index;
+}parentheses_stack_t;
 
 static int set_ascending(const void*, const void*);
 
@@ -12,8 +21,8 @@ size_t get_matching_parentheses(parenthesis_t* parentheses, size_t max_size, con
     size_t i = 0u;
     int j = 0;
     size_t str_len = strlen(str);
-    int** parentheses_stack = (int**)malloc(sizeof(int*) * str_len);	
-    int** tmp_pp = parentheses_stack;
+    parentheses_stack_t** parentheses_stack = (parentheses_stack_t**)malloc(sizeof(parentheses_stack_t*) * str_len);
+    parentheses_stack_t** tmp_pp = parentheses_stack;
     
     for (i = 0; i < str_len; i++) {
         *(parentheses_stack + i) = NULL;
@@ -22,16 +31,16 @@ size_t get_matching_parentheses(parenthesis_t* parentheses, size_t max_size, con
     i = 0;
     while (*str_ptr != '\0') {
         if (*str_ptr == '(' || *str_ptr == '{' || *str_ptr == '[' || *str_ptr == '<') {
-            parentheses_stack[i] = (int*)malloc(sizeof(int) * 2);
-            parentheses_stack[i][0] = *str_ptr;
-            parentheses_stack[i++][1] = str_ptr - str;
+            parentheses_stack[i] = (parentheses_stack_t*)malloc(sizeof(parentheses_stack_t));
+            parentheses_stack[i]->parenthesis = *str_ptr;
+            parentheses_stack[i++]->index = str_ptr - str;
         }
         
         if (*str_ptr == ')') {
             j = (int)i - 1;
             while (j >= 0) {				
-                if (parentheses_stack[j] != NULL && parentheses_stack[j][0] == '(') {
-                    parentheses[parentheses_count].opening_index = parentheses_stack[j][1];
+                if (parentheses_stack[j] != NULL && parentheses_stack[j]->parenthesis == '(') {
+                    parentheses[parentheses_count].opening_index = parentheses_stack[j]->index;
                     parentheses[parentheses_count++].closing_index = str_ptr - str;
                     puts("find and free");
                     free(parentheses_stack[j]);
@@ -43,8 +52,8 @@ size_t get_matching_parentheses(parenthesis_t* parentheses, size_t max_size, con
         } else if (*str_ptr == '}' || *str_ptr == ']' || *str_ptr == '>') {
             j = (int)i - 1;
             while (j >= 0) {
-                if (parentheses_stack[j] != NULL && parentheses_stack[j][0] == *str_ptr - 2) {
-                    parentheses[parentheses_count].opening_index = parentheses_stack[j][1];
+                if (parentheses_stack[j] != NULL && parentheses_stack[j]->parenthesis == *str_ptr - 2) {
+                    parentheses[parentheses_count].opening_index = parentheses_stack[j]->index;
                     parentheses[parentheses_count++].closing_index = str_ptr - str;
                     puts("find and free");
                     free(parentheses_stack[j]);
