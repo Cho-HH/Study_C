@@ -14,7 +14,6 @@ int main(void)
     size_t i = 0U;
     size_t j = 0U;
 
-    printf("%d\n", get_total_word_count());
     assert(get_sentence_or_null(0, 3) == NULL);
 
     test_empty();
@@ -76,6 +75,10 @@ int main(void)
     assert(get_total_word_count() == 0);
     load_document("input2.txt");
     assert(get_total_word_count() == 45);
+    dispose();
+
+    load_document("peaches.txt");
+    print_as_tree("peaches_output.txt");
     dispose();
     printf("test finish\n");
 
