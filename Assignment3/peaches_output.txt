@@ -10,10 +10,7 @@ Paragraph 0:
         (oh
         yeah
         shit)
-
-
-Paragraph 1:
-    Sentence 0:
+    Sentence 1:
         I
         get
         my
@@ -23,10 +20,7 @@ Paragraph 1:
         (that's
         that
         shit)
-
-
-Paragraph 2:
-    Sentence 0:
+    Sentence 2:
         I
         took
         my
@@ -38,10 +32,7 @@ Paragraph 2:
         yeah
         (badass
         bitch)
-
-
-Paragraph 3:
-    Sentence 0:
+    Sentence 3:
         I
         get
         my
@@ -56,7 +47,7 @@ Paragraph 3:
         it)
 
 
-Paragraph 4:
+Paragraph 1:
     Sentence 0:
         And
         I
@@ -78,7 +69,7 @@ Paragraph 4:
         skin
 
 
-Paragraph 5:
+Paragraph 2:
     Sentence 0:
         I
         wanna
@@ -95,7 +86,7 @@ Paragraph 5:
         oh
 
 
-Paragraph 6:
+Paragraph 3:
     Sentence 0:
         And
         I
@@ -108,7 +99,7 @@ Paragraph 6:
         touch
 
 
-Paragraph 7:
+Paragraph 4:
     Sentence 0:
         It's
         the
@@ -118,10 +109,7 @@ Paragraph 7:
         me
         up
         yeah
-
-
-Paragraph 8:
-    Sentence 0:
+    Sentence 1:
         And
         I'll
         be
@@ -132,10 +120,358 @@ Paragraph 8:
         'til
         the
         end
+    Sentence 2:
+        I
+        got
+        my
+        peaches
+        out
+        in
+        Georgia
+        (oh
+        yeah
+        shit)
 
+
+Paragraph 5:
+    Sentence 0:
+        I
+        get
+        my
+        weed
+        from
+        California
+        (that's
+        that
+        shit)
+    Sentence 1:
+        I
+        took
+        my
+        chick
+        up
+        to
+        the
+        North
+        yeah
+        (badass
+        bitch)
+    Sentence 2:
+        I
+        get
+        my
+        light
+        right
+        from
+        the
+        source
+        yeah
+        (yeah
+        that's
+        it)
+    Sentence 3:
+        You
+        ain't
+        sure
+        yet
+        but
+        I'm
+        for
+        ya
+    Sentence 4:
+        All
+        I
+        could
+        want
+        all
+        I
+        can
+        wish
+        for
+    Sentence 5:
+        Nights
+        alone
+        that
+        we
+        miss
+        more
+    Sentence 6:
+        And
+        days
+        we
+        save
+        as
+        souvenirs
+    Sentence 7:
+        There's
+        no
+        time
+        I
+        wanna
+        make
+        more
+        time
+    Sentence 8:
+        And
+        give
+        you
+        my
+        whole
+        life
+    Sentence 9:
+        I
+        left
+        my
+        girl
+        I'm
+        in
+        Mallorca
+
+
+Paragraph 6:
+    Sentence 0:
+        Hate
+        to
+        leave
+        her
+        call
+        it
+        torture
+
+
+Paragraph 7:
+    Sentence 0:
+        Remember
+        when
+        I
+        couldn't
+        hold
+        her
+    Sentence 1:
+        Left
+        her
+        baggage
+        for
+        Rimowa
+    Sentence 2:
+        I
+        got
+        my
+        peaches
+        out
+        in
+        Georgia
+        (oh
+        yeah
+        shit)
+    Sentence 3:
+        I
+        get
+        my
+        weed
+        from
+        California
+        (that's
+        that
+        shit)
+    Sentence 4:
+        I
+        took
+        my
+        chick
+        up
+        to
+        the
+        North
+        yeah
+        (badass
+        bitch)
+    Sentence 5:
+        I
+        get
+        my
+        light
+        right
+        from
+        the
+        source
+        yeah
+        (yeah
+        that's
+        it)
+    Sentence 6:
+        I
+        get
+        the
+        feeling
+        so
+        I'm
+        sure
+        (sure)
+    Sentence 7:
+        Hand
+        in
+        my
+        hand
+        because
+        I'm
+        yours
+    Sentence 8:
+        I
+        can't
+        I
+        can't
+        pretend
+        I
+        can't
+        ignore
+        you're
+        right
+        for
+        me
+    Sentence 9:
+        Don't
+        think
+        you
+        wanna
+        know
+        just
+        where
+        I've
+        been
+        oh
+    Sentence 10:
+        Done
+        being
+        distracted
+
+Paragraph 8:
+    Sentence 0:
+        The
+        one
+        I
+        need
+        is
+        right
+        in
+        my
+        arms
+        (oh)
+    Sentence 1:
+        Your
+        kisses
+        taste
+        the
+        sweetest
+        with
+        mine
+    Sentence 2:
+        And
+        I'll
+        be
+        right
+        here
+        with
+        you
+        'til
+        end
+        of
+        time
+    Sentence 3:
+        I
+        got
+        my
+        peaches
+        out
+        in
+        Georgia
+        (oh
+        yeah
+        shit)
+    Sentence 4:
+        I
+        get
+        my
+        weed
+        from
+        California
+        (that's
+        that
+        shit)
+    Sentence 5:
+        I
+        took
+        my
+        chick
+        up
+        to
+        the
+        North
+        yeah
+        (badass
+        bitch)
+    Sentence 6:
+        I
+        get
+        my
+        light
+        right
+        from
+        the
+        source
+        yeah
+        (yeah
+        that's
+        it)
+    Sentence 7:
+        I
+        got
+        my
+        peaches
+        out
+        in
+        Georgia
+        (oh
+        yeah
+        shit)
+    Sentence 8:
+        I
+        get
+        my
+        weed
+        from
+        California
+        (that's
+        that
+        shit)
+    Sentence 9:
+        I
+        took
+        my
+        chick
+        up
+        to
+        the
+        North
+        yeah
+        (badass
+        bitch)
+    Sentence 10:
+        (I
+        get
+        my
+        light
+        ri
 
 Paragraph 9:
     Sentence 0:
+        ght
+        from
+        the
+        source
+        yeah
+        yeah)
+    Sentence 1:
         I
         got
         my
@@ -159,150 +495,39 @@ Paragraph 10:
         (that's
         that
         shit)
+    Sentence 1:
+        I
+        took
+        my
+        chick
+        up
+        to
+        the
+        North
+        yeah
+        (badass
+        bitch)
 
 
 Paragraph 11:
     Sentence 0:
         I
-        took
+        get
         my
-        chick
-        up
-        to
+        light
+        right
+        from
         the
-        North
+        source
         yeah
-        (badass
-        bitch)
+        (yeah
+        that's
+        it)
 
 
 Paragraph 12:
     Sentence 0:
         I
-        get
-        my
-        light
-        right
-        from
-        the
-        source
-        yeah
-        (yeah
-        that's
-        it)
-
-
-Paragraph 13:
-    Sentence 0:
-        You
-        ain't
-        sure
-        yet
-        but
-        I'm
-        for
-        ya
-
-
-Paragraph 14:
-    Sentence 0:
-        All
-        I
-        could
-        want
-        all
-        I
-        can
-        wish
-        for
-
-
-Paragraph 15:
-    Sentence 0:
-        Nights
-        alone
-        that
-        we
-        miss
-        more
-
-
-Paragraph 16:
-    Sentence 0:
-        And
-        days
-        we
-        save
-        as
-        souvenirs
-
-
-Paragraph 17:
-    Sentence 0:
-        There's
-        no
-        time
-        I
-        wanna
-        make
-        more
-        time
-
-
-Paragraph 18:
-    Sentence 0:
-        And
-        give
-        you
-        my
-        whole
-        life
-
-
-Paragraph 19:
-    Sentence 0:
-        I
-        left
-        my
-        girl
-        I'm
-        in
-        Mallorca
-
-
-Paragraph 20:
-    Sentence 0:
-        Hate
-        to
-        leave
-        her
-        call
-        it
-        torture
-
-
-Paragraph 21:
-    Sentence 0:
-        Remember
-        when
-        I
-        couldn't
-        hold
-        her
-
-
-Paragraph 22:
-    Sentence 0:
-        Left
-        her
-        baggage
-        for
-        Rimowa
-
-
-Paragraph 23:
-    Sentence 0:
-        I
         got
         my
         peaches
@@ -312,10 +537,7 @@ Paragraph 23:
         (oh
         yeah
         shit)
-
-
-Paragraph 24:
-    Sentence 0:
+    Sentence 1:
         I
         get
         my
@@ -325,10 +547,7 @@ Paragraph 24:
         (that's
         that
         shit)
-
-
-Paragraph 25:
-    Sentence 0:
+    Sentence 2:
         I
         took
         my
@@ -340,340 +559,7 @@ Paragraph 25:
         yeah
         (badass
         bitch)
-
-
-Paragraph 26:
-    Sentence 0:
-        I
-        get
-        my
-        light
-        right
-        from
-        the
-        source
-        yeah
-        (yeah
-        that's
-        it)
-
-
-Paragraph 27:
-    Sentence 0:
-        I
-        get
-        the
-        feeling
-        so
-        I'm
-        sure
-        (sure)
-
-
-Paragraph 28:
-    Sentence 0:
-        Hand
-        in
-        my
-        hand
-        because
-        I'm
-        yours
-
-
-Paragraph 29:
-    Sentence 0:
-        I
-        can't
-        I
-        can't
-        pretend
-        I
-        can't
-        ignore
-        you're
-        right
-        for
-        me
-
-
-Paragraph 30:
-    Sentence 0:
-        Don't
-        think
-        you
-        wanna
-        know
-        just
-        where
-        I've
-        been
-        oh
-
-
-Paragraph 31:
-    Sentence 0:
-        Done
-        being
-        distracted
-
-
-Paragraph 32:
-    Sentence 0:
-        The
-        one
-        I
-        need
-        is
-        right
-        in
-        my
-        arms
-        (oh)
-
-
-Paragraph 33:
-    Sentence 0:
-        Your
-        kisses
-        taste
-        the
-        sweetest
-        with
-        mine
-
-
-Paragraph 34:
-    Sentence 0:
-        And
-        I'll
-        be
-        right
-        here
-        with
-        you
-        'til
-        end
-        of
-        time
-
-
-Paragraph 35:
-    Sentence 0:
-        I
-        got
-        my
-        peaches
-        out
-        in
-        Georgia
-        (oh
-        yeah
-        shit)
-
-
-Paragraph 36:
-    Sentence 0:
-        I
-        get
-        my
-        weed
-        from
-        California
-        (that's
-        that
-        shit)
-
-
-Paragraph 37:
-    Sentence 0:
-        I
-        took
-        my
-        chick
-        up
-        to
-        the
-        North
-        yeah
-        (badass
-        bitch)
-
-
-Paragraph 38:
-    Sentence 0:
-        I
-        get
-        my
-        light
-        right
-        from
-        the
-        source
-        yeah
-        (yeah
-        that's
-        it)
-
-
-Paragraph 39:
-    Sentence 0:
-        I
-        got
-        my
-        peaches
-        out
-        in
-        Georgia
-        (oh
-        yeah
-        shit)
-
-
-Paragraph 40:
-    Sentence 0:
-        I
-        get
-        my
-        weed
-        from
-        California
-        (that's
-        that
-        shit)
-
-
-Paragraph 41:
-    Sentence 0:
-        I
-        took
-        my
-        chick
-        up
-        to
-        the
-        North
-        yeah
-        (badass
-        bitch)
-
-
-Paragraph 42:
-    Sentence 0:
-        (I
-        get
-        my
-        light
-        right
-        from
-        the
-        source
-        yeah
-        yeah)
-
-
-Paragraph 43:
-    Sentence 0:
-        I
-        got
-        my
-        peaches
-        out
-        in
-        Georgia
-        (oh
-        yeah
-        shit)
-
-
-Paragraph 44:
-    Sentence 0:
-        I
-        get
-        my
-        weed
-        from
-        California
-        (that's
-        that
-        shit)
-
-
-Paragraph 45:
-    Sentence 0:
-        I
-        took
-        my
-        chick
-        up
-        to
-        the
-        North
-        yeah
-        (badass
-        bitch)
-
-
-Paragraph 46:
-    Sentence 0:
-        I
-        get
-        my
-        light
-        right
-        from
-        the
-        source
-        yeah
-        (yeah
-        that's
-        it)
-
-
-Paragraph 47:
-    Sentence 0:
-        I
-        got
-        my
-        peaches
-        out
-        in
-        Georgia
-        (oh
-        yeah
-        shit)
-
-
-Paragraph 48:
-    Sentence 0:
-        I
-        get
-        my
-        weed
-        from
-        California
-        (that's
-        that
-        shit)
-
-
-Paragraph 49:
-    Sentence 0:
-        I
-        took
-        my
-        chick
-        up
-        to
-        the
-        North
-        yeah
-        (badass
-        bitch)
-
-
-Paragraph 50:
-    Sentence 0:
+    Sentence 3:
         I
         get
         my
