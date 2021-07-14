@@ -7,8 +7,7 @@ int main(void)
     int i = 0;
     int arr[20];
     int* curr;
-    printf("%c\n", MAX('A', 'a'));
-#if 0
+
     assert(10 == MAX(10, 5));
     assert(10.0f == MAX(10.0f, 5.0f));
     assert(10.0 == MAX(10.0, 5.0f));
@@ -56,22 +55,39 @@ int main(void)
     SET(arr, 0, 20, 0);
 
     for (i = 0; i < 20; i++) {
+        printf("%d ", arr[i]);
         assert(arr[i] == 0);
     }
-
+    puts("");
+#if 1
     SET(arr, 5, 5, 100);
 
     for (i = 0; i < 5; i++) {
+        printf("%d ", arr[i]);
         assert(arr[i] == 0);
     }
 
+    puts("");
     for (i = 5; i < 10; i++) {
+        printf("%d ", arr[i]);
         assert(arr[i] == 100);
     }
-
+    puts("");
     for (i = 10; i < 20; i++) {
+        printf("%d ", arr[i]);
         assert(arr[i] == 0);
     }
+    puts("");
+
+    SET(arr, 0, 20, 0);
+    SET(arr, 6, 1, 100);
+
+    for (i = 0; i < 20; i++) {
+        printf("%d ", arr[i]);
+    }
+
+    puts("");
 #endif
+    printf("finish\n");
     return 0;
 }
