@@ -14,7 +14,7 @@
 #define SET(ary, start, count, value) \
 (ary[(start)]) = 0; \
 while ((ary[(start)]) + 1 < (count)) { \
-    (ary[(start) + 1 + (int)ary[(start)]]) = (value); \
+    (ary[(start) + 1 + ((int)ary[(start)])]) = (value); \
     (ary[(start)])++; \
 } \
 (ary[(start)]) = (value); \
