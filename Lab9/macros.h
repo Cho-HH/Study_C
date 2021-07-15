@@ -17,6 +17,9 @@ while ((ary)[(start)] + 1 < (count)) { \
     (ary)[(start) + 1 + ((int)(ary)[(start)])] = (value); \
     (ary)[(start)]++; \
 } \
-(ary)[(start)] = (value); \
+if ((count) > 0) { \
+    (ary)[(start)] = (value); \
+} \
+
 
 #endif /* MACROS_H */
