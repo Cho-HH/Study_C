@@ -114,7 +114,7 @@ int main(void)
     }
     puts("");
 
-    SET(arr, 0, 20, 0);
+    SET(arr, 0, 20, 1);
     SET(arr, 4, 0, 20);
     for (i = 0; i < 20; i++) {
         printf("%d ", arr[i]);
