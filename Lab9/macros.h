@@ -12,11 +12,11 @@
 #define RANGE_DESC(curr, max, min) for ((curr) = (max); (curr) >= (min); (curr)--)
 
 #define SET(ary, start, count, value) \
-(ary[(start)]) = 0; \
-while ((ary[(start)]) + 1 < (count)) { \
-    (ary[(start) + 1 + ((int)ary[(start)])]) = (value); \
-    (ary[(start)])++; \
+(ary)[(start)] = 0; \
+while ((ary)[(start)] + 1 < (count)) { \
+    (ary)[(start) + 1 + ((int)(ary)[(start)])] = (value); \
+    (ary)[(start)]++; \
 } \
-(ary[(start)]) = (value); \
+(ary)[(start)] = (value); \
 
 #endif /* MACROS_H */
