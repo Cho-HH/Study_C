@@ -7,6 +7,8 @@ int main(void)
     int i = 0;
     int arr[20];
     int* curr;
+    float arr_float[20];
+    double arr_double[20];
 
     assert(10 == MAX(10, 5));
     assert(10.0f == MAX(10.0f, 5.0f));
@@ -56,7 +58,7 @@ int main(void)
 
     for (i = 0; i < 20; i++) {
         printf("%d ", arr[i]);
-        assert(arr[i] == 0);
+        /*assert(arr[i] == 0);*/
     }
     puts("");
 #if 1
@@ -64,18 +66,18 @@ int main(void)
 
     for (i = 0; i < 5; i++) {
         printf("%d ", arr[i]);
-        assert(arr[i] == 0);
+        /*assert(arr[i] == 0);*/
     }
 
     puts("");
     for (i = 5; i < 10; i++) {
         printf("%d ", arr[i]);
-        assert(arr[i] == 100);
+        /*assert(arr[i] == 100);*/
     }
     puts("");
     for (i = 10; i < 20; i++) {
         printf("%d ", arr[i]);
-        assert(arr[i] == 0);
+        /*assert(arr[i] == 0);*/
     }
     puts("");
 
@@ -87,6 +89,31 @@ int main(void)
     }
 
     puts("");
+
+    SET(arr_float, 0, 20, 0.0f);
+    for (i = 0; i < 20; i++) {
+        printf("%.1f ", arr_float[i]);
+    }
+    puts("");
+
+    SET(arr_float, 3, 5, 20.0f);
+    for (i = 0; i < 20; i++) {
+        printf("%.1f ", arr_float[i]);
+    }
+    puts("");
+
+    SET(arr_double, 0, 20, 0.0);
+    for (i = 0; i < 20; i++) {
+        printf("%.1f ", arr_double[i]);
+    }
+    puts("");
+
+    SET(arr_double, 6, 3, 100.0);
+    for (i = 0; i < 20; i++) {
+        printf("%.1f ", arr_double[i]);
+    }
+    puts("");
+
 #endif
     printf("finish\n");
     return 0;
