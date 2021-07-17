@@ -1,4 +1,4 @@
-/*#define _CRT_SECURE_NO_WARNINGS*/
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -22,46 +22,26 @@ int add_key(hashmap_t* hashmap, const char* key, const int value)
 {
     size_t str_len = 0;
     size_t hash_key = hashmap->hash_func(key) % hashmap->length;
-    node_t* newNode = NULL;
-    node_t* dummyNode = NULL;
-    node_t* current_Node = hashmap->plist[hash_key];
-    size_t check_dummy_node = 0;
+    node_t* new_node = NULL;
+    node_t* current_node = hashmap->plist[hash_key];
     
-    while (current_Node != NULL) {
-        if (check_dummy_node == 0) {
-            current_Node = current_Node->next;
-            if (current_Node == NULL) {
-                break;
-            }
-            check_dummy_node = 1;
-        }
-        if (strcmp(current_Node->key, key) == 0) {
+    while (current_node != NULL) {
+        if (strcmp(current_node->key, key) == 0) {
             return FALSE;
         }		
-        current_Node = current_Node->next;
+        current_node = current_node->next;
     }
     
-    /*더미노드 == 헤드*/
-    if (hashmap->plist[hash_key] == NULL) {
-        dummyNode = (node_t*)malloc(sizeof(node_t));
-        dummyNode->key = NULL;
-        dummyNode->value = 0;
-        dummyNode->next = NULL;
-        hashmap->plist[hash_key] = dummyNode;
-        /*puts("create Dummey Node!");*/
-    }
-    
-    newNode = (node_t*)malloc(sizeof(node_t));
+    new_node = (node_t*)malloc(sizeof(node_t));
     str_len = strlen(key);
-    newNode->key = (char*)malloc(sizeof(char) * (str_len + 1));
-    strcpy(newNode->key, key);
-    newNode->key[str_len] = '\0';
-    newNode->value = value;
+    new_node->key = (char*)malloc(sizeof(char) * (str_len + 1));
+    strcpy(new_node->key, key);
+    new_node->key[str_len] = '\0';
+    new_node->value = value;
     
-    newNode->next = hashmap->plist[hash_key]->next;
-    hashmap->plist[hash_key]->next = newNode;
-    /*puts("create Node");*/
-    
+    new_node->next = hashmap->plist[hash_key];
+    hashmap->plist[hash_key] = new_node;
+    /*puts("create Node");*/    
     
     return TRUE;
 }
@@ -69,21 +49,13 @@ int add_key(hashmap_t* hashmap, const char* key, const int value)
 int get_value(const hashmap_t* hashmap, const char* key)
 {
     size_t hash_key = hashmap->hash_func(key) % hashmap->length;
-    node_t* currentNode = hashmap->plist[hash_key];	
-    size_t check_dummy_node = 0;
+    node_t* current_node = hashmap->plist[hash_key];
     
-    while (currentNode != NULL) {
-        if (check_dummy_node == 0) {
-            currentNode = currentNode->next;
-            if (currentNode == NULL) {
-                break;
-            }
-            check_dummy_node = 1;
+    while (current_node != NULL) {
+        if (strcmp(current_node->key, key) == 0) {
+            return current_node->value;
         }
-        if (strcmp(currentNode->key, key) == 0) {
-            return currentNode->value;
-        }
-        currentNode = currentNode->next;
+        current_node = current_node->next;
     }
     
     return -1;
@@ -92,22 +64,14 @@ int get_value(const hashmap_t* hashmap, const char* key)
 int update_value(hashmap_t* hashmap, const char* key, int value)
 {
     size_t hash_key = hashmap->hash_func(key) % hashmap->length;
-    node_t* currentNode = hashmap->plist[hash_key];
-    size_t check_dummy_node = 0;
+    node_t* current_node = hashmap->plist[hash_key];
     
-    while (currentNode != NULL) {
-        if (check_dummy_node == 0) {
-            currentNode = currentNode->next;
-            if (currentNode == NULL) {
-                break;
-            }
-            check_dummy_node = 1;
-        }
-        if (strcmp(currentNode->key, key) == 0) {
-            currentNode->value = value;
+    while (current_node != NULL) {
+        if (strcmp(current_node->key, key) == 0) {
+            current_node->value = value;
             return TRUE;
         }
-        currentNode = currentNode->next;
+        current_node = current_node->next;
     }
     
     return FALSE;
@@ -116,26 +80,19 @@ int update_value(hashmap_t* hashmap, const char* key, int value)
 int remove_key(hashmap_t* hashmap, const char* key)
 {
     size_t hash_key = hashmap->hash_func(key) % hashmap->length;
-    node_t* prev_Node = hashmap->plist[hash_key];
-    node_t* current_Node = NULL;
-    
-    if (prev_Node == NULL) {
-        return FALSE;
-    }
-    
-    current_Node = prev_Node->next;
-    while (current_Node != NULL) {
-        if (strcmp(current_Node->key, key) == 0) {
-            prev_Node->next = current_Node->next;
-            free(current_Node);
-            if (prev_Node->next == NULL && prev_Node == hashmap->plist[hash_key]) {
-                free(prev_Node);
-                hashmap->plist[hash_key] = NULL;
-            }
+    /*할당된 첫번째의 노드가 아닌 노드가 저장되어있는 포인터부터 시작해야 함*/
+    /*그렇게 해야 첫번째 노드 삭제시 연결시켜줄 수 있음*/
+    node_t** current_node = &(hashmap->plist[hash_key]);
+    node_t* remove_node = NULL;
+
+    while (*current_node != NULL) {
+        if (strcmp((*current_node)->key, key) == 0) {
+            remove_node = *current_node;
+            *current_node = remove_node->next;
+            free(remove_node);
             return TRUE;
-        }
-        prev_Node = current_Node;
-        current_Node = current_Node->next;
+        }      
+        current_node = &((*current_node)->next);
     }
     
     return FALSE;
@@ -144,16 +101,16 @@ int remove_key(hashmap_t* hashmap, const char* key)
 void destroy(hashmap_t* hashmap)
 {
     size_t i = 0;
-    node_t* currentNode = NULL;
-    node_t* nextNode = NULL;
+    node_t* current_node = NULL;
+    node_t* next_node = NULL;
     
     for (i = 0; i < hashmap->length; i++) {
         if (hashmap->plist[i] != NULL) {
-            currentNode = hashmap->plist[i];
-            while (currentNode != NULL) {
-                nextNode = currentNode->next;
-                free(currentNode);
-                currentNode = nextNode;
+            current_node = hashmap->plist[i];
+            while (current_node != NULL) {
+                next_node = current_node->next;
+                free(current_node);
+                current_node = next_node;
             }
         }
     }
