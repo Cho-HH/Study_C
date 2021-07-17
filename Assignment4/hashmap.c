@@ -25,7 +25,7 @@ int add_key(hashmap_t* hashmap, const char* key, const int value)
     node_t* new_node = NULL;
     node_t* current_node = NULL;
 
-    if (hashmap->hash_func == NULL || hashmap->length == 0 || hashmap->plist == NULL) {
+    if (hashmap == NULL || hashmap->hash_func == NULL || hashmap->length == 0 || hashmap->plist == NULL) {
         return FALSE;
     }
 
@@ -56,9 +56,9 @@ int add_key(hashmap_t* hashmap, const char* key, const int value)
 int get_value(const hashmap_t* hashmap, const char* key)
 {
     size_t hash_key = 0;
-    node_t* current_node = NULL;;
+    node_t* current_node = NULL;
 
-    if (hashmap->hash_func == NULL || hashmap->length == 0 || hashmap->plist == NULL) {
+    if (hashmap == NULL || hashmap->hash_func == NULL || hashmap->length == 0 || hashmap->plist == NULL) {
         return FALSE;
     }
 
@@ -78,9 +78,9 @@ int get_value(const hashmap_t* hashmap, const char* key)
 int update_value(hashmap_t* hashmap, const char* key, int value)
 {
     size_t hash_key = 0;
-    node_t* current_node = NULL;;
+    node_t* current_node = NULL;
     
-    if (hashmap->hash_func == NULL || hashmap->length == 0 || hashmap->plist == NULL) {
+    if (hashmap == NULL || hashmap->hash_func == NULL || hashmap->length == 0 || hashmap->plist == NULL) {
         return FALSE;
     }
 
@@ -104,7 +104,7 @@ int remove_key(hashmap_t* hashmap, const char* key)
     node_t** current_node = NULL;
     node_t* remove_node = NULL;
 
-    if (hashmap->hash_func == NULL || hashmap->length == 0 || hashmap->plist == NULL) {
+    if (hashmap == NULL || hashmap->hash_func == NULL || hashmap->length == 0 || hashmap->plist == NULL) {
         return FALSE;
     }
 
