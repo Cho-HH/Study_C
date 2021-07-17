@@ -4,7 +4,7 @@
 #include <string.h>
 #include "hashmap.h"
 
-hashmap_t* init_hashmap_malloc(size_t length, size_t(*p_hash_func)(const char* key))
+hashmap_t* init_hashmap_malloc(size_t length, size_t (*p_hash_func)(const char* key))
 {
     size_t i = 0u;
     hashmap_t* tmp_hashmap = (hashmap_t*)malloc(sizeof(hashmap_t));
@@ -21,10 +21,17 @@ hashmap_t* init_hashmap_malloc(size_t length, size_t(*p_hash_func)(const char* k
 int add_key(hashmap_t* hashmap, const char* key, const int value)
 {
     size_t str_len = 0;
-    size_t hash_key = hashmap->hash_func(key) % hashmap->length;
+    size_t hash_key = NULL;
     node_t* new_node = NULL;
-    node_t* current_node = hashmap->plist[hash_key];
-    
+    node_t* current_node = NULL;
+
+    if (hashmap->hash_func == NULL || hashmap->length == 0 || hashmap->plist == NULL) {
+        return FALSE;
+    }
+
+    hash_key = hashmap->hash_func(key) % hashmap->length;
+    current_node = &(hashmap->plist[hash_key]);
+
     while (current_node != NULL) {
         if (strcmp(current_node->key, key) == 0) {
             return FALSE;
@@ -48,9 +55,16 @@ int add_key(hashmap_t* hashmap, const char* key, const int value)
 
 int get_value(const hashmap_t* hashmap, const char* key)
 {
-    size_t hash_key = hashmap->hash_func(key) % hashmap->length;
-    node_t* current_node = hashmap->plist[hash_key];
-    
+    size_t hash_key = NULL;
+    node_t* current_node = NULL;;
+
+    if (hashmap->hash_func == NULL || hashmap->length == 0 || hashmap->plist == NULL) {
+        return FALSE;
+    }
+
+    hash_key = hashmap->hash_func(key) % hashmap->length;
+    current_node = &(hashmap->plist[hash_key]);
+
     while (current_node != NULL) {
         if (strcmp(current_node->key, key) == 0) {
             return current_node->value;
@@ -63,9 +77,16 @@ int get_value(const hashmap_t* hashmap, const char* key)
 
 int update_value(hashmap_t* hashmap, const char* key, int value)
 {
-    size_t hash_key = hashmap->hash_func(key) % hashmap->length;
-    node_t* current_node = hashmap->plist[hash_key];
+    size_t hash_key = NULL;
+    node_t* current_node = NULL;;
     
+    if (hashmap->hash_func == NULL || hashmap->length == 0 || hashmap->plist == NULL) {
+        return FALSE;
+    }
+
+    hash_key = hashmap->hash_func(key) % hashmap->length;
+    current_node = &(hashmap->plist[hash_key]);
+
     while (current_node != NULL) {
         if (strcmp(current_node->key, key) == 0) {
             current_node->value = value;
@@ -79,11 +100,16 @@ int update_value(hashmap_t* hashmap, const char* key, int value)
 
 int remove_key(hashmap_t* hashmap, const char* key)
 {
-    size_t hash_key = hashmap->hash_func(key) % hashmap->length;
-    /*할당된 첫번째의 노드가 아닌 노드가 저장되어있는 포인터부터 시작해야 함*/
-    /*그렇게 해야 첫번째 노드 삭제시 연결시켜줄 수 있음*/
-    node_t** current_node = &(hashmap->plist[hash_key]);
+    size_t hash_key = NULL;
+    node_t** current_node = NULL;;
     node_t* remove_node = NULL;
+
+    if (hashmap->hash_func == NULL || hashmap->length == 0 || hashmap->plist == NULL) {
+        return FALSE;
+    }
+
+    hash_key = hashmap->hash_func(key) % hashmap->length;
+    current_node = &(hashmap->plist[hash_key]);
 
     while (*current_node != NULL) {
         if (strcmp((*current_node)->key, key) == 0) {
