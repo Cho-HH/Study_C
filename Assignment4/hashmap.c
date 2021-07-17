@@ -21,7 +21,7 @@ hashmap_t* init_hashmap_malloc(size_t length, size_t (*p_hash_func)(const char* 
 int add_key(hashmap_t* hashmap, const char* key, const int value)
 {
     size_t str_len = 0;
-    size_t hash_key = NULL;
+    size_t hash_key = 0;
     node_t* new_node = NULL;
     node_t* current_node = NULL;
 
@@ -30,7 +30,7 @@ int add_key(hashmap_t* hashmap, const char* key, const int value)
     }
 
     hash_key = hashmap->hash_func(key) % hashmap->length;
-    current_node = &(hashmap->plist[hash_key]);
+    current_node = hashmap->plist[hash_key];
 
     while (current_node != NULL) {
         if (strcmp(current_node->key, key) == 0) {
@@ -55,7 +55,7 @@ int add_key(hashmap_t* hashmap, const char* key, const int value)
 
 int get_value(const hashmap_t* hashmap, const char* key)
 {
-    size_t hash_key = NULL;
+    size_t hash_key = 0;
     node_t* current_node = NULL;;
 
     if (hashmap->hash_func == NULL || hashmap->length == 0 || hashmap->plist == NULL) {
@@ -63,7 +63,7 @@ int get_value(const hashmap_t* hashmap, const char* key)
     }
 
     hash_key = hashmap->hash_func(key) % hashmap->length;
-    current_node = &(hashmap->plist[hash_key]);
+    current_node = hashmap->plist[hash_key];
 
     while (current_node != NULL) {
         if (strcmp(current_node->key, key) == 0) {
@@ -77,7 +77,7 @@ int get_value(const hashmap_t* hashmap, const char* key)
 
 int update_value(hashmap_t* hashmap, const char* key, int value)
 {
-    size_t hash_key = NULL;
+    size_t hash_key = 0;
     node_t* current_node = NULL;;
     
     if (hashmap->hash_func == NULL || hashmap->length == 0 || hashmap->plist == NULL) {
@@ -85,7 +85,7 @@ int update_value(hashmap_t* hashmap, const char* key, int value)
     }
 
     hash_key = hashmap->hash_func(key) % hashmap->length;
-    current_node = &(hashmap->plist[hash_key]);
+    current_node = hashmap->plist[hash_key];
 
     while (current_node != NULL) {
         if (strcmp(current_node->key, key) == 0) {
@@ -100,8 +100,8 @@ int update_value(hashmap_t* hashmap, const char* key, int value)
 
 int remove_key(hashmap_t* hashmap, const char* key)
 {
-    size_t hash_key = NULL;
-    node_t** current_node = NULL;;
+    size_t hash_key = 0;
+    node_t** current_node = NULL;
     node_t* remove_node = NULL;
 
     if (hashmap->hash_func == NULL || hashmap->length == 0 || hashmap->plist == NULL) {
