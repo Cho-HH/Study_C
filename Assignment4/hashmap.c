@@ -25,6 +25,10 @@ int add_key(hashmap_t* hashmap, const char* key, const int value)
     node_t* new_node = NULL;
     node_t* current_node = NULL;
 
+    if (hashmap->length == 0) {
+        return FALSE;
+    }
+
     hash_key = hashmap->hash_func(key) % hashmap->length;
     current_node = hashmap->plist[hash_key];
 
@@ -54,6 +58,10 @@ int get_value(const hashmap_t* hashmap, const char* key)
     size_t hash_key = 0;
     node_t* current_node = NULL;
 
+    if (hashmap->length == 0) {
+        return FALSE;
+    }
+
     hash_key = hashmap->hash_func(key) % hashmap->length;
     current_node = hashmap->plist[hash_key];
 
@@ -71,6 +79,10 @@ int update_value(hashmap_t* hashmap, const char* key, int value)
 {
     size_t hash_key = 0;
     node_t* current_node = NULL;
+
+    if (hashmap->length == 0) {
+        return FALSE;
+    }
 
     hash_key = hashmap->hash_func(key) % hashmap->length;
     current_node = hashmap->plist[hash_key];
@@ -91,6 +103,10 @@ int remove_key(hashmap_t* hashmap, const char* key)
     size_t hash_key = 0;
     node_t** current_node = NULL;
     node_t* remove_node = NULL;
+
+    if (hashmap->length == 0) {
+        return FALSE;
+    }
 
     hash_key = hashmap->hash_func(key) % hashmap->length;
     current_node = &(hashmap->plist[hash_key]);
