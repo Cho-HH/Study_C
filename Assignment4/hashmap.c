@@ -115,6 +115,7 @@ int remove_key(hashmap_t* hashmap, const char* key)
         if (strcmp((*current_node)->key, key) == 0) {
             remove_node = *current_node;
             *current_node = remove_node->next;
+            free(remove_node->key);
             free(remove_node);
             return TRUE;
         }      
