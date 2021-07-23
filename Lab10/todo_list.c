@@ -37,12 +37,17 @@ bool add_todo(todo_list_t* todo_list, const int32_t priority, const char* task)
         return false;
     }
     
-    static size_t i = 0;
     size_t str_len = strlen(task);
-    todo_list->todo_hashmap[i].priority = priority;
-    todo_list->todo_hashmap[i].task = (char*)malloc(str_len);
-    strcpy(todo_list->todo_hashmap[i].task, task);
-    todo_list->todo_hashmap[i++].task[str_len] = '\0';
+    for (size_t i = 0; i < max_list_count; i++) {
+        if (todo_list->todo_hashmap[i].task == NULL) {
+            todo_list->todo_hashmap[i].priority = priority;
+            todo_list->todo_hashmap[i].task = (char*)malloc(sizeof(char) * (str_len + 1));
+            strcpy(todo_list->todo_hashmap[i].task, task);
+            todo_list->todo_hashmap[i].task[str_len] = '\0';
+            break;
+        }
+    }
+    
     todo_list->task_count++;
     return true;
 }
