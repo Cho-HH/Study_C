@@ -32,7 +32,7 @@ int main(void)
     assert(strcmp("F", peek_or_null(&todo_list)) == 0);
     assert(complete_todo(&todo_list));
 
-    /*assert(strcmp("H", peek_or_null(&todo_list)) == 0);
+    assert(strcmp("H", peek_or_null(&todo_list)) == 0);
     assert(complete_todo(&todo_list));
 
     assert(strcmp("D", peek_or_null(&todo_list)) == 0);
@@ -54,7 +54,7 @@ int main(void)
     assert(complete_todo(&todo_list));
 
     assert(is_empty(&todo_list));
-    assert(!complete_todo(&todo_list));*/
+    assert(!complete_todo(&todo_list));
 
     finalize_todo_list(&todo_list);
 
