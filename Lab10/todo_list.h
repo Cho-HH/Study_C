@@ -11,6 +11,7 @@ typedef struct {
 
 typedef struct todo_list {
     size_t task_count;
+    size_t max_list_size;
     todo_t* todo_hashmap;
 } todo_list_t;
 
