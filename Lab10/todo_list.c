@@ -68,7 +68,7 @@ bool complete_todo(todo_list_t* todo_list)
     
     free(todo_list->todo_hashmap[index].task);
     todo_list->todo_hashmap[index].task = NULL;
-    todo_list->todo_hashmap[index].priority = INT_MIN;
+    todo_list->todo_hashmap[index].priority = INT32_MIN;
     
     todo_list->task_count--;
     return true;
